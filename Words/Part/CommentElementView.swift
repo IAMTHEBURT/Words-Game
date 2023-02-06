@@ -10,12 +10,17 @@ import SwiftUI
 struct CommentElementView: View {
     // MARK: - PROPERTIES
     
-    let name: String
-    let date: String
-    let comment: String
+    @State var comment: Comment
+    @StateObject var apiProvider = APIProvider.shared
     
-    @State var likes: Int
-    @State var dislikes: Int
+    
+    
+//    let name: String
+//    let date: String
+//    let comment: String
+//
+//    @State var likes: Int
+//    @State var dislikes: Int
     
     // MARK: - BODY
     
@@ -23,15 +28,15 @@ struct CommentElementView: View {
         VStack(alignment: .leading, spacing: 16){
             // MARK: - NAME DATE
             VStack(alignment: .leading, spacing: 4){
-                Text(name)
+                Text(comment.name)
                     .modifier(MyFont(font: "Inter", weight: "bold", size: 20))
-                Text(date)
+                Text(comment.created_at)
                     .modifier(MyFont(font: "Inter", weight: "bold", size: 14))
             }
             .foregroundColor(Color(hex: "##BDC0C7"))
             
             // MARK: - COMMENT
-            Text(comment)
+            Text(comment.text)
                 .modifier(MyFont(font: "Inter", weight: "bold", size: 14))
                 .foregroundColor(.white)
             
@@ -39,18 +44,26 @@ struct CommentElementView: View {
             HStack(spacing: 20){
                 // MARK: - LIKE
                 HStack{
-                    Image(systemName: "heart")
+                    Image(systemName: comment.has_user_like ? "heart.fill" : "heart")
                         .resizable()
                         .frame(width: 22, height: 19)
-                    Text("\(likes)")
+                    
+                    
+                    Text("\(comment.likes)")
+                }
+                .onTapGesture {
+                    apiProvider.addReaction(type: .like, comment_id: comment.id)
                 }
                 
                 // MARK: - DISLIKE
                 HStack{
-                    Image(systemName: "hand.thumbsdown")
+                    Image(systemName: comment.has_user_dislike ? "hand.thumbsdown.fill" : "hand.thumbsdown")
                         .resizable()
                         .frame(width: 22, height: 19)
-                    Text("\(dislikes)")
+                    Text("\(comment.dislikes)")
+                }
+                .onTapGesture {
+                    apiProvider.addReaction(type: .dislike, comment_id: comment.id)
                 }
                 
                 Spacer()
@@ -58,11 +71,16 @@ struct CommentElementView: View {
             .foregroundColor(Color(hex: "#BDC0C7"))
             .modifier(MyFont(font: "Inter", weight: "Bold", size: 14))
         }
+        .onChange(of: apiProvider.updatedComment) { newValue in
+            guard let updatedComment = newValue else { return }
+            self.comment = updatedComment
+        }
         .padding(12)
         .background(
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color(hex: "#2C2F38"))
         )
+
         //: END OF MAIN STACK
     }
 }
@@ -72,6 +90,6 @@ struct CommentElementView: View {
 
 struct CommentElementView_Previews: PreviewProvider {
     static var previews: some View {
-        CommentElementView(name: "QuizStar777", date: "14 января", comment: "Кто-нибудь смогу угадать это слово", likes: 7, dislikes: 2)
+        CommentElementView(comment: Comment.emptyInit())
     }
 }

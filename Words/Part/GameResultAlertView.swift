@@ -42,7 +42,7 @@ struct GameResultAlertView: View {
                 if playVM.gameType == .dailyWord {
                     Text("Следущее слово через")
                     
-                    CountDownView(till: APIProvider.shared.wordOfTheDayResponse?.nextAt ?? 1670976000, countDownTrigger: $countDownTrigger)
+                    CountDownView(till: APIProvider.shared.wordOfTheDayResponse?.next_at ?? 1670976000, countDownTrigger: $countDownTrigger)
                     
                     Text("Вы можете продолжить угадывать случайные слова")
                         .multilineTextAlignment(.center)

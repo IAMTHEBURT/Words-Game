@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct PageHeaderView: View {
+    @StateObject var apiProvider = APIProvider.shared
+    
+    var blockRatingButton: Bool = false
     var title: String
     
     var showHomeIcon: Bool = true
     @Environment(\.presentationMode) private var presentationMode
     @StateObject var bottomMenuVM = BottomMenuViewModel.shared
-    
+    @State var isSheetPresented: Bool = false
     var body: some View {
         ZStack{
             HStack(spacing: 0){
@@ -32,11 +35,18 @@ struct PageHeaderView: View {
                     .modifier(MyFont(font: "Inter", weight: "Bold", size: 14))
                 Spacer()
                 HStack(spacing: 10){
-                    Image("icon_rating")
-                        .onTapGesture {
-                            bottomMenuVM.activeScreen = .rating
+                    Group{
+                        Image("icon_rating")
+                        Text("\(apiProvider.points)")
+                            .modifier(MyFont(font: "Inter", weight: "Bold", size: 14))
+                    }
+                    .onTapGesture {
+                        if blockRatingButton {
+                            return
                         }
-                    Text("320")
+                        
+                        isSheetPresented.toggle()
+                    }
                 }
             }
         } //: PAGE HEADER
@@ -45,6 +55,9 @@ struct PageHeaderView: View {
         .background{
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color(hex: "#4D525B"))
+        }
+        .sheet(isPresented: $isSheetPresented) {
+            RatingView()
         }
     }
 }

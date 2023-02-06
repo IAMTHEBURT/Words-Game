@@ -50,10 +50,24 @@ class PlayViewModel: ObservableObject {
         return finalWord.count
     }
     
+    var started_at: TimeInterval = Date.now.timeIntervalSince1970
+    
     // MARK: - FUNCTIONS
+    
     
     init(){
         setLines()
+    }
+    
+    //This constructor is just for finished games
+    init(gameHistory: GameHistoryModel){
+        self.finalWord = gameHistory.word
+        self.result = gameHistory.result
+        self.gameIsFinished = true
+    }
+    
+    func getCurrentDurationInSeconds() -> Int {
+        return Int(Date.now.timeIntervalSince1970 - started_at)
     }
     
     func isTheCurrentLine(line: Line) -> Bool {
@@ -133,6 +147,7 @@ class PlayViewModel: ObservableObject {
         currentLineIndex = 0
         currentSymbolIndex = 0
         gameHistory = nil
+        started_at = Date.now.timeIntervalSince1970
     }
     
     func setGame(word: String, gameType: GameType){
@@ -151,7 +166,7 @@ class PlayViewModel: ObservableObject {
     
     func setGame(gameType: GameType){
         reset()
-        
+        started_at = Date.now.timeIntervalSince1970
         if gameType == .progression{
             let request = TaskDBM.all
             request.predicate = NSPredicate(format: "game == nil")
@@ -277,8 +292,8 @@ class PlayViewModel: ObservableObject {
         //SAVE THE GAME TO DB
         let gameDBM = GameDBM(context: CoreDataProvider.shared.viewContext)
         gameDBM.date = Date()
+        gameDBM.duration = Int16(getCurrentDurationInSeconds())
         gameDBM.gameType = Int16(gameType.rawValue)
-        
         getAllLetters(withEmpty: true).forEach { letter in
             let letterDBM = LetterDBM(context: CoreDataProvider.shared.viewContext)
             letterDBM.character = letter.character
@@ -306,6 +321,8 @@ class PlayViewModel: ObservableObject {
         if gameType == .dailyWord{
             NotificationProvider.shared.setNotifications(skipCurrentDay: true)
         }
+        
+        APIProvider.shared.saveTheGame(game: self.gameHistory!)
     }
     
     func nextLine(){

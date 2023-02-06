@@ -38,6 +38,7 @@ struct PortraitPlayView: View {
                     ScrollView(.vertical, showsIndicators: false){
                         GameResultView(playVM: playVM)
                         CommentsView(playVM: playVM)
+                            
                     }
                     .padding(.horizontal, 14)
                 }else{

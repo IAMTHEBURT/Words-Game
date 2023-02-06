@@ -60,6 +60,7 @@ struct LoadingScreen: View {
             }
         }
         .onAppear{
+            APIProvider.shared.getPoints()
             withAnimation(.easeIn(duration: 2)) {
                 showingTitle.toggle()
             }
@@ -69,6 +70,7 @@ struct LoadingScreen: View {
                     showingButton.toggle()
                 }
             }
+            
         }
         
     }

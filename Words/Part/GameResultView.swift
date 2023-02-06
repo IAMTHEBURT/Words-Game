@@ -16,6 +16,8 @@ struct GameResultView: View {
     let successSubtitle: String = "Закрепите свой успех!\nПродолжить отгадывать слова?"
     let failSubtitle: String = "Следующий этап будет более успешным!\nПродолжить отгадывать слова?"
     
+    var showContinue: Bool = true
+    
     var body: some View {
         
         VStack(spacing: 24){
@@ -39,25 +41,29 @@ struct GameResultView: View {
             
             Spacer()
             
-            Text(playVM.result == .win ? successSubtitle : failSubtitle)
-                .modifier(MyFont(font: "Inter", weight: "bold", size: 16))
-                .multilineTextAlignment(.center)
-                .lineSpacing(6)
             
-            Button(action: {
-                playVM.setGame(gameType: .progression)
-            }) {
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color(hex: "#E99C5D"))
-                    .frame(width: 177, height: 42)
-                    .overlay {
-                        Text("Продолжить")
-                            .modifier(MyFont(font: "Inter", weight: "medium", size: 14))
-                            .foregroundColor(Color(hex: "#242627"))
-                    }
+            Group{
+                Text(playVM.result == .win ? successSubtitle : failSubtitle)
+                    .modifier(MyFont(font: "Inter", weight: "bold", size: 16))
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(6)
+                
+                Button(action: {
+                    playVM.setGame(gameType: .progression)
+                }) {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color(hex: "#E99C5D"))
+                        .frame(width: 177, height: 42)
+                        .overlay {
+                            Text("Продолжить")
+                                .modifier(MyFont(font: "Inter", weight: "medium", size: 14))
+                                .foregroundColor(Color(hex: "#242627"))
+                        }
+                }
+                
+                Spacer()
             }
-            
-            Spacer()
+            .opacity(showContinue ? 1 : 0)
         }
         
         

@@ -7,15 +7,24 @@
 
 import SwiftUI
 
+
+enum ButtonState: String{
+    case active, loading, sent
+}
+
 struct CommentsView: View {
     
     // MARK: - PROPERTIES
     
-
     @StateObject var playVM: PlayViewModel
+    @StateObject var apiProvider = APIProvider.shared
+    
     @State private var input: String = ""
-        
+    @State private var buttonState: ButtonState = .active
+    @State private var errorMessage: String = ""
+    
     // MARK: - BODY
+
     
     var body: some View {
         VStack(spacing: 24){
@@ -33,15 +42,37 @@ struct CommentsView: View {
                 HStack{
                     Spacer()
                     Button(action: {
-                        print("Got tap")
+                        if buttonState != .active{
+                            return
+                        }
+                        
+                        if input.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+                            return
+                        }
+                        
+                        buttonState = .loading
+                        apiProvider.saveComment(word: playVM.finalWord, text: input)
                     }) {
                         RoundedRectangle(cornerRadius: 8)
                             .fill(.white)
                             .frame(width: 163, height: 42)
                             .overlay(
-                                Text("Отправить")
-                                    .modifier(MyFont(font: "Inter", weight: "medium", size: 14))
-                                    .foregroundColor(Color(hex: "#242627"))
+                                ZStack{
+                                    if buttonState == .loading {
+                                        ProgressView()
+                                            .progressViewStyle(CircularProgressViewStyle(tint: Color.gray))
+                                        
+                                    } else if buttonState == .active{
+                                        Text("Отправить")
+                                            .modifier(MyFont(font: "Inter", weight: "medium", size: 14))
+                                            .foregroundColor(Color(hex: "#242627"))
+                                        
+                                    } else if buttonState == .sent{
+                                        Text("Отправлено")
+                                            .modifier(MyFont(font: "Inter", weight: "medium", size: 14))
+                                            .foregroundColor(Color(hex: "#242627"))
+                                    }
+                                }
                             )
                             .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.25), radius: 4, x: 0, y: 4)
                     }
@@ -53,32 +84,45 @@ struct CommentsView: View {
                     .fill(Color(hex: "#4D525B"))
             )
             
-            
+            Text(errorMessage)
+                .modifier(MyFont(font: "Inter", weight: "Bold", size: 12))
+                .foregroundColor(.red)
             
             // MARK: - COMMENT BLOCK
-            CommentElementView(name: "QuizStar777", date: "14 января", comment: "Кто-нибудь смогу угадать это слово", likes: 7, dislikes: 2)
             
-            CommentElementView(name: "QuizStar777", date: "14 января", comment: "Кто-нибудь смогу угадать это слово", likes: 7, dislikes: 2)
+            ZStack{
+                //ProgressView()
+                VStack{
+                    ForEach(apiProvider.comments) { comment in
+                        CommentElementView(comment: comment)
+                    }
+                }
+            }
+        }
+        .onAppear{
+            apiProvider.getComments(word: playVM.finalWord)
+        }
+        
+        .onChange(of: apiProvider.isCommentSaved) { newValue in
+            guard let isCommentSaved = newValue else { return }
             
-            CommentElementView(name: "QuizStar777", date: "14 января", comment: "Кто-нибудь смогу угадать это слово", likes: 7, dislikes: 2)
-            
-            CommentElementView(name: "QuizStar777", date: "14 января", comment: "Кто-нибудь смогу угадать это слово", likes: 7, dislikes: 2)
-            
-            
-            CommentElementView(name: "QuizStar777", date: "14 января", comment: "Кто-нибудь смогу угадать это слово", likes: 7, dislikes: 2)
-            
-            
-            CommentElementView(name: "QuizStar777", date: "14 января", comment: "Кто-нибудь смогу угадать это слово", likes: 7, dislikes: 2)
-            
-            
-            CommentElementView(name: "QuizStar777", date: "14 января", comment: "Кто-нибудь смогу угадать это слово", likes: 7, dislikes: 2)
-            
-            
-            CommentElementView(name: "QuizStar777", date: "14 января", comment: "Кто-нибудь смогу угадать это слово", likes: 7, dislikes: 2)
-            
-            
-            
-            
+            if isCommentSaved {
+                input = ""
+                withAnimation {
+                    buttonState = .sent
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        buttonState = .active
+                    }
+                }
+            } else{
+                withAnimation {
+                    errorMessage = "Проблема с соединением, повторите позже"
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        buttonState = .active
+                        errorMessage = ""
+                    }
+                }
+            }
         }
         
     }
@@ -86,8 +130,16 @@ struct CommentsView: View {
 
 // MARK: - PREVIW
 struct CommentsView_Previews: PreviewProvider {
+    static var playVM: PlayViewModel {
+        let vm = PlayViewModel()
+        vm.finalWord = "ТОПКА"
+        return vm
+    }
+    
     static var previews: some View {
-        CommentsView(playVM: PlayViewModel())
+        ScrollView{
+            CommentsView(playVM: playVM)
+        }
     }
 }
 

@@ -27,13 +27,15 @@ struct GameHistory: View {
                     Spacer()
                         .frame(height: 66)
                     
-                    VStack{
+                    LazyVStack{
                         ForEach(gameHistoryVM.games) { game in
                             GameHistoryElementView(gameHistoryModel: game)
                         }
+                        
                     }
                     .padding(.horizontal, 10)
                     .padding(.top, 20)
+                    .padding(.bottom, 120)
                 } //: MAIN VSTACK
             } //: SCROLL VIEW
             

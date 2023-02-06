@@ -8,118 +8,137 @@
 import SwiftUI
 
 struct RatingView: View {
+    // MARK: - PROPERTIES
     
+    @StateObject var apiProvider = APIProvider.shared
     
+    func getBackgroundForPosition(index: Int, isPlayer: Bool) -> some View{
+        
+        //Если первая строка
+        if index + 1 == 1 {
+            return RoundedCorners(color: Color(hex: "#DD6B4E"), tl: 8, tr: 8, bl: 0, br: 0)
+        //Если последняя строка
+        } else if index + 1 == apiProvider.topList.count{
+            if isPlayer{
+                return RoundedCorners(color: Color(hex: "#4D525B"), tl: 0, tr: 0, bl: 8, br: 8)
+            }else{
+                return RoundedCorners(color: Color(.clear), tl: 0, tr: 0, bl: 8, br: 8)
+            }
+        //Любой другой
+        } else {
+            if isPlayer{
+                return RoundedCorners(color: Color(hex: "#4D525B"))
+            }else{
+                return RoundedCorners(color: .clear)
+            }
+        }
+    }
+    
+    // MARK: - BODY
     
     var body: some View {
         ZStack{
             Color("BGColor")
                 .edgesIgnoringSafeArea(.all)
             
-            VStack {
-                PageHeaderView(title: "Рейтинг")
+            ScrollView{
+                VStack {
+                    Spacer()
+                        .frame(height: 17)
+                    PageHeaderView(blockRatingButton: true, title: "Рейтинг")
+                        .padding(.horizontal, 17)
+                    Spacer()
+                        .frame(height: 48)
+                    VStack(spacing: 0){
+                        ForEachWithIndex(apiProvider.topList, id: \.nickname) { index, topElement in
+                            
+                            VStack{
+                                HStack(spacing: 0){
+                                    
+                                    HStack(spacing: 20){
+                                        Text("\(topElement.position)")
+                                        
+                                        HStack(spacing: 5){
+                                            if index == 0 {
+                                                Image(systemName: "crown")
+                                            }
+                                            Text(topElement.nickname)
+                                        }
+                                        
+                                        Spacer()
+                                    }
+                                    Spacer()
+                                    Text("\(topElement.points)")
+                                }
+                                .padding(.vertical, 10)
+                                .padding(.horizontal, 12)
+                                
+                                
+                                if topElement.isPlayer{
+                                    HStack(spacing: 24){
+                                        Spacer()
+                                        RatingIcon(bgColor: Color(hex: "#DE6B4E"), iconName: "rating_icon_grow")
+                                        RatingIcon(bgColor: Color(hex: "#E99C5D"), iconName: "rating_icon_share")
+                                        RatingIcon(bgColor: Color(hex: "#289788"), iconName: "rating_icon_edit")
+                                        Spacer()
+                                    }
+                                    .padding(.vertical, 10)
+                                }
+                                
+                            }
+                            .background(
+                                getBackgroundForPosition(index: index, isPlayer: topElement.isPlayer)
+                            )
+                            
+                        }
+                        
+                        
+//                        VStack{
+//                            HStack{
+//                                Text("234")
+//                                Spacer()
+//                                Text("Unknown8363788")
+//                                Spacer()
+//                                Text("320")
+//                            }
+//                            .padding(.vertical, 10)
+//                            .padding(.horizontal, 12)
+//                            
+//                            HStack(spacing: 24){
+//                                Spacer()
+//                                RatingIcon(bgColor: Color(hex: "#DE6B4E"), iconName: "rating_icon_grow")
+//                                RatingIcon(bgColor: Color(hex: "#E99C5D"), iconName: "rating_icon_share")
+//                                RatingIcon(bgColor: Color(hex: "#289788"), iconName: "rating_icon_edit")
+//                                Spacer()
+//                            }
+//                        }
+//                        .padding(.bottom, 26)
+//                        .background(
+//                            RoundedCorners(color: Color(hex: "#4D525B"), tl: 0, tr: 0, bl: 8, br: 8)
+//                        )
+                        
+                        
+                        
+                    }
+                    .background(
+                        Color(hex: "#2D2F38")
+                    )
                     .padding(.horizontal, 17)
-                
-                Spacer()
-                    .frame(height: 48)
-                
-                VStack(spacing: 0){
                     
-                    HStack{
-                        Text("1")
-                        Spacer()
-                        Text("Quizstar")
-                        Spacer()
-                        Text("54376335")
-                    }
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 12)
-                    .background(
-                        RoundedCorners(color: Color(hex: "#DD6B4E"), tl: 8, tr: 8, bl: 0, br: 0)
-                    )
+                    Spacer()
                     
-                    Rectangle()
-                        .fill(Color(hex: "#4D525B"))
-                        .frame(height: 1)
-                    
-                    HStack{
-                        Text("2")
-                        Spacer()
-                        Text("Dendy")
-                        Spacer()
-                        Text("888888")
-                    }
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 12)
-                    
-                    Rectangle()
-                        .fill(Color(hex: "#4D525B"))
-                        .frame(height: 1)
-                    
-                    HStack{
-                        Text("3")
-                        Spacer()
-                        Text("RRRR")
-                        Spacer()
-                        Text("5666")
-                    }
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 12)
-                    
-                    Rectangle()
-                        .fill(Color(hex: "#4D525B"))
-                        .frame(height: 1)
-                    
-                    HStack{
-                        Text("...")
-                        Spacer()
-                        Text("")
-                        Spacer()
-                        Text("...")
-                    }
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 12)
-                    
-                    
-                    VStack{
-                        HStack{
-                            Text("234")
-                            Spacer()
-                            Text("Unknown8363788")
-                            Spacer()
-                            Text("320")
-                        }
-                        .padding(.vertical, 10)
-                        .padding(.horizontal, 12)
-                        
-                        HStack(spacing: 24){
-                            Spacer()
-                            RatingIcon(bgColor: Color(hex: "#DE6B4E"), iconName: "rating_icon_grow")
-                            RatingIcon(bgColor: Color(hex: "#E99C5D"), iconName: "rating_icon_share")
-                            RatingIcon(bgColor: Color(hex: "#289788"), iconName: "rating_icon_edit")
-                            Spacer()
-                        }
-                    }
-                    .padding(.bottom, 26)
-                    .background(
-                        RoundedCorners(color: Color(hex: "#4D525B"), tl: 0, tr: 0, bl: 8, br: 8)
-                        
-                    )
                 }
-                .background(
-                    Color(hex: "#2D2F38")
-                )
-                .padding(.horizontal, 17)
-                
-                Spacer()
-                
             }
         }
         .modifier(MyFont(font: "Inter", weight: "bold", size: 14))
+        .onAppear{
+            apiProvider.getTopList()
+        }
     }
     
 }
 
+// MARK: - PREVIW
 struct RatingView_Previews: PreviewProvider {
     static var previews: some View {
         RatingView()
@@ -139,3 +158,60 @@ struct RatingIcon: View {
             .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
     }
 }
+
+
+
+public struct ForEachWithIndex<Data: RandomAccessCollection, ID: Hashable, Content: View>: View {
+    public var data: Data
+    public var content: (_ index: Data.Index, _ element: Data.Element) -> Content
+    var id: KeyPath<Data.Element, ID>
+
+    public init(_ data: Data, id: KeyPath<Data.Element, ID>, content: @escaping (_ index: Data.Index, _ element: Data.Element) -> Content) {
+        self.data = data
+        self.id = id
+        self.content = content
+    }
+
+    public var body: some View {
+        ForEach(
+            zip(self.data.indices, self.data).map { index, element in
+                IndexInfo(
+                    index: index,
+                    id: self.id,
+                    element: element
+                )
+            },
+            id: \.elementID
+        ) { indexInfo in
+            self.content(indexInfo.index, indexInfo.element)
+        }
+    }
+}
+
+extension ForEachWithIndex where ID == Data.Element.ID, Content: View, Data.Element: Identifiable {
+    public init(_ data: Data, @ViewBuilder content: @escaping (_ index: Data.Index, _ element: Data.Element) -> Content) {
+        self.init(data, id: \.id, content: content)
+    }
+}
+
+extension ForEachWithIndex: DynamicViewContent where Content: View {
+}
+
+private struct IndexInfo<Index, Element, ID: Hashable>: Hashable {
+    let index: Index
+    let id: KeyPath<Element, ID>
+    let element: Element
+
+    var elementID: ID {
+        self.element[keyPath: self.id]
+    }
+
+    static func == (_ lhs: IndexInfo, _ rhs: IndexInfo) -> Bool {
+        lhs.elementID == rhs.elementID
+    }
+
+    func hash(into hasher: inout Hasher) {
+        self.elementID.hash(into: &hasher)
+    }
+}
+

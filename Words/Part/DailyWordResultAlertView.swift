@@ -10,8 +10,17 @@ import SwiftUI
 struct DailyWordResultAlertView: View {
     // MARK: - PROPERTIES
     @StateObject var mainVM: MainViewModel
+    @StateObject var apiProvider: APIProvider = .shared
+    
     @State var offset = CGSize.zero
     
+    var numberOfTheDay: Int{
+        let date = Date() // now
+        let cal = Calendar.current
+        let day = cal.ordinality(of: .day, in: .year, for: date)
+        
+        return day ?? 0
+    }
     var gameHistoryModel: GameHistoryModel {
         return mainVM.getDailyWordGameHistory() ?? GameHistoryModel(gameDBM: .emptyInit())
     }
@@ -25,7 +34,7 @@ struct DailyWordResultAlertView: View {
                     .foregroundColor(Color(hex: "#2C2F38"))
                 Text("/")
                     .foregroundColor(Color(hex: "#4D525B"))
-                Text("День 312")
+                Text("День \(numberOfTheDay)")
                     .foregroundColor(.white)
             }
             .padding(.vertical, 26)
@@ -33,12 +42,19 @@ struct DailyWordResultAlertView: View {
             .modifier(MyFont(font: "Inter", weight: "Bold", size: 20))
             .background(RoundedCorners(color: Color(hex: "#DD6B4E"), tl: 8, tr: 8, bl: 0, br: 0))
             
+            
             HStack(spacing: 0){
                 Text("Угадали\nслово")
+                    .frame(width: 80, alignment: .leading)
                 Spacer()
-                Text("12,39%")
+                Text("\(apiProvider.wordstat?.wonPercent ?? 0)%")
+                    .blur(radius: apiProvider.wordstat != nil ? 0 : 10)
+                    .multilineTextAlignment(.center)
+                                
                 Spacer()
-                Text("324 игрока")
+                Text("\(apiProvider.wordstat?.won ?? 0) игрок(ов)")
+                    .blur(radius: apiProvider.wordstat != nil ? 0 : 10)
+                    .frame(width: 120, alignment: .trailing)
             }
             .modifier(MyFont(font: "Inter", weight: "Bold", size: 14))
             .foregroundColor(.white)
@@ -48,13 +64,26 @@ struct DailyWordResultAlertView: View {
             Rectangle()
                 .fill(Color(hex: "#4D525B"))
                 .frame(height: 1)
+                .overlay{
+                    ProgressView()
+                        .opacity(apiProvider.wordstat == nil ? 1 : 0)
+                }
             
             HStack(alignment: .center, spacing: 0){
                 Text("Не угадали\nслово")
+                    .frame(width: 80, alignment: .leading)
+                
                 Spacer()
-                Text("87,01%")
+                
+                Text("\(apiProvider.wordstat?.lostPercent ?? 0)%")
+                    .blur(radius: apiProvider.wordstat != nil ? 0 : 10)
+                    //.multilineTextAlignment(.center)
+                    .frame(alignment: .leading)
                 Spacer()
-                Text("2345 игроков")
+                
+                Text("\(apiProvider.wordstat?.lost ?? 0) игрок(ов)")
+                    .blur(radius: apiProvider.wordstat != nil ? 0 : 10)
+                    .frame(width: 120, alignment: .trailing)
             }
             .modifier(MyFont(font: "Inter", weight: "Bold", size: 14))
             .foregroundColor(.white)
@@ -202,11 +231,18 @@ struct DailyWordResultAlertView: View {
                 .onEnded { _ in
                     if abs(offset.height) > 100 {
                         mainVM.showingDailyWordIsFinishedAlert = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            offset = .zero
+                        }
                     } else {
                         offset = .zero
                     }
                 }
         )
+        .onAppear{
+            apiProvider.getWordstat( word: gameHistoryModel.word )
+        }
+        
         
     }
 }

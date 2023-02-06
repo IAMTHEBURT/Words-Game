@@ -19,6 +19,10 @@ struct GameHistoryModel: Identifiable {
         gameDBM.objectID
     }
     
+    var duration: Int {
+        Int(gameDBM.duration)
+    }
+    
     var date: Date {
         gameDBM.date ?? Date()
     }

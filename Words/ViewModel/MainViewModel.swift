@@ -7,15 +7,56 @@
 
 import Foundation
 import SwiftUI
+import CoreData
 
-class MainViewModel: ObservableObject {
+//@MainActor
+class MainViewModel: NSObject, ObservableObject {
     // MARK: - PROPERTIES
+    
+    private let fetchedResultsController: NSFetchedResultsController<DailyWordDBM>
+    
+    private (set) var context: NSManagedObjectContext
+    
+    
+    @Published var dailyWord: DailyWord?
+    @Published var isDailyWordAnimating: Bool = false
+    
+    override init() {
+        self.context = CoreDataProvider.shared.viewContext
+        
+        print("Готовим запрос на получение слова дня из базы")
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: DailyWordDBM.actual, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        super.init()
+        fetchedResultsController.delegate = self
+        
+        do {
+            try fetchedResultsController.performFetch()
+            print("Отправили запрос")
+            guard let dailyWordsDBM = fetchedResultsController.fetchedObjects else {
+                print("Не получили данные")
+                return
+            }
+            
+            guard let safeDailyWord = dailyWordsDBM.first else {
+                print("Не смогли взять первый элемент в наборе. Такого слова нет")
+                APIProvider.shared.getWordOfTheDay()
+                return
+            }
+            self.dailyWord = DailyWord(dailyWordDBM: safeDailyWord)
+            print("Слово \(self.dailyWord?.word)")
+            self.isDailyWordAnimating = true
+            
+        } catch {
+            print(error)
+        }
+        
+    }
+    
     @Published var countDown: String = ""
     
     @Published var seconds: Int = 0
     @Published var minutes: Int = 0
     @Published var hours: Int = 0
-    
     
     @Published var pushToGame: Bool = false
     
@@ -30,6 +71,8 @@ class MainViewModel: ObservableObject {
     private var freeModeTasks: [TaskModel] = []
     
     var playVM: PlayViewModel = PlayViewModel()
+    
+    //@Published var dailyWord: DailyWordDBM
     
     // MARK: - FUNCTIONS
     
@@ -48,6 +91,7 @@ class MainViewModel: ObservableObject {
 //            print(error.localizedDescription)
 //        }
 //    }
+    
     
     
     func isFreeModeCategoryOpened(count: Int) -> Bool {
@@ -73,8 +117,7 @@ class MainViewModel: ObservableObject {
         }
         
         return false
-        
-        
+                
     }
     
     func getCountOff(type: GameType, finished: Bool = false, difficulty: Difficulty = .low, symbolsCount: Int = 5) -> Int{
@@ -110,7 +153,7 @@ class MainViewModel: ObservableObject {
     
     
     func startDailyWordGame(){
-        guard let word = APIProvider.shared.wordOfTheDayResponse?.word else {
+        guard let word = self.dailyWord?.word else {
             print("Не загружено слово")
             return
         }
@@ -182,7 +225,7 @@ class MainViewModel: ObservableObject {
     
 
     func updateCountdown(){
-        guard let nextAt = APIProvider.shared.wordOfTheDayResponse?.nextAt else { return }
+        guard let nextAt = dailyWord?.nextAt else { return }
         let interval = Double(nextAt) - Date.now.timeIntervalSince1970
         
         if interval <= 0{
@@ -204,8 +247,7 @@ class MainViewModel: ObservableObject {
     
     func isDailyWordCompleted() -> Bool{
         
-        //CoreDataProvider.shared.viewContext.fetch(GameDBM.all)
-        guard let dailyWord = APIProvider.shared.wordOfTheDayResponse?.word else { return false }
+        guard let dailyWord = dailyWord?.word else { return false }
         
         let fetchRequest = GameDBM.all
         fetchRequest.predicate = NSPredicate(format: "word = %@", dailyWord.uppercased())
@@ -221,12 +263,33 @@ class MainViewModel: ObservableObject {
             print(error.localizedDescription)
             return false
         }
+        
+        
+        
+        
+        //CoreDataProvider.shared.viewContext.fetch(GameDBM.all)
+//        guard let dailyWord = APIProvider.shared.wordOfTheDayResponse?.word else { return false }
+//
+//        let fetchRequest = GameDBM.all
+//        fetchRequest.predicate = NSPredicate(format: "word = %@", dailyWord.uppercased())
+//
+//        do {
+//            let games = try CoreDataProvider.shared.viewContext.fetch(fetchRequest)
+//            if games.isEmpty{
+//                return false
+//            }else{
+//                return true
+//            }
+//        } catch {
+//            print(error.localizedDescription)
+//            return false
+//        }
     }
     
     func getDailyWordGameHistory() -> GameHistoryModel?{
         
         //CoreDataProvider.shared.viewContext.fetch(GameDBM.all)
-        guard let dailyWord = APIProvider.shared.wordOfTheDayResponse?.word else { return nil }
+        guard let dailyWord = dailyWord?.word else { return nil }
         
         let fetchRequest = GameDBM.all
         fetchRequest.predicate = NSPredicate(format: "word = %@", dailyWord.uppercased())
@@ -243,6 +306,25 @@ class MainViewModel: ObservableObject {
             return nil
         }
     }
-    
-    
 }
+
+extension MainViewModel: NSFetchedResultsControllerDelegate {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        
+        print("Пришло обновление базы")
+        guard let dailyWordsDBM = controller.fetchedObjects as? [DailyWordDBM] else {
+            print("Не получилось взять")
+            return
+        }
+        
+        guard let safeDailyWord = dailyWordsDBM.first else {
+            print("Не смогли взять первый элемент в наборе. Слова нет")
+            isDailyWordAnimating = false
+            return
+        }
+        
+        self.dailyWord = DailyWord(dailyWordDBM: safeDailyWord)
+        self.isDailyWordAnimating = true
+    }
+}
+

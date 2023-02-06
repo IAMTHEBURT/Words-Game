@@ -26,7 +26,7 @@ struct NewCategoryView: View{
                 .fontWeight(.bold)
             Spacer()
             
-            HStack(spacing: 26){
+            HStack(spacing: 0){
                 Circle()
                     .fill(isOpened ? Color(hex: "#289788") : Color(hex: "#4D525B"))
                     .frame(width: 20, height: 20)
@@ -35,12 +35,14 @@ struct NewCategoryView: View{
                             .foregroundColor(Color(hex: "#1F2023"))
                             .font(.system(size: 10))
                     )
-                
+                Spacer()
                 Text("\(finished)/\(outOf)")
                     .foregroundColor(.white)
                     .font(.system(size: 14))
                     .fontWeight(.semibold)
+                    .layoutPriority(1)
             }
+            .frame(width: 90)
         }
         .padding(.top, 26)
         .padding(.bottom, 30)
@@ -60,8 +62,15 @@ struct NewCategoryView: View{
 // MARK: - PREVIEW
 struct NewCategoryView_Previews: PreviewProvider {
     static var previews: some View {
-        NewCategoryView(name: "5 Букв", isOpened: true, finished: 10, outOf: 180)
-            .previewLayout(.sizeThatFits)
+        
+        VStack{
+            NewCategoryView(name: "5 Букв", isOpened: true, finished: 10, outOf: 180)
+                .previewLayout(.sizeThatFits)
+            
+            NewCategoryView(name: "9 Букв", isOpened: true, finished: 110, outOf: 180)
+                .previewLayout(.sizeThatFits)
+        }
+
         
     }
 }

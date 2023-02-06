@@ -13,11 +13,13 @@ struct GameHistoryElementView: View {
     @State private var isCollapsed: Bool = false
     @State private var extraOpacity: Double = 0
     
+    @State private var showResultSheet: Bool = false
+    
     var gameHistoryModel: GameHistoryModel
     
     var stringDate: String{
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM d"
+        formatter.dateFormat = "d MMMM"
         return formatter.string(from: gameHistoryModel.date)
     }
     
@@ -49,29 +51,43 @@ struct GameHistoryElementView: View {
     
     var body: some View {
         VStack {
-            HStack(spacing: 35){
-                //DATE
-                VStack(alignment: .leading, spacing: 8){
-                    Text(gameHistoryModel.gameType.name)
-                        .modifier(MyFont(font: "Inter", weight: "Bold", size: 20))
-                    Text(stringDate)
-                        .modifier(MyFont(font: "Inter", weight: "Medium", size: 12))
-                }
-                .foregroundColor(.white)
-                
-                Spacer()
-                
-                //SHRINK BUTTON
-                Image("collapse.arrow")
+            ZStack{
+                Color.black
+                    .opacity(0.0001)
+                    .onTapGesture {
+                        open()
+                    }
+                HStack(spacing: 35){
+                    //DATE
+                    VStack(alignment: .leading, spacing: 8){
+                        Text(gameHistoryModel.gameType.name)
+                            .modifier(MyFont(font: "Inter", weight: "Bold", size: 20))
+                        Text(stringDate)
+                            .modifier(MyFont(font: "Inter", weight: "Medium", size: 12))
+                    }
                     .foregroundColor(.white)
-                    .rotationEffect(Angle(degrees: isCollapsed ? 180 : 0))
-                
-            } // MARK: - MAIN HSTACK
-            .padding(.vertical, 16)
-            .padding(.horizontal, 12)
-            .onTapGesture {
-                open()
+                    Spacer()
+                    //SHRINK BUTTON
+                    Image("collapse.arrow")
+                        .foregroundColor(.white)
+                        .rotationEffect(Angle(degrees: isCollapsed ? 180 : 0))
+                    
+                } // MARK: - MAIN HSTACK
+                .padding(.vertical, 16)
+                .padding(.horizontal, 12)
+                .onTapGesture {
+                    open()
+                }
+                .sheet(isPresented: $showResultSheet) {
+                    ScrollView(.vertical, showsIndicators: false){
+                        VStack{
+                            GameResultView(playVM: PlayViewModel(gameHistory: gameHistoryModel), showContinue: false)
+                            CommentsView(playVM: PlayViewModel(gameHistory: gameHistoryModel))
+                        }
+                    }
+                }
             }
+            
             
             
             // EXTRA INFORMATION
@@ -80,7 +96,8 @@ struct GameHistoryElementView: View {
                     MiniPlayField(gameHistoryModel: gameHistoryModel)
                         .frame(maxWidth: 108)
                         .onTapGesture {
-                            dump(gameHistoryModel.letters)
+                            //dump(gameHistoryModel.letters)
+                            showResultSheet.toggle()
                         }
                     
                     Spacer()
@@ -122,7 +139,7 @@ struct GameHistoryElementView: View {
         .background(getBGColor())
         .cornerRadius(8)
         .onAppear{
-            open()
+            //open()
         }
     }
 }
