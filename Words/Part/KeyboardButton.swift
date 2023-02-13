@@ -12,6 +12,7 @@ struct KeyboardButton: View {
     @State var character: String
     @State private var isPressed: Bool = false
     
+    let sound: String
     
     func getBGColorForTheKeyboardKey() -> Color{
         var letters: [Letter] = []
@@ -37,7 +38,7 @@ struct KeyboardButton: View {
     }
     
     var body: some View {
-        RoundedRectangle(cornerRadius: 6)
+        RoundedRectangle(cornerRadius: 8)
             .overlay(
                 getBGColorForTheKeyboardKey()
                     .cornerRadius(6)
@@ -51,19 +52,21 @@ struct KeyboardButton: View {
                 Text(character)
                     .padding(2)
                     .foregroundColor(getForegroundColorForTheKeyboardKey())
-                    //.foregroundColor(.white.opacity(0.9))
-//                    .foregroundColor(
-//                        playViewModel.getBGColorForTheKeyboardKey(character: character)
-//                    )
                     .modifier(MyFont(font: "Inter", weight: "medium", size: 16))
                     .minimumScaleFactor(0.4)
                 , alignment: .center
             )
-            .shadow(color: .black.opacity(0.45), radius: 4, x: 1, y: 3)
+            .shadow(
+                color: .black.opacity(0.45),
+                radius: 4, x: 1, y: 3
+            )
             .simultaneousGesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged({ _ in
                         isPressed = true
+                        
+                        playSound(sound: sound, type: "wav")
+                        
                     })
                     .onEnded({ _ in
                         isPressed = false
@@ -77,7 +80,7 @@ struct KeyboardButton_Previews: PreviewProvider {
     static var previews: some View {
         KeyboardButton(
             playViewModel: PlayViewModel(),
-            character: "Т")
+            character: "Т", sound: "Interface Click 2.wav")
         .frame(height: 80)
         .frame(width: 60)
         .previewLayout(.sizeThatFits)

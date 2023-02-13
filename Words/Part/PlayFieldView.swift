@@ -17,20 +17,40 @@ struct PlayFieldView: View {
     let spacing: CGFloat = 5
     
     var gridLayout: [GridItem]{
-        return Array(repeating: GridItem(.flexible(minimum: 52), spacing: 4), count: playVM.finalWord.count)
+        return Array(repeating: GridItem(.flexible(minimum: size), spacing: 4), count: playVM.finalWord.count)
+    }
+    
+    var size: CGFloat {
+        let count = playVM.finalWord.count
+        
+        if count == 5 || count == 6 {
+            if UIScreen.main.bounds.width <= 375 {
+                return 42
+            } else{
+                return 52
+            }
+        } else if count == 7 {
+            return 42
+        } else if count == 8 {
+            return 38
+        } else {
+            return 32
+        }
     }
     
     // MARK: - BODY
     
     var body: some View {
         LazyVGrid(columns: gridLayout, alignment: .center, spacing: spacing){
+            
+            //Text("\(UIScreen.main.bounds.width)")
             ForEach(playVM.lines){ line in
                 ForEach((0...line.lettersCount - 1), id: \.self) { index in
                     RoundedRectangle(cornerRadius: 4)
                         .fill(
                             line.getBGColorByIndex(index: index)
                         )
-                        .frame(height: 52)
+                        .frame(height: size)
                         .overlay(
                             Text(line.getCharacterByIndex(index: index))
                                 .foregroundColor(line.getFontColorByIndex(index: index))
@@ -73,10 +93,11 @@ struct PlayFieldView: View {
                         Text(character)
                             .modifier(MyFont(font: "Inter", weight: "bold", size: 36))
                     )
-                    .frame(height: 52)
+                    .frame(height: size)
                     .padding(.top, 20)
             }
-
+            
+            
         }
         .padding(.horizontal, 40)
         .padding(.vertical, 10)

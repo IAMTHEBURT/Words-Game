@@ -11,6 +11,8 @@ struct RemoveKeyboardButton: View {
     @StateObject var playViewModel: PlayViewModel
     @State private var isPressed: Bool = false
     
+    let sound: String
+    
     var body: some View {
         RoundedRectangle(cornerRadius: 6)
             .fill(
@@ -26,6 +28,7 @@ struct RemoveKeyboardButton: View {
                     .animation(.easeInOut(duration: 0.15), value: playViewModel.removeButtonIsActive)
             )
             .onTapGesture {
+                playSound(sound: sound, type: "wav")
                 playViewModel.removeCharacter()
             }
     }
@@ -33,6 +36,6 @@ struct RemoveKeyboardButton: View {
 
 struct RemoveKeyboardButton_Previews: PreviewProvider {
     static var previews: some View {
-        RemoveKeyboardButton(playViewModel: PlayViewModel())
+        RemoveKeyboardButton(playViewModel: PlayViewModel(), sound: "Interface Click 4.wav")
     }
 }

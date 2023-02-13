@@ -19,29 +19,32 @@ struct GameHistory: View {
     
     var body: some View {
         ZStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack{
-                    // MARK: - PAGE HEADER
-                    PageHeaderView(title: "История игр")
-                    
-                    Spacer()
-                        .frame(height: 66)
-                    
-                    LazyVStack{
-                        ForEach(gameHistoryVM.games) { game in
-                            GameHistoryElementView(gameHistoryModel: game)
-                        }
-                        
-                    }
-                    .padding(.horizontal, 10)
-                    .padding(.top, 20)
-                    .padding(.bottom, 120)
-                } //: MAIN VSTACK
-            } //: SCROLL VIEW
+            Color("BGColor")
+                .edgesIgnoringSafeArea(.all)
             
-            VStack{
-                Spacer()
-                BottomMenu()
+            VStack(spacing: 0){
+                // MARK: - PAGE HEADER
+                PageHeaderView(title: "История игр")
+                    .padding(.horizontal, 16)
+                    .offset(y: 2)
+                
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack{
+                        Spacer()
+                            .frame(height: 66)
+                        
+                        LazyVStack{
+                            ForEach(gameHistoryVM.games) { game in
+                                GameHistoryElementView(gameHistoryModel: game)
+                            }
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.top, 20)
+                        .padding(.bottom, 120)
+                        
+                    } //: MAIN VSTACK
+                } //: SCROLL VIEW
+                
             }
             
         } //: VSTACK

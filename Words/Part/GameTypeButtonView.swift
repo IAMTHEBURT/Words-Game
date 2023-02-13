@@ -26,7 +26,8 @@ struct GameTypeButtonView: View {
                     .font(.system(size: 20))
                     .fontWeight(.bold)
                 Spacer()
-                Text("\(finished)/\(outOf)")
+                
+                Text( String("\(finished.formattedWithSeparator)/\(outOf.formattedWithSeparator)") )
                     .fontWeight(.bold)
                     .font(.system(size: 14))
                 
@@ -55,6 +56,6 @@ struct GameTypeButtonView: View {
 
 struct GameTypeButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        GameTypeButtonView(title: "Турнир", subtitle: "Пройдите все уровни один за другим", finished: 90, outOf: 90, color: Color(hex: "#289788"))
+        GameTypeButtonView(title: "Турнир", subtitle: "Пройдите все уровни один за другим", finished: 90, outOf: 12190, color: Color(hex: "#289788"))
     }
 }

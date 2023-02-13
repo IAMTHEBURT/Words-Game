@@ -18,6 +18,18 @@ class StatisticsViewModel: ObservableObject{
     @Published var averageCountOfTriesForWin: Double = 0
     @Published var averageCountOfWordsPerDay: Double = 0
     
+    
+    var max: Double {
+        var max: Double = 0
+        distributionData.forEach { element in
+            if max < element.first!.value {
+                max = element.first!.value
+            }
+        }
+        return max
+    }
+    
+    @Published var distributionData: [ [String : Double] ] = []
 
     var games: [GameDBM] = []
     
@@ -43,9 +55,41 @@ class StatisticsViewModel: ObservableObject{
             self.totalDailyWordGamesCount = self.getTotalDailyWordCount()
             self.averageCountOfTriesForWin = self.getAverageCountOfTriesForWin()
             self.averageCountOfWordsPerDay = self.getAverageCountOfWordsPerDay()
+            self.distributionData = self.getDistribution()
         }
     }
     
+    
+    func getDistribution() -> [ [String : Double] ]{
+        
+        let games = self.games.map(GameHistoryModel.init)
+        
+        var result: [ [String:Double] ] = []
+        
+        var tries: [Double] = []
+        
+        games.map { game in
+            if game.result == .win && game.gameType == .dailyWord{
+                tries.append(Double(game.tries))
+            }
+        }
+        result.append( ["Слово дня" : tries.average] )
+        
+        for index in 5...9 {
+            tries = []
+            print("Индекс \(index)")
+            
+            games.map { game in
+                if game.result == .win && game.word.count == index{
+                    tries.append(Double(game.tries))
+                }
+            }
+            print("Резалт \(tries.average)")
+            result.append( ["\(index) попыток" : tries.average] )
+        }
+        
+        return result
+    }
     
     
     func getTotalGamesCount() -> Double{

@@ -7,49 +7,76 @@
 
 import SwiftUI
 
+
+
+enum HeaderSheet: Identifiable {
+    case rules, rating
+    
+    var id: Int {
+        hashValue
+    }
+}
+
+
+
 struct PageHeaderView: View {
     @StateObject var apiProvider = APIProvider.shared
     
     var blockRatingButton: Bool = false
     var title: String
     
-    var showHomeIcon: Bool = true
+    var hideHomeIcon: Bool = true
+    var hideRulesIcon: Bool = false
+    
     @Environment(\.presentationMode) private var presentationMode
     @StateObject var bottomMenuVM = BottomMenuViewModel.shared
+    
     @State var isSheetPresented: Bool = false
+    @State var headerSheetPresented: HeaderSheet = .rules
+    
     var body: some View {
-        ZStack{
-            HStack(spacing: 0){
-                
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                    bottomMenuVM.activeScreen = .game
-                }) {
-                    Image("go_home_icon")
-                }
-                .opacity(showHomeIcon ? 1 : 0)
-                
-                Spacer()
-                
-                Text(title)
-                    .modifier(MyFont(font: "Inter", weight: "Bold", size: 14))
-                Spacer()
-                HStack(spacing: 10){
-                    Group{
-                        Image("icon_rating")
-                        Text("\(apiProvider.points)")
-                            .modifier(MyFont(font: "Inter", weight: "Bold", size: 14))
-                    }
+        HStack(spacing: 0){
+            Button(action: {
+                BottomMenuViewModel.shared.showMenu()
+                presentationMode.wrappedValue.dismiss()
+                bottomMenuVM.activeScreen = .game
+            }) {
+                Image("go_home_icon")
+            }
+            .opacity(hideHomeIcon ? 0 : 1)
+            
+            Spacer()
+            
+            Text(title)
+                .modifier(MyFont(font: "Inter", weight: "Bold", size: 14))
+            Spacer()
+            
+            HStack(spacing: 15){
+                Image(systemName: "questionmark.circle")
+                    .resizable()
+                    .frame(width: 26, height: 26)
+                    .opacity(hideRulesIcon ? 0 : 1)
                     .onTapGesture {
-                        if blockRatingButton {
-                            return
-                        }
-                        
+                        headerSheetPresented = .rules
                         isSheetPresented.toggle()
                     }
+                
+                
+                HStack(spacing: 10){
+                    Image("icon_rating")
+                    Text("\(apiProvider.points)")
+                        .modifier(MyFont(font: "Inter", weight: "Bold", size: 14))
+                }
+                .onTapGesture {
+                    if blockRatingButton {
+                        return
+                    }
+                    
+                    headerSheetPresented = .rating
+                    isSheetPresented.toggle()
                 }
             }
-        } //: PAGE HEADER
+        }
         .foregroundColor(.white)
         .padding(17)
         .background{
@@ -57,7 +84,11 @@ struct PageHeaderView: View {
                 .fill(Color(hex: "#4D525B"))
         }
         .sheet(isPresented: $isSheetPresented) {
-            RatingView()
+            if headerSheetPresented == .rules {
+                Text("Правила игры")
+            }else{
+                RatingView()
+            }
         }
     }
 }

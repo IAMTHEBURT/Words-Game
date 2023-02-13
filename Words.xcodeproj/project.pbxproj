@@ -10,7 +10,7 @@
 		2C0216EB2977E3C3007D8FC6 /* NewCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0216EA2977E3C3007D8FC6 /* NewCategoryView.swift */; };
 		2C0216ED2977E917007D8FC6 /* RoundedCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0216EC2977E917007D8FC6 /* RoundedCorners.swift */; };
 		2C0216EF2977E95A007D8FC6 /* MyFontModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0216EE2977E95A007D8FC6 /* MyFontModifier.swift */; };
-		2C0216F12977EFA0007D8FC6 /* BottomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0216F02977EFA0007D8FC6 /* BottomMenu.swift */; };
+		2C0216F12977EFA0007D8FC6 /* BottomMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0216F02977EFA0007D8FC6 /* BottomMenuView.swift */; };
 		2C02171B2977F70A007D8FC6 /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C0217172977F70A007D8FC6 /* Inter-SemiBold.ttf */; };
 		2C02171C2977F70A007D8FC6 /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C0217182977F70A007D8FC6 /* Inter-Medium.ttf */; };
 		2C02171D2977F70A007D8FC6 /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C0217192977F70A007D8FC6 /* Inter-Bold.ttf */; };
@@ -21,6 +21,8 @@
 		2C124D4B298A76ED00A8336D /* ReactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C124D4A298A76ED00A8336D /* ReactionType.swift */; };
 		2C124D4D298A77EA00A8336D /* ReactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C124D4C298A77EA00A8336D /* ReactionModel.swift */; };
 		2C2CAAB1295050F900891E97 /* PortraitPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2CAAB0295050F900891E97 /* PortraitPlayView.swift */; };
+		2C2E00722997C622007CE668 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2C2E00712997C622007CE668 /* ConfettiSwiftUI */; };
+		2C2E00742997C63D007CE668 /* TestConView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2E00732997C63D007CE668 /* TestConView.swift */; };
 		2C33D93C2954751A00F65762 /* progression-mode-ru.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C33D93B2954751A00F65762 /* progression-mode-ru.json */; };
 		2C33D93E2954754200F65762 /* free-mode-ru.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C33D93D2954754200F65762 /* free-mode-ru.json */; };
 		2C33D942295478B800F65762 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C33D941295478B800F65762 /* TaskModel.swift */; };
@@ -35,6 +37,23 @@
 		2C8CBF832983CEA700628C97 /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8CBF822983CEA700628C97 /* CommentsView.swift */; };
 		2C8CBF852983ED3400628C97 /* CommentElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8CBF842983ED3400628C97 /* CommentElementView.swift */; };
 		2C8CBF872983FF0000628C97 /* DailyWordResultAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8CBF862983FF0000628C97 /* DailyWordResultAlertView.swift */; };
+		2C9065F12994FCCB00F752CB /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9065F02994FCCB00F752CB /* Formatter.swift */; };
+		2C9066092995002600F752CB /* Settings.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9065F32995002500F752CB /* Settings.wav */; };
+		2C90660A2995002600F752CB /* Unlock Quirk 1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9065F42995002500F752CB /* Unlock Quirk 1.wav */; };
+		2C90660B2995002600F752CB /* Unlock Quirk 2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9065F52995002500F752CB /* Unlock Quirk 2.wav */; };
+		2C90660C2995002600F752CB /* Unlock Click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9065F62995002500F752CB /* Unlock Click.wav */; };
+		2C90660D2995002600F752CB /* Interface Click 1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9065F72995002500F752CB /* Interface Click 1.wav */; };
+		2C90660F2995002600F752CB /* Unlock Quirk 4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9065F92995002500F752CB /* Unlock Quirk 4.wav */; };
+		2C9066112995002600F752CB /* Controllers.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9065FB2995002600F752CB /* Controllers.wav */; };
+		2C9066132995002600F752CB /* Interface Click 3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9065FD2995002600F752CB /* Interface Click 3.wav */; };
+		2C9066142995002600F752CB /* Unlock Quirk 3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9065FE2995002600F752CB /* Unlock Quirk 3.wav */; };
+		2C9066152995002600F752CB /* Screen Limit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9065FF2995002600F752CB /* Screen Limit.wav */; };
+		2C9066162995002600F752CB /* Unlock Start.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9066002995002600F752CB /* Unlock Start.wav */; };
+		2C9066172995002600F752CB /* Interface Click 4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9066012995002600F752CB /* Interface Click 4.wav */; };
+		2C9066182995002600F752CB /* Nintendo eShop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9066022995002600F752CB /* Nintendo eShop.wav */; };
+		2C9066192995002600F752CB /* Interface Click 2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9066032995002600F752CB /* Interface Click 2.wav */; };
+		2C90661E2995002600F752CB /* Scroll.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9066082995002600F752CB /* Scroll.wav */; };
+		2C906620299501DC00F752CB /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C90661F299501DB00F752CB /* AudioPlayer.swift */; };
 		2CAF1D5F298F949400FEDBF3 /* DailyWordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF1D5E298F949400FEDBF3 /* DailyWordModel.swift */; };
 		2CCA34E32959EEF700AC3DA5 /* NotificationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA34E22959EEF700AC3DA5 /* NotificationProvider.swift */; };
 		2CCA34FB295CA4FE00AC3DA5 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA34FA295CA4FE00AC3DA5 /* SettingsViewModel.swift */; };
@@ -99,7 +118,7 @@
 		2C0216EA2977E3C3007D8FC6 /* NewCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCategoryView.swift; sourceTree = "<group>"; };
 		2C0216EC2977E917007D8FC6 /* RoundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorners.swift; sourceTree = "<group>"; };
 		2C0216EE2977E95A007D8FC6 /* MyFontModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFontModifier.swift; sourceTree = "<group>"; };
-		2C0216F02977EFA0007D8FC6 /* BottomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenu.swift; sourceTree = "<group>"; };
+		2C0216F02977EFA0007D8FC6 /* BottomMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuView.swift; sourceTree = "<group>"; };
 		2C0217172977F70A007D8FC6 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.ttf"; sourceTree = "<group>"; };
 		2C0217182977F70A007D8FC6 /* Inter-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.ttf"; sourceTree = "<group>"; };
 		2C0217192977F70A007D8FC6 /* Inter-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.ttf"; sourceTree = "<group>"; };
@@ -110,6 +129,7 @@
 		2C124D4A298A76ED00A8336D /* ReactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionType.swift; sourceTree = "<group>"; };
 		2C124D4C298A77EA00A8336D /* ReactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionModel.swift; sourceTree = "<group>"; };
 		2C2CAAB0295050F900891E97 /* PortraitPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitPlayView.swift; sourceTree = "<group>"; };
+		2C2E00732997C63D007CE668 /* TestConView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestConView.swift; sourceTree = "<group>"; };
 		2C33D93B2954751A00F65762 /* progression-mode-ru.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "progression-mode-ru.json"; sourceTree = "<group>"; };
 		2C33D93D2954754200F65762 /* free-mode-ru.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "free-mode-ru.json"; sourceTree = "<group>"; };
 		2C33D941295478B800F65762 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
@@ -123,6 +143,23 @@
 		2C8CBF822983CEA700628C97 /* CommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsView.swift; sourceTree = "<group>"; };
 		2C8CBF842983ED3400628C97 /* CommentElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentElementView.swift; sourceTree = "<group>"; };
 		2C8CBF862983FF0000628C97 /* DailyWordResultAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWordResultAlertView.swift; sourceTree = "<group>"; };
+		2C9065F02994FCCB00F752CB /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
+		2C9065F32995002500F752CB /* Settings.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Settings.wav; sourceTree = "<group>"; };
+		2C9065F42995002500F752CB /* Unlock Quirk 1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Unlock Quirk 1.wav"; sourceTree = "<group>"; };
+		2C9065F52995002500F752CB /* Unlock Quirk 2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Unlock Quirk 2.wav"; sourceTree = "<group>"; };
+		2C9065F62995002500F752CB /* Unlock Click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Unlock Click.wav"; sourceTree = "<group>"; };
+		2C9065F72995002500F752CB /* Interface Click 1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Interface Click 1.wav"; sourceTree = "<group>"; };
+		2C9065F92995002500F752CB /* Unlock Quirk 4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Unlock Quirk 4.wav"; sourceTree = "<group>"; };
+		2C9065FB2995002600F752CB /* Controllers.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Controllers.wav; sourceTree = "<group>"; };
+		2C9065FD2995002600F752CB /* Interface Click 3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Interface Click 3.wav"; sourceTree = "<group>"; };
+		2C9065FE2995002600F752CB /* Unlock Quirk 3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Unlock Quirk 3.wav"; sourceTree = "<group>"; };
+		2C9065FF2995002600F752CB /* Screen Limit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Screen Limit.wav"; sourceTree = "<group>"; };
+		2C9066002995002600F752CB /* Unlock Start.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Unlock Start.wav"; sourceTree = "<group>"; };
+		2C9066012995002600F752CB /* Interface Click 4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Interface Click 4.wav"; sourceTree = "<group>"; };
+		2C9066022995002600F752CB /* Nintendo eShop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Nintendo eShop.wav"; sourceTree = "<group>"; };
+		2C9066032995002600F752CB /* Interface Click 2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Interface Click 2.wav"; sourceTree = "<group>"; };
+		2C9066082995002600F752CB /* Scroll.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Scroll.wav; sourceTree = "<group>"; };
+		2C90661F299501DB00F752CB /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		2CAF1D5E298F949400FEDBF3 /* DailyWordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWordModel.swift; sourceTree = "<group>"; };
 		2CCA34E22959EEF700AC3DA5 /* NotificationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationProvider.swift; sourceTree = "<group>"; };
 		2CCA34FA295CA4FE00AC3DA5 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -190,6 +227,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C2E00722997C622007CE668 /* ConfettiSwiftUI in Frameworks */,
 				2C7971E8298E559800B93603 /* PartialSheet in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -214,6 +252,28 @@
 				2C7971E4298E51C400B93603 /* Shake.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		2C9065F22995001C00F752CB /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				2C9065FB2995002600F752CB /* Controllers.wav */,
+				2C9065F72995002500F752CB /* Interface Click 1.wav */,
+				2C9066032995002600F752CB /* Interface Click 2.wav */,
+				2C9065FD2995002600F752CB /* Interface Click 3.wav */,
+				2C9066012995002600F752CB /* Interface Click 4.wav */,
+				2C9066022995002600F752CB /* Nintendo eShop.wav */,
+				2C9065FF2995002600F752CB /* Screen Limit.wav */,
+				2C9066082995002600F752CB /* Scroll.wav */,
+				2C9065F32995002500F752CB /* Settings.wav */,
+				2C9065F62995002500F752CB /* Unlock Click.wav */,
+				2C9065F42995002500F752CB /* Unlock Quirk 1.wav */,
+				2C9065F52995002500F752CB /* Unlock Quirk 2.wav */,
+				2C9065FE2995002600F752CB /* Unlock Quirk 3.wav */,
+				2C9065F92995002500F752CB /* Unlock Quirk 4.wav */,
+				2C9066002995002600F752CB /* Unlock Start.wav */,
+			);
+			path = Sound;
 			sourceTree = "<group>";
 		};
 		9D0803622945C49600B1DF1E /* Modifier */ = {
@@ -244,6 +304,7 @@
 		9D47765F2941E9BA00DD96F4 /* Words */ = {
 			isa = PBXGroup;
 			children = (
+				2C9065F22995001C00F752CB /* Sound */,
 				2C7971E3298E51B900B93603 /* Utils */,
 				2C0216F22977F498007D8FC6 /* Fonts */,
 				9D119463294C8E9B008152F5 /* Info.plist */,
@@ -255,6 +316,7 @@
 				9D47767F294206BF00DD96F4 /* Enum */,
 				9D4776602941E9BA00DD96F4 /* WordsApp.swift */,
 				9D4776622941E9BA00DD96F4 /* ContentView.swift */,
+				2C2E00732997C63D007CE668 /* TestConView.swift */,
 				9D4776712941EAF300DD96F4 /* Part */,
 				9D4776702941EAE000DD96F4 /* ViewModel */,
 				9D47766E2941EAD000DD96F4 /* View */,
@@ -332,7 +394,7 @@
 				2CCABAA2297FBF6500FF70F5 /* LoadingAnimation.swift */,
 				9DFB06572948A93B00752E6A /* MiniPlayField.swift */,
 				2CCA34FC295CAB4F00AC3DA5 /* CustomProgressView.swift */,
-				2C0216F02977EFA0007D8FC6 /* BottomMenu.swift */,
+				2C0216F02977EFA0007D8FC6 /* BottomMenuView.swift */,
 			);
 			path = Part;
 			sourceTree = "<group>";
@@ -388,6 +450,8 @@
 				9DEC5BCB2949E06600849B11 /* TaskDBM + Extensions.swift */,
 				2C7971DF298E1B3C00B93603 /* DailyWordDBM + Extensions.swift */,
 				2C0216EC2977E917007D8FC6 /* RoundedCorners.swift */,
+				2C9065F02994FCCB00F752CB /* Formatter.swift */,
+				2C90661F299501DB00F752CB /* AudioPlayer.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -436,6 +500,7 @@
 			name = Words;
 			packageProductDependencies = (
 				2C7971E7298E559800B93603 /* PartialSheet */,
+				2C2E00712997C622007CE668 /* ConfettiSwiftUI */,
 			);
 			productName = Words;
 			productReference = 9D47765D2941E9BA00DD96F4 /* Words.app */;
@@ -467,6 +532,7 @@
 			mainGroup = 9D4776542941E9BA00DD96F4;
 			packageReferences = (
 				2C7971E6298E559800B93603 /* XCRemoteSwiftPackageReference "PartialSheet" */,
+				2C2E00702997C622007CE668 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 			);
 			productRefGroup = 9D47765E2941E9BA00DD96F4 /* Products */;
 			projectDirPath = "";
@@ -483,14 +549,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D5776A629423AB100FDDB94 /* nouns-ru.json in Resources */,
+				2C9066142995002600F752CB /* Unlock Quirk 3.wav in Resources */,
+				2C9066192995002600F752CB /* Interface Click 2.wav in Resources */,
+				2C90660D2995002600F752CB /* Interface Click 1.wav in Resources */,
 				2C33D93E2954754200F65762 /* free-mode-ru.json in Resources */,
+				2C9066182995002600F752CB /* Nintendo eShop.wav in Resources */,
 				9D4776682941E9BE00DD96F4 /* Preview Assets.xcassets in Resources */,
 				2C02171D2977F70A007D8FC6 /* Inter-Bold.ttf in Resources */,
 				2C02171C2977F70A007D8FC6 /* Inter-Medium.ttf in Resources */,
 				2C02171E2977F70A007D8FC6 /* Inter-Regular.ttf in Resources */,
 				2C33D93C2954751A00F65762 /* progression-mode-ru.json in Resources */,
 				9D4776652941E9BE00DD96F4 /* Assets.xcassets in Resources */,
+				2C9066172995002600F752CB /* Interface Click 4.wav in Resources */,
+				2C9066132995002600F752CB /* Interface Click 3.wav in Resources */,
+				2C9066162995002600F752CB /* Unlock Start.wav in Resources */,
+				2C9066152995002600F752CB /* Screen Limit.wav in Resources */,
+				2C90660F2995002600F752CB /* Unlock Quirk 4.wav in Resources */,
+				2C9066112995002600F752CB /* Controllers.wav in Resources */,
+				2C90660B2995002600F752CB /* Unlock Quirk 2.wav in Resources */,
+				2C90660A2995002600F752CB /* Unlock Quirk 1.wav in Resources */,
 				2C02171B2977F70A007D8FC6 /* Inter-SemiBold.ttf in Resources */,
+				2C9066092995002600F752CB /* Settings.wav in Resources */,
+				2C90661E2995002600F752CB /* Scroll.wav in Resources */,
+				2C90660C2995002600F752CB /* Unlock Click.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,9 +590,10 @@
 				9DFB065F2948B57100752E6A /* Color.swift in Sources */,
 				2C0216EF2977E95A007D8FC6 /* MyFontModifier.swift in Sources */,
 				9D08036A2945D9B400B1DF1E /* GameHistoryModel.swift in Sources */,
-				2C0216F12977EFA0007D8FC6 /* BottomMenu.swift in Sources */,
+				2C0216F12977EFA0007D8FC6 /* BottomMenuView.swift in Sources */,
 				9DF71020294334E400B763C2 /* MainView.swift in Sources */,
 				2C8CBF8129836CE000628C97 /* PlayFieldView.swift in Sources */,
+				2C906620299501DC00F752CB /* AudioPlayer.swift in Sources */,
 				9D47767E2942067F00DD96F4 /* LetterModel.swift in Sources */,
 				9DFB065D2948B3B000752E6A /* DefaultButtonStyle.swift in Sources */,
 				9DF71022294337DC00B763C2 /* MenuButtonView.swift in Sources */,
@@ -535,6 +617,7 @@
 				2CCA34FD295CAB4F00AC3DA5 /* CustomProgressView.swift in Sources */,
 				2CEE4252295D86BC0033BE2B /* ShareSheetView.swift in Sources */,
 				2C7F5168298649CD00211D2E /* RatingView.swift in Sources */,
+				2C2E00742997C63D007CE668 /* TestConView.swift in Sources */,
 				9D49A7452946102C00DD53B2 /* WordOfTheDayResponse.swift in Sources */,
 				2C2CAAB1295050F900891E97 /* PortraitPlayView.swift in Sources */,
 				9DFB06612948B79000752E6A /* GameResultAlertView.swift in Sources */,
@@ -567,6 +650,7 @@
 				2CCA34E32959EEF700AC3DA5 /* NotificationProvider.swift in Sources */,
 				9D4776762941EBC100DD96F4 /* LineModel.swift in Sources */,
 				2C0217222977F8DC007D8FC6 /* ActiveScreen.swift in Sources */,
+				2C9065F12994FCCB00F752CB /* Formatter.swift in Sources */,
 				9D49A73F2946085D00DD53B2 /* NavigationView.swift in Sources */,
 				9D4776832942243400DD96F4 /* NotificationView.swift in Sources */,
 				9D5190BB2948D65F009B0070 /* DB.xcdatamodeld in Sources */,
@@ -791,6 +875,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2C2E00702997C622007CE668 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		2C7971E6298E559800B93603 /* XCRemoteSwiftPackageReference "PartialSheet" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AndreaMiotto/PartialSheet";
@@ -802,6 +894,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2C2E00712997C622007CE668 /* ConfettiSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C2E00702997C622007CE668 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;
+			productName = ConfettiSwiftUI;
+		};
 		2C7971E7298E559800B93603 /* PartialSheet */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2C7971E6298E559800B93603 /* XCRemoteSwiftPackageReference "PartialSheet" */;

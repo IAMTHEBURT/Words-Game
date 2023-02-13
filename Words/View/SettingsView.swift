@@ -23,10 +23,15 @@ struct SettingsView: View {
     
     // MARK: - BODY
     
+
+    init(){
+        UITableView.appearance().backgroundColor = .clear
+    }
+    
     var body: some View {
         ZStack(alignment: .leading){
-//            Color("BGColor")
-//                .edgesIgnoringSafeArea(.all)
+            Color("BGColor")
+                .edgesIgnoringSafeArea(.all)
             
             CustomProgressView()
                 .opacity(settingsVM.showLoading ? 1 : 0)
@@ -36,13 +41,12 @@ struct SettingsView: View {
                 // MARK: - PAGE HEADER
                 PageHeaderView(title: "Настройки")
                     .padding(.horizontal, 16)
-                
+                    .offset(y: 2)
                 Form{
-                    Section( header: Text("Игра") ){
+                    Section( header: Text("") ){
                         EmptyView()
                     }
                     .opacity(0.1)
-                    
                     
                     Section( header: Text("Игра") )
                     {
@@ -95,21 +99,23 @@ struct SettingsView: View {
                         }
                     }
                 }
+                .scrollContentBackground(.hidden)
+                .listRowBackground(Color.clear)
+                .background(Color("BGColor"))
                 
+                .onAppear(perform: {
+                    UITableView.appearance().backgroundColor = UIColor.clear
+                    UITableViewCell.appearance().backgroundColor = UIColor.clear
+                })
+                
+
             }
             //.padding(.horizontal, 16)
-            .fontWeight(.bold)
-            
-            VStack{
-                Spacer()
-                BottomMenu()
-                    .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.25), radius: 8, x: 0.0, y: 4.0)
-            }
+            //.fontWeight(.bold)
     
         }
         .navigationTitle("Настройки")
         .foregroundColor(.white)
-
         .alert("Вы действительно хотите сбросить ВЕСЬ прогресс и начать все сначала?", isPresented: $settingsVM.showingResetProgressAlert) {
             Button("Отмена") { settingsVM.showingResetProgressAlert = false }
             Button("Сброс") {
@@ -130,16 +136,11 @@ struct SettingsView: View {
                 }
             }
         }
-//        .fullScreenCover(isPresented: $isPartialSheetPresented) {
-//            SendMessageToDevelopers(isPartialSheetPresented: $isPartialSheetPresented)
-//        }
-        
         .partialSheet(isPresented: $isPartialSheetPresented) {
             SendMessageToDevelopers(isPartialSheetPresented: $isPartialSheetPresented)
+                .padding(.bottom, 150)
         }
         .attachPartialSheetToRoot()
-        
-        
     }
     
 }

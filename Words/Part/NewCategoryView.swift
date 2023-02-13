@@ -36,7 +36,7 @@ struct NewCategoryView: View{
                             .font(.system(size: 10))
                     )
                 Spacer()
-                Text("\(finished)/\(outOf)")
+                Text("\(finished.formattedWithSeparator)/\(outOf.formattedWithSeparator)")
                     .foregroundColor(.white)
                     .font(.system(size: 14))
                     .fontWeight(.semibold)

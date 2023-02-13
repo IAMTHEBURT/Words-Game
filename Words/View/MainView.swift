@@ -23,7 +23,7 @@ struct MainView: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     // MARK: - BODY
-    let categories: [Int] = [5, 6, 7, 8, 9]
+    let categories: [Int] = [6, 7, 8, 9]
     
     var body: some View {
         NavigationStack {
@@ -31,16 +31,16 @@ struct MainView: View {
                 Color("BGColor")
                     .edgesIgnoringSafeArea(.all)
                 
-                
                 VStack(spacing: 0){
                     
-                    PageHeaderView(title: "ВОРДЛ", showHomeIcon: false)
-                    
-                    
+                    PageHeaderView(title: "ВОРДЛ")
+                        .offset(y: 2)
                     //GAME OPTIONS
                     
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 20) {
+                            
+                            
                             VStack(alignment: .leading, spacing: 8){
                                 HStack{
                                     Text("Вордл дня")
@@ -152,8 +152,8 @@ struct MainView: View {
                                 GameTypeButtonView(
                                     title: "Свободный режим",
                                     subtitle: "Уровни открываются за победы в турнире",
-                                    finished: mainVM.getCountOff(type: .progression, finished: true),
-                                    outOf: mainVM.getCountOff(type: .progression),
+                                    finished: mainVM.getCountOff(type: .freeMode, finished: true),
+                                    outOf: mainVM.getCountOff(type: .freeMode),
                                     color: Color(hex: "4D525B"),
                                     roundedCorners: [8, 8, 0, 0]
                                 )
@@ -238,15 +238,6 @@ struct MainView: View {
                     
                 } //: MAIN VSTACK
                 .padding(.horizontal, 16)
-                //.padding(.bottom, 150)
-                
-                
-                VStack{
-                    Spacer()
-                    BottomMenu()
-                        .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.25), radius: 8, x: 0.0, y: 4.0)
-                }
-                
                 
                 Group{
                     if mainVM.showingDailyWordIsFinishedAlert {

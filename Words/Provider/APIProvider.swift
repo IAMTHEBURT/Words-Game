@@ -447,7 +447,8 @@ class APIProvider: ObservableObject{
         
         guard let url = URL(string: urlString) else {
             //fatalError("Missing URL")
-            self.message = "Отсутствует подключение"
+            //self.message = "Отсутствует подключение"
+            print("Отсутствует подключение")
             //self.showDownloadProgressView = false
             return
         }
@@ -555,12 +556,12 @@ class APIProvider: ObservableObject{
         URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
             if let error = error {
                 print("Request error: ", error)
-                self.showDownloading = false
+                //self.showDownloading = false
                 return
             }
             
             guard let response = response as? HTTPURLResponse else {
-                self.showDownloading = false
+                //self.showDownloading = false
                 print("GET RESPONSE ERROR")
                 return
             }
@@ -584,7 +585,6 @@ class APIProvider: ObservableObject{
                         dailyWord.active_at = Int64(decodedResult.active_at)
                         dailyWord.next_at = Int64(decodedResult.next_at)
                         dailyWord.save()
-                        
                         self.showDownloading = false
                     } catch let error {
                         print("Error decoding: ", error)

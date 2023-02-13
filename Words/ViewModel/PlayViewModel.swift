@@ -28,6 +28,9 @@ class PlayViewModel: ObservableObject {
     @Published var notifyText: String = ""
     @Published var shakeFieldId: String?
     @Published var isShareSheetPresented: Bool = false
+    @Published var successConfettiCounter: Int = 0
+    @Published var failConfettiCounter: Int = 0
+    
     
     var result: GameResult = .loose
     var task: TaskDBM?
@@ -148,6 +151,7 @@ class PlayViewModel: ObservableObject {
         currentSymbolIndex = 0
         gameHistory = nil
         started_at = Date.now.timeIntervalSince1970
+        result = .loose
     }
     
     func setGame(word: String, gameType: GameType){
@@ -193,10 +197,13 @@ class PlayViewModel: ObservableObject {
     
     //Активирует новосе слово если вдруг пользователь дождался не уходя с экрана
     func activateNewWord(){
-            
+        
     }
     
     func inputCharacter(character: String){
+        
+        print(finalWord.uppercased())
+        
         if currentLine.lineIsFull {
             return
         }
@@ -244,6 +251,7 @@ class PlayViewModel: ObservableObject {
     func checkTheLine(){
         //Check if this is a real word
         if !Dictionary.shared.hasTheWord(word: lines[currentLineIndex].lettersAsString){
+            playSound(sound: "Unlock Quirk 3", type: "wav")
             showNotifyView(text: "Мы не нашли такого слова в нашем словаре")
             return
         }else{
@@ -265,17 +273,22 @@ class PlayViewModel: ObservableObject {
                 letter.setState(state: .wrongLetter)
             }
         }
-            
+        
         //If this is the right word
         if lines[currentLineIndex].lettersAsString == finalWord{
             print("YOU WON")
             self.result = .win
             finishTheGame()
+            playSound(sound: "Nintendo eShop", type: "wav")
+            successConfettiCounter += 1
         }
 
+        
+        playSound(sound: "Unlock Quirk 4", type: "wav")
         // FINISH
         if lines.count == currentLineIndex + 1 {
             finishTheGame()
+            failConfettiCounter += 1
         }
         
         // OR CHANGE THE LINE

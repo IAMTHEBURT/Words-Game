@@ -6,26 +6,19 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct DistributionOfTries: View {
     // MARK: - PROPERTIES
     
-    var data: [ Int ] = [ 8, 17, 12, 6, 22, 19]
-    
-    var max: Int {
-        data.max() ?? 0
-    }
-    
+    @StateObject var statVM: StatisticsViewModel
     @State private var maxWidth: CGFloat = 0
     @State private var isAnimating: Bool = false
     
     // MARK: - FUNCTIONS
     func getWidthFor(count: Int) -> CGFloat{
-        let part = CGFloat(count) / CGFloat(max) * 100.0
-        
+        let part = CGFloat(count) / CGFloat(statVM.max) * 100.0
         return 0.62 * maxWidth / 100 * CGFloat(part)
-        //return maxWidth / 100 * part
-        //return 100.0
     }
     
     // MARK: - BODY
@@ -34,7 +27,7 @@ struct DistributionOfTries: View {
         ZStack {
             GeometryReader { geo in
                 VStack(alignment: .leading, spacing: 0){
-
+                    
                     RoundedCorners(color: Color(hex: "#E99C5D"), tl: 8, tr: 8, bl: 0, br: 0)
                         .frame(height: 48)
                         .overlay(
@@ -46,12 +39,10 @@ struct DistributionOfTries: View {
                     Spacer()
                         .frame(height: 30)
                     
-                    DistributionElement(maxElementWidth: $maxWidth, title: "Слово дня", number: data[0], maxNumber: max)
-                    DistributionElement(maxElementWidth: $maxWidth, title: "5 букв", number: data[1], maxNumber: max)
-                    DistributionElement(maxElementWidth: $maxWidth, title: "6 букв", number: data[2], maxNumber: max)
-                    DistributionElement(maxElementWidth: $maxWidth, title: "7 букв", number: data[3], maxNumber: max)
-                    DistributionElement(maxElementWidth: $maxWidth, title: "8 букв", number: data[4], maxNumber: max)
-                    DistributionElement(maxElementWidth: $maxWidth, title: "9 букв", number: data[5], maxNumber: max)
+                    
+                    ForEach(statVM.distributionData, id: \.self) { category in
+                        DistributionElement(maxElementWidth: $maxWidth, title: category.first!.key, number: category.first!.value, maxNumber: statVM.max)
+                    }
                     
                     Spacer()
                         .frame(height: 30)
@@ -69,19 +60,30 @@ struct DistributionOfTries: View {
                 }
                 
             }
-            
-            
         }
-
     }
 }
 
 // MARK: - PREVIW
 struct DistributionOfTries_Previews: PreviewProvider {
     static var previews: some View {
-        DistributionOfTries()
+        DistributionOfTries(statVM: StatisticsViewModel())
             .frame(height: 200)
             .previewLayout(.sizeThatFits)
             .padding()
     }
+}
+
+extension Array where Element: BinaryFloatingPoint {
+
+    /// The average value of all the items in the array
+    var average: Double {
+        if self.isEmpty {
+            return 0.0
+        } else {
+            let sum = self.reduce(0, +)
+            return Double(sum) / Double(self.count)
+        }
+    }
+
 }

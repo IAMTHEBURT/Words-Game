@@ -17,7 +17,6 @@ class MainViewModel: NSObject, ObservableObject {
     
     private (set) var context: NSManagedObjectContext
     
-    
     @Published var dailyWord: DailyWord?
     @Published var isDailyWordAnimating: Bool = false
     
@@ -120,13 +119,29 @@ class MainViewModel: NSObject, ObservableObject {
                 
     }
     
-    func getCountOff(type: GameType, finished: Bool = false, difficulty: Difficulty = .low, symbolsCount: Int = 5) -> Int{
-        if finished{
-            return allTasks.filter{ $0.gameType == type && $0.history != nil && $0.difficulty == difficulty && $0.count == symbolsCount}.count
+    func getCountOff(type: GameType, finished: Bool = false, difficulty: Difficulty = .low, symbolsCount: Int = 0) -> Int{
+        
+        //ALL NUMBERS
+        if symbolsCount == 0 {
+            if finished{
+                return allTasks.filter{ $0.gameType == type && $0.history != nil && $0.difficulty == difficulty}.count
+            }else{
+                return allTasks.filter{ $0.gameType == type && $0.difficulty == difficulty}.count
+            }
+        
+        //ONLYE SPECIFIED
         }else{
-            return allTasks.filter{ $0.gameType == type && $0.difficulty == difficulty && $0.count == symbolsCount }.count
+            if finished{
+                return allTasks.filter{ $0.gameType == type && $0.history != nil && $0.difficulty == difficulty && $0.count == symbolsCount}.count
+            }else{
+                return allTasks.filter{ $0.gameType == type && $0.difficulty == difficulty && $0.count == symbolsCount }.count
+            }
         }
-    }
+        }
+        
+        
+        
+
     
     
     func updateTasksData(){
@@ -246,7 +261,6 @@ class MainViewModel: NSObject, ObservableObject {
     }
     
     func isDailyWordCompleted() -> Bool{
-        
         guard let dailyWord = dailyWord?.word else { return false }
         
         let fetchRequest = GameDBM.all

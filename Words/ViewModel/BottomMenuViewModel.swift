@@ -13,12 +13,25 @@ class BottomMenuViewModel: ObservableObject{
     static let shared: BottomMenuViewModel = BottomMenuViewModel()
     @Published var activeScreen: ActiveScreen = .game
     @Published var isInitialLoadingFinished: Bool = false
+    @Published var isBottomMenuHidden: Bool = true
     
     func changeScreen(screen: ActiveScreen){
         print(screen.hashValue)
         withAnimation(.easeIn(duration: 0.3)){
             self.activeScreen = screen
         }
-        
     }
+    
+    func hideMenu(){
+        withAnimation {
+            isBottomMenuHidden = true
+        }
+    }
+    
+    func showMenu(){
+        withAnimation(.linear(duration: 0.6)) {
+            isBottomMenuHidden = false
+        }
+    }
+    
 }

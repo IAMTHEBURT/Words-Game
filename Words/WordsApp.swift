@@ -16,14 +16,15 @@ struct WordsApp: App {
             ContentView()
                 .onAppear{
                     //APIProvider.shared.getWordOfTheDay()
-                    
                     do {
                         let tasks = try CoreDataProvider.shared.viewContext.fetch(TaskDBM.all)
-                        print("Загружаю слова в БАЗУ")
                         
                         if tasks.isEmpty{
+                            
+                            print("Загружаю слова в БАЗУ")
+                            
                             //Загружаем слова прогресса из JSON
-                            let progressionWords: [String] = Bundle.main.decode("progression-ru.json")
+                            let progressionWords: [String] = Bundle.main.decode("progression-mode-ru.json")
                             progressionWords.shuffled().forEach { word in
                                 let task = TaskDBM(context: CoreDataProvider.shared.viewContext)
                                 task.word = word.uppercased()
@@ -34,7 +35,7 @@ struct WordsApp: App {
                             }
                             
                             //Загружаем Free Mode Легкие
-                            let freeEasyWords: [String] = Bundle.main.decode("freeEasy-ru.json")
+                            let freeEasyWords: [String] = Bundle.main.decode("free-mode-ru.json")
                             freeEasyWords.shuffled().forEach { word in
                                 let task = TaskDBM(context: CoreDataProvider.shared.viewContext)
                                 task.word = word.uppercased()
@@ -45,15 +46,15 @@ struct WordsApp: App {
                             }
                             
                             //Загружаем Free Mode Сложные
-                            let freeDifficultWords: [String] = Bundle.main.decode("freeDifficult-ru.json")
-                            freeDifficultWords.shuffled().forEach { word in
-                                let task = TaskDBM(context: CoreDataProvider.shared.viewContext)
-                                task.word = word.uppercased()
-                                task.difficulty = Int16(Difficulty.hard.rawValue)
-                                task.type = Int16(GameType.freeMode.rawValue)
-                                task.count = Int16(word.count)
-                                task.save()
-                            }
+//                            let freeDifficultWords: [String] = Bundle.main.decode("freeDifficult-ru.json")
+//                            freeDifficultWords.shuffled().forEach { word in
+//                                let task = TaskDBM(context: CoreDataProvider.shared.viewContext)
+//                                task.word = word.uppercased()
+//                                task.difficulty = Int16(Difficulty.hard.rawValue)
+//                                task.type = Int16(GameType.freeMode.rawValue)
+//                                task.count = Int16(word.count)
+//                                task.save()
+//                            }
                             
                         }
                     } catch {

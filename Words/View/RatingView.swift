@@ -41,11 +41,24 @@ struct RatingView: View {
             Color("BGColor")
                 .edgesIgnoringSafeArea(.all)
             
+            
+            
+            if apiProvider.topList.isEmpty{
+                VStack {
+                    Spacer()
+                    Text("Упс.. Тут никого нет.\nПроверьте интернет подключение.")
+                    Spacer()
+                }
+                .multilineTextAlignment(.center)
+                .modifier(MyFont(font: "Inter", weight: "bold", size: 25))
+            }
+
+            
             ScrollView{
                 VStack {
                     Spacer()
                         .frame(height: 17)
-                    PageHeaderView(blockRatingButton: true, title: "Рейтинг")
+                    PageHeaderView(blockRatingButton: true, title: "Рейтинг", hideHomeIcon: false, hideRulesIcon: true)
                         .padding(.horizontal, 17)
                     Spacer()
                         .frame(height: 48)

@@ -15,8 +15,8 @@ struct DistributionElement: View {
     @State private var showNumber: Bool = false
     
     var title: String = "Слово дня"
-    var number: Int = 30
-    var maxNumber: Int = 80
+    var number: Double = 0
+    var maxNumber: Double = 80
     
     // MARK: - FUNCTIONS
     func getWidth() -> CGFloat{
@@ -36,18 +36,20 @@ struct DistributionElement: View {
                 .fill(.white)
                 .frame(width: 1)
             
-            RoundedRectangle(cornerRadius: 8)
-                .fill(.clear)
-                .frame(width: isAnimating ? getWidth() : 0, height: 64)
-                .overlay {
-                    Color.white
-                        .frame(height: 32)
-                }
-                .overlay {
-                    Text("\(number)")
-                        .foregroundColor(.black)
-                        .opacity(showNumber ? 1 : 0)
-                }
+            if getWidth() > 0 {
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(.clear)
+                    .frame(width: isAnimating ? getWidth() : 0, height: 64)
+                    .overlay {
+                        Color.white
+                            .frame(height: 32)
+                    }
+                    .overlay {
+                        Text("\(number, specifier: "%.1f")")
+                            .foregroundColor(.black)
+                            .opacity(showNumber ? 1 : 0)
+                    }
+            }
             
             Spacer()
 
