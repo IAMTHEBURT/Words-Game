@@ -12,12 +12,13 @@ import CoreData
 class PlayViewModel: ObservableObject {
     // MARK: - PROPERTIES
     let numberOfLines = 6
-    var finalWord: String = "Земля".uppercased()
+    var finalWord: String = "Чернота25".uppercased()
     var gameType: GameType = .dailyWord
     var tries: Int = 0
     var maxTries: Int {
         return lines.count
     }
+    
     @Published var isResultAlertPresented: Bool = false
     @Published var gameIsFinished: Bool = false
     @Published var lines: [Line] = []
@@ -30,13 +31,13 @@ class PlayViewModel: ObservableObject {
     @Published var isShareSheetPresented: Bool = false
     @Published var successConfettiCounter: Int = 0
     @Published var failConfettiCounter: Int = 0
-    
+    @Published var forceTitle: String = ""
     
     var result: GameResult = .loose
     var task: TaskDBM?
     
-    var currentLineIndex = 0
-    var currentSymbolIndex = 0
+    var currentLineIndex: Int = 0
+    var currentSymbolIndex: Int = 0
     
     var finalWordAsArray:[String]{
         let characters = finalWord.map { String($0) }
@@ -152,6 +153,7 @@ class PlayViewModel: ObservableObject {
         gameHistory = nil
         started_at = Date.now.timeIntervalSince1970
         result = .loose
+        forceTitle = ""
     }
     
     func setGame(word: String, gameType: GameType){
@@ -332,7 +334,7 @@ class PlayViewModel: ObservableObject {
         isResultAlertPresented = true
         
         if gameType == .dailyWord{
-            NotificationProvider.shared.setNotifications(skipCurrentDay: true)
+            NotificationProvider.shared.updateNotifications(skipCurrentDay: true)
         }
         
         APIProvider.shared.saveTheGame(game: self.gameHistory!)

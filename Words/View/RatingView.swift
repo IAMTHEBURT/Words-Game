@@ -12,6 +12,8 @@ struct RatingView: View {
     
     @StateObject var apiProvider = APIProvider.shared
     
+    @State var showLoading: Bool = true
+    
     func getBackgroundForPosition(index: Int, isPlayer: Bool) -> some View{
         
         //Если первая строка
@@ -46,7 +48,8 @@ struct RatingView: View {
             if apiProvider.topList.isEmpty{
                 VStack {
                     Spacer()
-                    Text("Упс.. Тут никого нет.\nПроверьте интернет подключение.")
+                    ProgressView()
+                    //Text("Упс.. Тут никого нет.\nПроверьте интернет подключение.")
                     Spacer()
                 }
                 .multilineTextAlignment(.center)

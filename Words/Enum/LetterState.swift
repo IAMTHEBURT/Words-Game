@@ -16,7 +16,7 @@ extension LetterState{
     var color: Color{
         switch self {
         case .unanswered:
-            return Color("unansweredLetterBackground")
+            return Color("unansweredLetterBackgroundV2")
         case .rightLetterRightPlace:
             return Color("rightLetterRightPlaceBackground")
         case .rightLetterWrongPlace:

@@ -15,6 +15,10 @@ class BottomMenuViewModel: ObservableObject{
     @Published var isInitialLoadingFinished: Bool = false
     @Published var isBottomMenuHidden: Bool = true
     
+    @Published var isSheetPresented: Bool = false
+    @Published var headerSheetPresented: HeaderSheet = .rules
+    @Published var isOnboardingPagePresented: Bool = false
+    
     func changeScreen(screen: ActiveScreen){
         print(screen.hashValue)
         withAnimation(.easeIn(duration: 0.3)){

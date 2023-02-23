@@ -31,9 +31,6 @@ struct PageHeaderView: View {
     @Environment(\.presentationMode) private var presentationMode
     @StateObject var bottomMenuVM = BottomMenuViewModel.shared
     
-    @State var isSheetPresented: Bool = false
-    @State var headerSheetPresented: HeaderSheet = .rules
-    
     var body: some View {
         HStack(spacing: 0){
             Button(action: {
@@ -57,10 +54,9 @@ struct PageHeaderView: View {
                     .frame(width: 26, height: 26)
                     .opacity(hideRulesIcon ? 0 : 1)
                     .onTapGesture {
-                        headerSheetPresented = .rules
-                        isSheetPresented.toggle()
+                        bottomMenuVM.headerSheetPresented = .rules
+                        bottomMenuVM.isSheetPresented = true
                     }
-                
                 
                 HStack(spacing: 10){
                     Image("icon_rating")
@@ -72,8 +68,9 @@ struct PageHeaderView: View {
                         return
                     }
                     
-                    headerSheetPresented = .rating
-                    isSheetPresented.toggle()
+                    print("Я ТУТ")
+                    bottomMenuVM.headerSheetPresented = .rating
+                    bottomMenuVM.isSheetPresented = true
                 }
             }
         }
@@ -83,13 +80,13 @@ struct PageHeaderView: View {
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color(hex: "#4D525B"))
         }
-        .sheet(isPresented: $isSheetPresented) {
-            if headerSheetPresented == .rules {
-                Text("Правила игры")
-            }else{
-                RatingView()
-            }
-        }
+//        .sheet(isPresented: $bottomMenuVM.isSheetPresented) {
+//            if bottomMenuVM.headerSheetPresented == .rules {
+//                Text("Правила игры")
+//            }else{
+//                RatingView()
+//            }
+//        }
     }
 }
 

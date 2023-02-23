@@ -19,7 +19,21 @@ struct PortraitPlayView: View {
     @State private var flip: Bool = false
     @State private var isShareSheetPresented: Bool = false
     
+    
+    @AppStorage("areCommentsOn") private var areCommentsOn: Bool = true
+    
+    
     @Environment(\.presentationMode) var presentationMode
+    
+    
+    var numberOfTheDay: Int{
+        let date = Date() // now
+        let cal = Calendar.current
+        let day = cal.ordinality(of: .day, in: .year, for: date)
+        
+        return day ?? 0
+    }
+    
     
     // MARK: - BODY
     
@@ -33,13 +47,15 @@ struct PortraitPlayView: View {
             
             VStack(alignment: .center, spacing: 0){
                 // MARK: - PAGE HEADER
-                PageHeaderView(title: playVM.gameType.name, hideHomeIcon: false)
+                PageHeaderView(title: playVM.forceTitle != "" ? playVM.forceTitle : playVM.gameType.name, hideHomeIcon: false)
                     .padding(.horizontal, 16)
                 
                 if playVM.gameIsFinished {
                     ScrollView(.vertical, showsIndicators: false){
                         GameResultView(playVM: playVM)
-                        CommentsView(playVM: playVM)
+                        if areCommentsOn{
+                            CommentsView(playVM: playVM)
+                        }
                     }
                     .padding(.horizontal, 14)
                 }else{
@@ -58,7 +74,8 @@ struct PortraitPlayView: View {
             }
             .sheet(isPresented: $playVM.isShareSheetPresented) {
                 ShareSheetView(
-                    headline: "Игра Wordle (RU) День #357")
+                    headline: "Игра ВОРДЛ День #\(numberOfTheDay)"
+                )
             }
             .confettiCannon(counter: $playVM.successConfettiCounter, num: 50, openingAngle: Angle(degrees: 0), closingAngle: Angle(degrees: 360), radius: 200)
             

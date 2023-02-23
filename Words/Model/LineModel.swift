@@ -71,12 +71,16 @@ extension Line {
         return LetterState.unanswered
     }
     
-    func getBGColorByIndex(index: Int) -> Color{
+    func getBGColorByIndex(index: Int, highlightCurrent: Bool = false) -> Color{
         if letters.indices.contains(index){
             return letters[index].state.color
         }
         
-        return LetterState.defaultColor
+        if highlightCurrent{
+            return LetterState.unanswered.color
+        } else{
+            return LetterState.defaultColor
+        }
     }
     
     func getCharacterByIndex(index: Int) -> String{

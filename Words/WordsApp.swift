@@ -20,9 +20,6 @@ struct WordsApp: App {
                         let tasks = try CoreDataProvider.shared.viewContext.fetch(TaskDBM.all)
                         
                         if tasks.isEmpty{
-                            
-                            print("Загружаю слова в БАЗУ")
-                            
                             //Загружаем слова прогресса из JSON
                             let progressionWords: [String] = Bundle.main.decode("progression-mode-ru.json")
                             progressionWords.shuffled().forEach { word in

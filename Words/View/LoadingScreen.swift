@@ -10,10 +10,14 @@ import SwiftUI
 struct LoadingScreen: View {
     // MARK: - PROPERTIES
     @State private var showingTitle: Bool = false
-    @State private var showingButton: Bool = false
+    @State private var showingButton: Bool = false    
+    
     
     @StateObject var bottomMenuVM = BottomMenuViewModel.shared
     
+    @AppStorage("isOnboardingFinished") private var isOnboardingFinished: Bool = false
+    
+    @State var isOnboardingPagePresented: Bool = false
     
     // MARK: - BODY
     var body: some View {
@@ -22,6 +26,7 @@ struct LoadingScreen: View {
                 .black
                 .opacity(0.9)
                 .edgesIgnoringSafeArea(.all)
+            
             VStack{
                 Spacer()
                 HStack{
@@ -40,8 +45,6 @@ struct LoadingScreen: View {
                 
             } //: MAIN VSTACK
             
-            
-            
             VStack{
                 Spacer()
                 Button(action: {
@@ -51,13 +54,14 @@ struct LoadingScreen: View {
                         RoundedRectangle(cornerRadius: 8)
                             .fill(.white)
                             .frame(width: 138, height: 42)
-                            .overlay(Text("Начать"))
+                            .overlay( Text(isOnboardingFinished ? "Начать" : "Как играть?"))
                             .modifier(MyFont(font: "Inter", weight: "medium", size: 14))
                             .foregroundColor(Color(hex: "#242627"))
                     }
                     .opacity(showingButton ? 1 : 0)
                 }
             }
+            
         }
         .onAppear{
             APIProvider.shared.getPoints()
@@ -70,7 +74,6 @@ struct LoadingScreen: View {
                     showingButton.toggle()
                 }
             }
-            
         }
         
     }

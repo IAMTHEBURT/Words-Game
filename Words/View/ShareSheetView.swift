@@ -22,7 +22,7 @@ struct ShareSheetView: UIViewControllerRepresentable {
                     🟨🟩⬜⬜⬜
                     🟨🟩⬜⬜⬜
                     #вордл
-                    Отгадайте слово на\nhttps://web.wordl.game/
+                    Отгадай слово дня
                     """
         // set up activity view controller
         let textToShare: [Any] = [

@@ -10,6 +10,11 @@ import SwiftUI
 struct RulesView: View {
     // MARK: - PROPERTIES
     
+    @StateObject var mainVM: MainViewModel
+    @AppStorage("isOnboardingFinished") private var isOnboardingFinished: Bool = false
+    
+    @Environment(\.presentationMode) var presentationMode
+    
     // MARK: - BODY
     
     var body: some View {
@@ -19,105 +24,71 @@ struct RulesView: View {
             
             ScrollView(.vertical, showsIndicators: false) {
                 VStack (alignment: .leading, spacing: 20){
-                    Group{
-                        Text("Угадайте загаданное слов с шести попыток")
-                        
-                        Text("После каждой попытки цвет букв будет меняться, чтобы показать какие буквы есть в загаданном слове. \n Например, загадано слово ГОСТЬ")
-                    }
                     
-                    Divider()
+                    RulesContentView()
                     
-                    Group{
-                        Text("Первым мы ввели слово РЕБУС. Буква С есть в загаданном слове, но стоит в другом месте")
-                        HStack{
-                            Spacer()
-                            Text("Р")
-                                .modifier(SquareLetterModifier(.unanswered))
-                            Text("Е")
-                                .modifier(SquareLetterModifier(.unanswered))
-                            Text("Б")
-                                .modifier(SquareLetterModifier(.unanswered))
-                            Text("У")
-                                .modifier(SquareLetterModifier(.unanswered))
-                            Text("С")
-                                .modifier(SquareLetterModifier(.rightLetterWrongPlace))
-                            Spacer()
-                        }
-                    }
-                    
-                    Divider()
-                    
-                    Group{
-                        Text("Затем ввели слово СОСНА. Буквы С и О есть в загаданном слове и стоят на правильных местах.")
-                        
-                        HStack{
-                            Spacer()
-                            
-                            Text("С")
-                                .modifier(SquareLetterModifier(.unanswered))
-                            Text("О")
-                                .modifier(SquareLetterModifier(.rightLetterRightPlace))
-                            Text("С")
-                                .modifier(SquareLetterModifier(.rightLetterRightPlace))
-                            Text("Н")
-                                .modifier(SquareLetterModifier(.unanswered))
-                            Text("А")
-                                .modifier(SquareLetterModifier(.unanswered))
-                            Spacer()
-                        }
-                        
-                        Text("Обратите внимание, что если во введенном слове две одинаковых буквы, а в загаданном слове только одна такая буква, то выделяется только одна буква.")
-                    }
-                    
-                    Divider()
-                    
-                    Group{
-                        Text("Если слово угадано правильно, то все буквы будут выделены.")
-                        
-                        HStack{
-                            Spacer()
-                            Text("Г")
-                                .modifier(SquareLetterModifier(.rightLetterRightPlace))
-                            Text("О")
-                                .modifier(SquareLetterModifier(.rightLetterRightPlace))
-                            Text("С")
-                                .modifier(SquareLetterModifier(.rightLetterRightPlace))
-                            Text("Т")
-                                .modifier(SquareLetterModifier(.rightLetterRightPlace))
-                            Text("Ь")
-                                .modifier(SquareLetterModifier(.rightLetterRightPlace))
-                            Spacer()
-                        }
-                    }
-                    
+                    //Если это первое включени, покажем кнопку запускающую первую игру
+                   
                     Spacer()
                         .frame(height: 10)
                     
-                    Button(action: {
-                        print("Got tap")
-                    }) {
+                    if isOnboardingFinished == false{
                         HStack{
                             Spacer()
-                            Text("Играть")
-                                .foregroundColor(.white)
+                            Text("Попробуйте отгадать громкое слово приветствия, которое мы загадли")
+                                .multilineTextAlignment(.center)
                             Spacer()
                         }
-                        .padding(.vertical, 18)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10.0)
-                                .fill(.blue)
-                        )
+                        HStack{
+                            Spacer()
+                            Button(action: {
+                                mainVM.startAnyWordGame(word: "салют", title: "Приветственное слово")
+                                BottomMenuViewModel.shared.isOnboardingPagePresented = false
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                                    isOnboardingFinished = true
+                                }
+                            }) {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color(hex: "#E99C5D"))
+                                    .frame(width: 177, height: 42, alignment: .center)
+                                    .overlay {
+                                        Text("Попробуем")
+                                            .modifier(MyFont(font: "Inter", weight: "medium", size: 14))
+                                            .foregroundColor(Color(hex: "#242627"))
+                                    }
+                            }
+                            Spacer()
+                        }
+                        
+                        Spacer()
+                    } else{
+                        HStack{
+                            Spacer()
+                            Button(action: {
+                                presentationMode.wrappedValue.dismiss()
+                            }) {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color(hex: "#E99C5D"))
+                                    .frame(width: 177, height: 42, alignment: .center)
+                                    .overlay {
+                                        Text("Продолжить")
+                                            .modifier(MyFont(font: "Inter", weight: "medium", size: 14))
+                                            .foregroundColor(Color(hex: "#242627"))
+                                    }
+                            }
+                            Spacer()
+                        }
+                        
+                        Spacer()
                         
                     }
-                    
-                    Spacer()
                 }
                 .padding()
                 .font(.callout)
             }
-            .navigationTitle("Правила игры")
         }
-        .foregroundColor(.black)
+        .modifier(MyFont(font: "Inter", weight: "Regular", size: 18))
+        .lineSpacing(6)
         
     }
 }
@@ -126,7 +97,7 @@ struct RulesView: View {
 struct Rules_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView{
-            RulesView()
+            RulesView(mainVM: MainViewModel())
         }
     }
 }

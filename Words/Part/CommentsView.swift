@@ -25,7 +25,6 @@ struct CommentsView: View {
     
     // MARK: - BODY
 
-    
     var body: some View {
         VStack(spacing: 24){
             // MARK: -  WRITE COMMENT TEXTAREA
@@ -93,7 +92,8 @@ struct CommentsView: View {
             ZStack{
                 //ProgressView()
                 VStack{
-                    ForEach(apiProvider.comments) { comment in
+                    ForEach(apiProvider.comments, id: \.id) { comment in
+                        
                         CommentElementView(comment: comment)
                     }
                 }

@@ -17,6 +17,7 @@
 		2C02171E2977F70A007D8FC6 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C02171A2977F70A007D8FC6 /* Inter-Regular.ttf */; };
 		2C0217202977F82B007D8FC6 /* BottomMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C02171F2977F82B007D8FC6 /* BottomMenuViewModel.swift */; };
 		2C0217222977F8DC007D8FC6 /* ActiveScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0217212977F8DC007D8FC6 /* ActiveScreen.swift */; };
+		2C08836E299E4B9800B3E833 /* BellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C08836D299E4B9800B3E833 /* BellView.swift */; };
 		2C124D49298A6B6000A8336D /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C124D48298A6B6000A8336D /* CommentModel.swift */; };
 		2C124D4B298A76ED00A8336D /* ReactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C124D4A298A76ED00A8336D /* ReactionType.swift */; };
 		2C124D4D298A77EA00A8336D /* ReactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C124D4C298A77EA00A8336D /* ReactionModel.swift */; };
@@ -26,6 +27,7 @@
 		2C33D93C2954751A00F65762 /* progression-mode-ru.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C33D93B2954751A00F65762 /* progression-mode-ru.json */; };
 		2C33D93E2954754200F65762 /* free-mode-ru.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C33D93D2954754200F65762 /* free-mode-ru.json */; };
 		2C33D942295478B800F65762 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C33D941295478B800F65762 /* TaskModel.swift */; };
+		2C5B5DA3299BB27300EA2FAB /* RulesContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5B5DA2299BB27300EA2FAB /* RulesContentView.swift */; };
 		2C64D41429829A7C001426A1 /* GameResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C64D41329829A7C001426A1 /* GameResultView.swift */; };
 		2C7971E0298E1B3C00B93603 /* DailyWordDBM + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7971DF298E1B3C00B93603 /* DailyWordDBM + Extensions.swift */; };
 		2C7971E2298E515800B93603 /* SendMessageToDevelopers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7971E1298E515800B93603 /* SendMessageToDevelopers.swift */; };
@@ -125,6 +127,7 @@
 		2C02171A2977F70A007D8FC6 /* Inter-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.ttf"; sourceTree = "<group>"; };
 		2C02171F2977F82B007D8FC6 /* BottomMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuViewModel.swift; sourceTree = "<group>"; };
 		2C0217212977F8DC007D8FC6 /* ActiveScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveScreen.swift; sourceTree = "<group>"; };
+		2C08836D299E4B9800B3E833 /* BellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BellView.swift; sourceTree = "<group>"; };
 		2C124D48298A6B6000A8336D /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
 		2C124D4A298A76ED00A8336D /* ReactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionType.swift; sourceTree = "<group>"; };
 		2C124D4C298A77EA00A8336D /* ReactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionModel.swift; sourceTree = "<group>"; };
@@ -133,6 +136,7 @@
 		2C33D93B2954751A00F65762 /* progression-mode-ru.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "progression-mode-ru.json"; sourceTree = "<group>"; };
 		2C33D93D2954754200F65762 /* free-mode-ru.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "free-mode-ru.json"; sourceTree = "<group>"; };
 		2C33D941295478B800F65762 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
+		2C5B5DA2299BB27300EA2FAB /* RulesContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesContentView.swift; sourceTree = "<group>"; };
 		2C64D41329829A7C001426A1 /* GameResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResultView.swift; sourceTree = "<group>"; };
 		2C7971DF298E1B3C00B93603 /* DailyWordDBM + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DailyWordDBM + Extensions.swift"; sourceTree = "<group>"; };
 		2C7971E1298E515800B93603 /* SendMessageToDevelopers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageToDevelopers.swift; sourceTree = "<group>"; };
@@ -341,6 +345,7 @@
 			children = (
 				2C2CAAB0295050F900891E97 /* PortraitPlayView.swift */,
 				9DF7101F294334E400B763C2 /* MainView.swift */,
+				2C08836D299E4B9800B3E833 /* BellView.swift */,
 				9D49A7372945FAEA00DD53B2 /* StatView.swift */,
 				9D0803652945D1D300B1DF1E /* GameHistory.swift */,
 				9D49A73B2946038300DD53B2 /* SettingsView.swift */,
@@ -373,6 +378,7 @@
 				9DFB06602948B79000752E6A /* GameResultAlertView.swift */,
 				2CCABAA4297FC59000FF70F5 /* PageHeaderView.swift */,
 				2C64D41329829A7C001426A1 /* GameResultView.swift */,
+				2C5B5DA2299BB27300EA2FAB /* RulesContentView.swift */,
 				9D4776822942243300DD96F4 /* NotificationView.swift */,
 				9DFB06592948AFEF00752E6A /* CountDownView.swift */,
 				9D119461294C8D73008152F5 /* KeyboardButton.swift */,
@@ -621,6 +627,7 @@
 				9D49A7452946102C00DD53B2 /* WordOfTheDayResponse.swift in Sources */,
 				2C2CAAB1295050F900891E97 /* PortraitPlayView.swift in Sources */,
 				9DFB06612948B79000752E6A /* GameResultAlertView.swift in Sources */,
+				2C08836E299E4B9800B3E833 /* BellView.swift in Sources */,
 				9D119462294C8D73008152F5 /* KeyboardButton.swift in Sources */,
 				9D4776782941EC1300DD96F4 /* PlayViewModel.swift in Sources */,
 				9D08036C2945DA1D00B1DF1E /* GameResult.swift in Sources */,
@@ -632,6 +639,7 @@
 				2CCA34FB295CA4FE00AC3DA5 /* SettingsViewModel.swift in Sources */,
 				2C124D4B298A76ED00A8336D /* ReactionType.swift in Sources */,
 				2C8CBF872983FF0000628C97 /* DailyWordResultAlertView.swift in Sources */,
+				2C5B5DA3299BB27300EA2FAB /* RulesContentView.swift in Sources */,
 				9D47767A2941F03100DD96F4 /* KeyboardView.swift in Sources */,
 				2C7971E0298E1B3C00B93603 /* DailyWordDBM + Extensions.swift in Sources */,
 				2CCABAA5297FC59000FF70F5 /* PageHeaderView.swift in Sources */,

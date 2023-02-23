@@ -36,11 +36,14 @@ struct NewCategoryView: View{
                             .font(.system(size: 10))
                     )
                 Spacer()
-                Text("\(finished.formattedWithSeparator)/\(outOf.formattedWithSeparator)")
-                    .foregroundColor(.white)
-                    .font(.system(size: 14))
-                    .fontWeight(.semibold)
-                    .layoutPriority(1)
+                
+                if outOf > 0{
+                    Text("\(finished.formattedWithSeparator)/\(outOf.formattedWithSeparator)")
+                        .foregroundColor(.white)
+                        .font(.system(size: 14))
+                        .fontWeight(.semibold)
+                        .layoutPriority(1)
+                }
             }
             .frame(width: 90)
         }

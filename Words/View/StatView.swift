@@ -60,7 +60,7 @@ struct StatView: View {
             .padding(.horizontal, 16)
             
         }
-        .foregroundColor(.black)
+        //.foregroundColor(.black)
         .onAppear{
             statVM.setStats()
         }

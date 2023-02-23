@@ -239,11 +239,11 @@ struct DailyWordResultAlertView: View {
                     }
                 }
         )
-        .onAppear{
-            apiProvider.getWordstat( word: gameHistoryModel.word )
+        .onChange(of: mainVM.showingDailyWordIsFinishedAlert) { newValue in
+            if newValue{
+                apiProvider.getWordstat( word: gameHistoryModel.word )
+            }
         }
-        
-        
     }
 }
 

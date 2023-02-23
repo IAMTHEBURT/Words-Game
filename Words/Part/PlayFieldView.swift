@@ -38,17 +38,24 @@ struct PlayFieldView: View {
         }
     }
     
+    
+    func highLightCurrent(index: UUID) -> Bool {
+        return playVM.currentLine.id == index
+    }
+    
     // MARK: - BODY
     
     var body: some View {
         LazyVGrid(columns: gridLayout, alignment: .center, spacing: spacing){
-            
             //Text("\(UIScreen.main.bounds.width)")
             ForEach(playVM.lines){ line in
                 ForEach((0...line.lettersCount - 1), id: \.self) { index in
                     RoundedRectangle(cornerRadius: 4)
                         .fill(
-                            line.getBGColorByIndex(index: index)
+                            line.getBGColorByIndex(
+                                index: index,
+                                highlightCurrent: highLightCurrent(index: line.id)
+                            )
                         )
                         .frame(height: size)
                         .overlay(

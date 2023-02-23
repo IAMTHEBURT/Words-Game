@@ -13,6 +13,8 @@ import CoreData
 class MainViewModel: NSObject, ObservableObject {
     // MARK: - PROPERTIES
     
+    static var shared: MainViewModel = MainViewModel()
+    
     private let fetchedResultsController: NSFetchedResultsController<DailyWordDBM>
     
     private (set) var context: NSManagedObjectContext
@@ -208,6 +210,17 @@ class MainViewModel: NSObject, ObservableObject {
         }
     }
     
+    func startAnyWordGame(word: String, title: String = ""){
+        playVM = PlayViewModel()
+        playVM.forceTitle = title
+        playVM.setGame(word: word, gameType: .freeMode)
+        
+        DispatchQueue.main.async{
+            self.pushToGame = true
+            self.objectWillChange.send()
+        }
+        
+    }
     
     func startFreeModeGame(count: Int){
         let request = TaskDBM.all
@@ -227,8 +240,6 @@ class MainViewModel: NSObject, ObservableObject {
             playVM.setGame(task: taskDBM, gameType: .freeMode)
             
             DispatchQueue.main.async{
-                print("Сложность")
-                print(taskDBM.difficulty)
                 self.pushToGame = true
                 self.objectWillChange.send()
             }

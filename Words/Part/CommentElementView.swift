@@ -73,6 +73,7 @@ struct CommentElementView: View {
         }
         .onChange(of: apiProvider.updatedComment) { newValue in
             guard let updatedComment = newValue else { return }
+            if updatedComment.id != self.comment.id { return }
             self.comment = updatedComment
         }
         .padding(12)

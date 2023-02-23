@@ -27,9 +27,11 @@ struct GameTypeButtonView: View {
                     .fontWeight(.bold)
                 Spacer()
                 
-                Text( String("\(finished.formattedWithSeparator)/\(outOf.formattedWithSeparator)") )
-                    .fontWeight(.bold)
-                    .font(.system(size: 14))
+                if outOf > 0{
+                    Text( String("\(finished.formattedWithSeparator)/\(outOf.formattedWithSeparator)") )
+                        .fontWeight(.bold)
+                        .font(.system(size: 14))
+                }
                 
             }
             Text(subtitle)
@@ -45,7 +47,7 @@ struct GameTypeButtonView: View {
         .overlay(
             Image(systemName: "checkmark.circle.fill")
                 .offset(x: -25, y: -8)
-                .opacity(finished == outOf ? 1 : 0)
+                .opacity(finished == outOf &&  outOf != 0 ? 1 : 0)
             ,
             alignment: .bottomTrailing
         )

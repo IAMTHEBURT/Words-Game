@@ -63,7 +63,8 @@ class APIProvider: ObservableObject{
     
     @AppStorage("UID") private var UID: String = ""
     
-    let server = "http://localhost"
+    //let server = "http://localhost"
+    let server = "http://193.187.96.70"
     @Published var message: String = ""
     @Published var showDownloading: Bool = false
     @Published var wordOfTheDay: String = ""

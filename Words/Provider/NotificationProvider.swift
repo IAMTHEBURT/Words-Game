@@ -25,7 +25,7 @@ class NotificationProvider {
     
     //Get hours and minutes via .intHours, .intMinutes
     //@AppStorage("selectedTime") private var selectedTime: Double = 1050 //Default is 17:30
-
+    
     let headlines: [String] = [
         "😎 Давай поиграем!",
         "🤘 Готовы?",
@@ -99,6 +99,7 @@ class NotificationProvider {
     
     //Удаляет все оповещения
     func removeAllNotifications(){
+        print("Удаляю")
         isDailyWordNotificationSet = false
         center.removeAllDeliveredNotifications()
         center.removeAllPendingNotificationRequests()
@@ -123,28 +124,26 @@ class NotificationProvider {
     func checkAndSetNotifiications( skipCurrentDay: Bool = false ){
         center.getPendingNotificationRequests(completionHandler: { requests in
             if requests.count < 5 {
-                self.setNotifications(skipCurrentDay: skipCurrentDay)
+                self.updateNotifications(skipCurrentDay: skipCurrentDay)
             }
         })
     }
     
-    // Устанавливает оповещения
-    func setNotifications(skipCurrentDay: Bool = false){
-        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-            if granted{
-                //Удаляем все доставленные
+    //Обновляет оповещения
+    func updateNotifications(skipCurrentDay: Bool = false){
+        //Set notifications only if we have access
+        center.getNotificationSettings { (settings) in
+            if settings.authorizationStatus == .authorized {
                 self.removeAllNotifications()
-                
                 print("<NOTIFICATIONS> We have an access, set up notifications")
-                
                 //Перебираем наши нотификации
                 self.notifications.enumerated().forEach {(index, notifyObject) in
-
+                    
                     if skipCurrentDay && index == 0{
                         print("Skipping")
                         return
                     }
-
+                    
                     //Create the new notfication
                     let notificationContent = UNMutableNotificationContent()
                     notificationContent.title = notifyObject.title
@@ -154,9 +153,9 @@ class NotificationProvider {
                     
                     //Добавили N дней к дате срабатывания
                     let nextTriggerDate = Calendar.current.date(
-                      byAdding: .day,
-                      value: index,
-                      to: Date()
+                        byAdding: .day,
+                        value: index,
+                        to: Date()
                     )!
                     
                     //Установили минуты и часы нотификации из настроек
@@ -179,19 +178,22 @@ class NotificationProvider {
                         }
                     }
                 }
+            }
+        }
+        
+        
+    }
+    
+    // Устанавливает оповещения
+    func setNotifications(){
+        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if granted{
+                self.updateNotifications()
             } else{
                 print("Don't have an access... EXIT")
             }
         }
         
-        //Set notifications only if we have access
-        center.getNotificationSettings { (settings) in
-          if settings.authorizationStatus == .authorized {
-
-          }else{
-              print("<NOTIFICATIONS> Don't have access exit")
-              return
-          }
-        }
+        
     }
 }
