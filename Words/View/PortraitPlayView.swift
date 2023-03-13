@@ -74,7 +74,7 @@ struct PortraitPlayView: View {
             }
             .sheet(isPresented: $playVM.isShareSheetPresented) {
                 ShareSheetView(
-                    headline: "Игра ВОРДЛ День #\(numberOfTheDay)"
+                    headline: "Игра \(appName.uppercased()) День #\(numberOfTheDay)"
                 )
             }
             .confettiCannon(counter: $playVM.successConfettiCounter, num: 50, openingAngle: Angle(degrees: 0), closingAngle: Angle(degrees: 360), radius: 200)

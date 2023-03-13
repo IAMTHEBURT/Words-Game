@@ -24,25 +24,33 @@ class MainViewModel: NSObject, ObservableObject {
     
     override init() {
         self.context = CoreDataProvider.shared.viewContext
-        
-        print("Готовим запрос на получение слова дня из базы")
         fetchedResultsController = NSFetchedResultsController(fetchRequest: DailyWordDBM.actual, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         super.init()
         fetchedResultsController.delegate = self
         
         do {
             try fetchedResultsController.performFetch()
-            print("Отправили запрос")
-            guard let dailyWordsDBM = fetchedResultsController.fetchedObjects else {
-                print("Не получили данные")
+            guard let dailyWordsDBM = fetchedResultsController.fetchedObjects else { return }
+            
+            guard let safeDailyWord = dailyWordsDBM.first else {
+                print("Не смогли взять первый элемент в наборе. Такого слова нет, отправляем запрос на сервер")
+                Task{
+                    do {
+                        let wordOfTheDayResponse = try await APIProvider.shared.getWordOfTheDay()
+                        print("Слово дня \(wordOfTheDayResponse)")
+                        //Записываем в базу
+                        let dailyWord = DailyWordDBM(context: CoreDataProvider.shared.viewContext)
+                        dailyWord.word = wordOfTheDayResponse.word
+                        dailyWord.active_at = Int64(wordOfTheDayResponse.active_at)
+                        dailyWord.next_at = Int64(wordOfTheDayResponse.next_at)
+                        dailyWord.save()
+                    } catch {
+                        print(error)
+                    }
+                }
                 return
             }
             
-            guard let safeDailyWord = dailyWordsDBM.first else {
-                print("Не смогли взять первый элемент в наборе. Такого слова нет")
-                APIProvider.shared.getWordOfTheDay()
-                return
-            }
             self.dailyWord = DailyWord(dailyWordDBM: safeDailyWord)
             print("Слово \(self.dailyWord?.word)")
             self.isDailyWordAnimating = true
@@ -50,7 +58,6 @@ class MainViewModel: NSObject, ObservableObject {
         } catch {
             print(error)
         }
-        
     }
     
     @Published var countDown: String = ""
@@ -66,6 +73,9 @@ class MainViewModel: NSObject, ObservableObject {
     
     @Published var showingCompletedBlockAlert = false
     @Published var showingDailyWordIsFinishedAlert = false
+    
+    
+    @Published var wordstat: WordstatModel?
     
     private var allTasks: [TaskModel] = []
     private var progressionTasks: [TaskModel] = []
@@ -93,7 +103,17 @@ class MainViewModel: NSObject, ObservableObject {
 //        }
 //    }
     
-    
+    func updateWordstat(word: String) async throws {
+        do {
+            let data = try await APIProvider.shared.getWordstat(word: word)
+            DispatchQueue.main.async{
+                self.wordstat = data
+            }
+        } catch {
+            print(error)
+        }
+        
+    }
     
     func isFreeModeCategoryOpened(count: Int) -> Bool {
         let finished = self.getCountOff(type: .progression, finished: true)
@@ -157,15 +177,6 @@ class MainViewModel: NSObject, ObservableObject {
         } catch {
             print(error.localizedDescription)
         }
-        
-//        do {
-//            let request = TaskDBM.all
-//            request.predicate = NSPredicate(format: "game != nil")
-//            self.doneProgresionTasksCount = try CoreDataProvider.shared.viewContext.count(for: request)
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-        
     }
     
     
@@ -177,7 +188,7 @@ class MainViewModel: NSObject, ObservableObject {
         
         playVM = PlayViewModel()
         playVM.setGame(word: word, gameType: .dailyWord)
-
+        
         DispatchQueue.main.async{
             self.pushToGame = true
             self.objectWillChange.send()

@@ -13,15 +13,10 @@ enum ButtonState: String{
 }
 
 struct CommentsView: View {
-    
     // MARK: - PROPERTIES
     
     @StateObject var playVM: PlayViewModel
-    @StateObject var apiProvider = APIProvider.shared
-    
-    @State private var input: String = ""
-    @State private var buttonState: ButtonState = .active
-    @State private var errorMessage: String = ""
+    @StateObject var commentsVM: CommentsViewModel = CommentsViewModel()
     
     // MARK: - BODY
 
@@ -29,8 +24,8 @@ struct CommentsView: View {
         VStack(spacing: 24){
             // MARK: -  WRITE COMMENT TEXTAREA
             VStack(spacing: 24){
-                TextField("", text: $input, axis: .vertical)
-                    .placeholder(when: input.isEmpty) {
+                TextField("", text: $commentsVM.input, axis: .vertical)
+                    .placeholder(when: commentsVM.input.isEmpty) {
                             Text("Написать комментарий")
                             .foregroundColor(.white.opacity(0.9))
                             .modifier(MyFont(font: "Inter", weight: "bold", size: 14))
@@ -41,32 +36,36 @@ struct CommentsView: View {
                 HStack{
                     Spacer()
                     Button(action: {
-                        if buttonState != .active{
+                        if commentsVM.buttonState != .active{
                             return
                         }
                         
-                        if input.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+                        if commentsVM.input.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
                             return
                         }
                         
-                        buttonState = .loading
-                        apiProvider.saveComment(word: playVM.finalWord, text: input)
+                        commentsVM.buttonState = .loading
+                        
+                        Task{
+                            await commentsVM.saveCommentAsync(word: playVM.finalWord, input: commentsVM.input)
+                        }
+                        
                     }) {
                         RoundedRectangle(cornerRadius: 8)
                             .fill(.white)
                             .frame(width: 163, height: 42)
                             .overlay(
                                 ZStack{
-                                    if buttonState == .loading {
+                                    if commentsVM.buttonState == .loading {
                                         ProgressView()
                                             .progressViewStyle(CircularProgressViewStyle(tint: Color.gray))
                                         
-                                    } else if buttonState == .active{
+                                    } else if commentsVM.buttonState == .active{
                                         Text("Отправить")
                                             .modifier(MyFont(font: "Inter", weight: "medium", size: 14))
                                             .foregroundColor(Color(hex: "#242627"))
                                         
-                                    } else if buttonState == .sent{
+                                    } else if commentsVM.buttonState == .sent{
                                         Text("Отправлено")
                                             .modifier(MyFont(font: "Inter", weight: "medium", size: 14))
                                             .foregroundColor(Color(hex: "#242627"))
@@ -83,46 +82,22 @@ struct CommentsView: View {
                     .fill(Color(hex: "#4D525B"))
             )
             
-            Text(errorMessage)
+            Text(commentsVM.errorMessage)
                 .modifier(MyFont(font: "Inter", weight: "Bold", size: 12))
                 .foregroundColor(.red)
             
             // MARK: - COMMENT BLOCK
             
             ZStack{
-                //ProgressView()
                 VStack{
-                    ForEach(apiProvider.comments, id: \.id) { comment in
-                        
-                        CommentElementView(comment: comment)
+                    ForEach(commentsVM.comments, id: \.id) { comment in
+                        CommentElementView(commentElementVM: CommentElementViewModel(comment: comment))
                     }
                 }
             }
         }
-        .onAppear{
-            apiProvider.getComments(word: playVM.finalWord)
-        }
-        
-        .onChange(of: apiProvider.isCommentSaved) { newValue in
-            guard let isCommentSaved = newValue else { return }
-            
-            if isCommentSaved {
-                input = ""
-                withAnimation {
-                    buttonState = .sent
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        buttonState = .active
-                    }
-                }
-            } else{
-                withAnimation {
-                    errorMessage = "Проблема с соединением, повторите позже"
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        buttonState = .active
-                        errorMessage = ""
-                    }
-                }
-            }
+        .task{
+            await commentsVM.updateComments(word: playVM.finalWord)
         }
         
     }

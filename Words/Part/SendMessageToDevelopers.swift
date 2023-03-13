@@ -39,7 +39,15 @@ struct SendMessageToDevelopers: View {
                         return
                     }
                     let text = "WORDS. New message from user with address ||\(emailAddress)|| his message ||\(reviewText)||"
-                    apiController.sendMessage(message: text)
+                    
+                    Task{
+                        do {
+                            try await apiController.sendMessage(message: text)
+                        } catch {
+                            print(error)
+                        }
+                    }
+                    
                     isPartialSheetPresented = false
                 }
             }

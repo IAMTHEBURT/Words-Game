@@ -30,7 +30,7 @@ struct LoadingScreen: View {
             VStack{
                 Spacer()
                 HStack{
-                    Text("Добро\nпожаловать\nв вордл")
+                    Text("Добро\nпожаловать\nв \(appName)")
                         .textCase(.uppercase)
                         .modifier(MyFont(font: "Inter", weight: "Bold", size: 36.0))
                 }
@@ -64,7 +64,6 @@ struct LoadingScreen: View {
             
         }
         .onAppear{
-            APIProvider.shared.getPoints()
             withAnimation(.easeIn(duration: 2)) {
                 showingTitle.toggle()
             }
@@ -73,6 +72,13 @@ struct LoadingScreen: View {
                 withAnimation(.easeIn(duration: 0.5)) {
                     showingButton.toggle()
                 }
+            }
+        }
+        .task {
+            do {
+                try await APIProvider.shared.getTopList()
+            } catch {
+                print(error)
             }
         }
         

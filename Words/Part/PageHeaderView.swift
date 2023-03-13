@@ -67,13 +67,19 @@ struct PageHeaderView: View {
                     if blockRatingButton {
                         return
                     }
-                    
-                    print("Я ТУТ")
                     bottomMenuVM.headerSheetPresented = .rating
                     bottomMenuVM.isSheetPresented = true
                 }
             }
         }
+//        .task {
+//            do{
+//                try await APIProvider.shared.updatePoints()
+//            } catch{
+//                print(error)
+//            }
+//        }
+        
         .foregroundColor(.white)
         .padding(17)
         .background{

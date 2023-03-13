@@ -127,7 +127,7 @@ struct SettingsView: View {
         }
         .sheet(isPresented: $settingsVM.showingShareSheet) {
             ShareSheetView(
-                headline: "Угадай слово дня в развивающей игре Вордл")
+                headline: "Угадай слово дня в развивающей игре \(appName)")
         }
         .onChange(of: isReviewLoadingOn) { newValue in
             if newValue {

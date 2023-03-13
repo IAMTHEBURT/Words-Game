@@ -10,7 +10,6 @@ import SwiftUI
 struct DailyWordResultAlertView: View {
     // MARK: - PROPERTIES
     @StateObject var mainVM: MainViewModel
-    @StateObject var apiProvider: APIProvider = .shared
     
     @State var offset = CGSize.zero
     
@@ -30,7 +29,7 @@ struct DailyWordResultAlertView: View {
     var body: some View {
         VStack(spacing: 0){
             HStack(spacing: 19){
-                Text("ВОРДЛИ ДНЯ")
+                Text("ВОРДЛ ДНЯ")
                     .foregroundColor(Color(hex: "#2C2F38"))
                 Text("/")
                     .foregroundColor(Color(hex: "#4D525B"))
@@ -47,13 +46,13 @@ struct DailyWordResultAlertView: View {
                 Text("Угадали\nслово")
                     .frame(width: 80, alignment: .leading)
                 Spacer()
-                Text("\(apiProvider.wordstat?.wonPercent ?? 0)%")
-                    .blur(radius: apiProvider.wordstat != nil ? 0 : 10)
+                Text("\(mainVM.wordstat?.wonPercent ?? 0)%")
+                    .blur(radius: mainVM.wordstat != nil ? 0 : 10)
                     .multilineTextAlignment(.center)
                                 
                 Spacer()
-                Text("\(apiProvider.wordstat?.won ?? 0) игрок(ов)")
-                    .blur(radius: apiProvider.wordstat != nil ? 0 : 10)
+                Text("\(mainVM.wordstat?.won ?? 0) игрок(ов)")
+                    .blur(radius: mainVM.wordstat != nil ? 0 : 10)
                     .frame(width: 120, alignment: .trailing)
             }
             .modifier(MyFont(font: "Inter", weight: "Bold", size: 14))
@@ -66,7 +65,7 @@ struct DailyWordResultAlertView: View {
                 .frame(height: 1)
                 .overlay{
                     ProgressView()
-                        .opacity(apiProvider.wordstat == nil ? 1 : 0)
+                        .opacity(mainVM.wordstat == nil ? 1 : 0)
                 }
             
             HStack(alignment: .center, spacing: 0){
@@ -75,14 +74,14 @@ struct DailyWordResultAlertView: View {
                 
                 Spacer()
                 
-                Text("\(apiProvider.wordstat?.lostPercent ?? 0)%")
-                    .blur(radius: apiProvider.wordstat != nil ? 0 : 10)
+                Text("\(mainVM.wordstat?.lostPercent ?? 0)%")
+                    .blur(radius: mainVM.wordstat != nil ? 0 : 10)
                     //.multilineTextAlignment(.center)
                     .frame(alignment: .leading)
                 Spacer()
                 
-                Text("\(apiProvider.wordstat?.lost ?? 0) игрок(ов)")
-                    .blur(radius: apiProvider.wordstat != nil ? 0 : 10)
+                Text("\(mainVM.wordstat?.lost ?? 0) игрок(ов)")
+                    .blur(radius: mainVM.wordstat != nil ? 0 : 10)
                     .frame(width: 120, alignment: .trailing)
             }
             .modifier(MyFont(font: "Inter", weight: "Bold", size: 14))
@@ -241,7 +240,9 @@ struct DailyWordResultAlertView: View {
         )
         .onChange(of: mainVM.showingDailyWordIsFinishedAlert) { newValue in
             if newValue{
-                apiProvider.getWordstat( word: gameHistoryModel.word )
+                Task{
+                    try await mainVM.updateWordstat(word: gameHistoryModel.word)
+                }
             }
         }
     }

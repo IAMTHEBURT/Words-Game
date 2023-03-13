@@ -7,8 +7,7 @@
 
 import Foundation
 import SwiftUI
-
-
+import Alamofire
 
 struct ServerGameSessionModel: Codable{
     let type: String
@@ -62,24 +61,10 @@ class APIProvider: ObservableObject{
     static let shared = APIProvider()
     
     @AppStorage("UID") private var UID: String = ""
-    
-    //let server = "http://localhost"
-    let server = "http://193.187.96.70"
     @Published var message: String = ""
     @Published var showDownloading: Bool = false
-    @Published var wordOfTheDay: String = ""
     @Published var wordOfTheDayResponse: WordOfTheDayResponse? = nil
-        
-    @Published var topList: [TopElement] = []
     @Published var points: Int = 0
-    @Published var comments: [Comment] = []
-    
-    @Published var savedComment: Comment?
-    @Published var updatedComment: Comment?
-    
-    @Published var isCommentSaved: Bool? = nil
-    @Published var messageToDevelopersHasBeenSent: Bool = false
-    @Published var wordstat: WordstatModel? = nil
     
     init(){
         if UID == "" { UID = UUID().uuidString }
@@ -89,271 +74,127 @@ class APIProvider: ObservableObject{
     
     
     // MARK: - GET STATISTICS ABOT THIS WORD
-    func getWordstat(word: String){
-        wordstat = nil
-        
-        guard let encoded = try? JSONEncoder().encode([ "word": word, "UID": UID ]) else {
-            print("Failed to encode order")
-            //interactionController.showDownloading = false
-            return
-        }
-        
-        print(String(data: encoded, encoding: .utf8)!)
-        
-        let urlString = "\(server)/api/wordstat/"
-        
-        print(word)
-        print(urlString)
-        guard let url = URL(string: urlString) else {
-            //fatalError("Missing URL")
-            //self.message = "Отсутствует подключение"
-            print("Отсутствует подключение")
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        request.httpBody = encoded
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            // handle the result here.
-            if let error = error {
-                print("Request error: ", error)
-                return
-            }
+    
+    func getWordstat(word: String) async throws -> WordstatModel{
+        return try await withCheckedThrowingContinuation { continuation in
+            let urlString = "\(server)/api/wordstat/"
+            guard let url = URL(string: urlString) else { return }
+            guard let encoded = try? JSONEncoder().encode([ "word": word, "UID": UID ]) else { return }
             
-            guard let response = response as? HTTPURLResponse else {
-                print("GET RESPONSE ERROR")
-                return
-            }
+            var request = URLRequest(url: url)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = "POST"
+            request.httpBody = encoded
             
-            if response.statusCode == 200 || response.statusCode == 201{
-                DispatchQueue.main.async {
-                    guard let data = data else {
-                        print("No data in response: \(error?.localizedDescription ?? "Unknown error").")
-                        return
-                    }
-                    
-                    do {
-                        print("Статистика получена")
-                        let decodedResult = try JSONDecoder().decode(WordstatModel.self, from: data)
-                        self.wordstat = decodedResult
-                    } catch let error {
-                        print("Error: ", error)
-                    }
+            AF.request( request )
+            .validate()
+            .responseDecodable(of: WordstatModel.self ) { response in
+                switch(response.result) {
+                case let .success(data):
+                    continuation.resume(returning: data)
+                case let .failure(error):
+                    continuation.resume(throwing: self.handleError(error: error))
                 }
             }
-            print(url)
-            print("STATUS CODE \(response.statusCode)")
-        }.resume()
-        
-           
+        }
     }
     
     // MARK: - SEND MESSAGE TO DEVELOPERS
-    func sendMessage(message: String) {
-        //interactionController.showDownloading = true
-        
-        guard let encoded = try? JSONEncoder().encode(["message": "\(UID) \(message)"]) else {
-            print("Failed to encode order")
-            //interactionController.showDownloading = false
-            return
-        }
-        
-        print(String(data: encoded, encoding: .utf8)!)
-        
-        guard let url = URL(string: "https://vin.monster/minute/message/") else {
-            print("Отсутствует подключение")
-            //interactionController.showDownloading = false
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        request.httpBody = encoded
-        
-        print(encoded)
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            // handle the result here.
-            if let error = error {
-                print("Request error: ", error)
-                //self.interactionController.showDownloading = false
-                return
-            }
+    func sendMessage(message: String) async throws {
+        return try await withCheckedThrowingContinuation { continuation in
+            guard let encoded = try? JSONEncoder().encode(["message": "\(UID) \(message)"]) else { return }
+            guard let url = URL(string: "https://vin.monster/minute/message/") else { return }
             
-            guard let response = response as? HTTPURLResponse else {
-                print("GET RESPONSE ERROR")
-                //self.interactionController.showDownloading = false
-                return
-            }
+            print(String(data: encoded, encoding: .utf8)!)
             
-            if response.statusCode == 200 {
-                guard let data = data else { return }
-                DispatchQueue.main.async {
-                    do {
-                        let decodedResult = try JSONDecoder().decode(Bool.self, from: data)
-                        print(decodedResult)
-                        
-                        //self.interactionController.showDownloading = false
-                        
-                        withAnimation(.easeInOut(duration: 1)){
-                            self.messageToDevelopersHasBeenSent = true
-                        }
-                        
-                    } catch let error {
-                        //self.interactionController.showDownloading = false
-                        print("Error decoding: ", error)
-                    }
+            var request = URLRequest(url: url)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = "POST"
+            request.httpBody = encoded
+            
+            AF.request(
+                request
+            )
+            .validate()
+            .response { response in
+                switch(response.result) {
+                case .success:
+                    continuation.resume()
+                case let .failure(error):
+                    continuation.resume(throwing: self.handleError(error: error))
                 }
             }
-            print(url)
-            print("STATUS CODE \(response.statusCode)")
-        }.resume()
+        }
     }
     
-    func addReaction(type: ReactionType, comment_id: Int){
-        updatedComment = nil
-        let reaction = Reaction(type: type, UID: UID, comment_id: comment_id)
-        
-        let urlString = "\(server)/api/reactions/"
-        
-        guard let url = URL(string: urlString) else {
-            //fatalError("Missing URL")
-            //self.message = "Отсутствует подключение"
-            print("Отсутствует подключение")
-            return
-        }
-        
-        guard let encoded = try? JSONEncoder().encode(reaction) else {
-            print("Failed to encode order")
-            return
-        }
-        
-        print(String(data: encoded, encoding: .utf8)!)
-        
-        var request = URLRequest(url: url)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        request.httpBody = encoded
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            // handle the result here.
-            if let error = error {
-                print("Request error: ", error)
-                return
-            }
+    func addReaction(type: ReactionType, comment_id: Int) async throws -> Comment?{
+        return try await withCheckedThrowingContinuation { continuation in
+            let reaction = Reaction(type: type, UID: UID, comment_id: comment_id)
+            let urlString = "\(server)/api/reactions/"
             
-            guard let response = response as? HTTPURLResponse else {
-                print("GET RESPONSE ERROR")
-                return
-            }
+            guard let url = URL(string: urlString) else { return }
+            guard let encoded = try? JSONEncoder().encode(reaction) else { return }
             
-            if response.statusCode == 200 || response.statusCode == 201{
-                DispatchQueue.main.async {
-                    guard let data = data else {
-                        print("No data in response: \(error?.localizedDescription ?? "Unknown error").")
-                        return
-                    }
-                    
-                    do {
-                        print("Комментарий сохранен")
-                        let decodedResult = try JSONDecoder().decode(Comment.self, from: data)
-                        self.updatedComment = decodedResult
-                        print(decodedResult)
-                        
-                    } catch let error {
-                        print("Error: ", error)
-                    }
+            var request = URLRequest(url: url)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = "POST"
+            request.httpBody = encoded
+            
+            AF.request(
+                request
+            )
+            .validate()
+            .responseDecodable(of: Comment.self) { response in
+                switch(response.result) {
+                case let .success(data):
+                    continuation.resume(returning: data)
+                case let .failure(error):
+                    continuation.resume(throwing: self.handleError(error: error))
                 }
             }
-            print(url)
-            print("STATUS CODE \(response.statusCode)")
-        }.resume()
+        }
     }
     
-    
-    func getComments(word: String){
-        
-        let urlString = "\(server)/api/getcomments/"
-        
-        guard let url = URL(string: urlString) else {
-            //fatalError("Missing URL")
-            //self.message = "Отсутствует подключение"
-            print("Отсутствует подключение")
-            return
-        }
-        
-        guard let encoded = try? JSONEncoder().encode(CommentsRequestModel(word: word, UID: self.UID)) else {
-            print("Failed to encode order")
-            return
-        }
-        
-        print(String(data: encoded, encoding: .utf8)!)
-        
-        var request = URLRequest(url: url)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        request.httpBody = encoded
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            // handle the result here.
-            if let error = error {
-                print("Request error: ", error)
+    func getComments(word: String) async throws -> [Comment]{
+        return try await withCheckedThrowingContinuation { continuation in
+            let urlString = "\(server)/api/getcomments/"
+            guard let url = URL(string: urlString) else { return }
+            
+            guard let encoded = try? JSONEncoder().encode(CommentsRequestModel(word: word, UID: self.UID)) else {
+                print("Failed to encode order")
                 return
             }
             
-            guard let response = response as? HTTPURLResponse else {
-                print("GET RESPONSE ERROR")
-                return
-            }
+            var request = URLRequest(url: url)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = "POST"
+            request.httpBody = encoded
             
-            if response.statusCode == 200 || response.statusCode == 201{
-                DispatchQueue.main.async {
-                    guard let data = data else {
-                        print("No data in response: \(error?.localizedDescription ?? "Unknown error").")
-                        return
-                    }
-                    
-                    do {
-                        print("Комментарии получены")
-                        let decodedResult = try JSONDecoder().decode([Comment].self, from: data)
-                        withAnimation {
-                            self.comments = decodedResult
-                        }
-                        
-                        print(decodedResult)
-                        
-                    } catch let error {
-                        print("Error: ", error)
-                    }
+            AF.request(
+                request
+            )
+            .validate()
+            .responseDecodable(of: [Comment].self) { response in
+                switch(response.result) {
+                case let .success(data):
+                    continuation.resume(returning: data)
+                case let .failure(error):
+                    continuation.resume(throwing: self.handleError(error: error))
                 }
             }
-            print(url)
-            print("STATUS CODE \(response.statusCode)")
-        }.resume()
-        
+        }
     }
     
-    func saveComment(word: String, text: String){
-        isCommentSaved = nil
-        
-        
+    func saveComment(word: String, text: String) async throws -> (Bool, Comment?){
+        print("Сохраняю комментарий")
         let comment = SaveCommentModel(word: word, text: text, UID: UID)
-        
         let urlString = "\(server)/api/comments/"
-        guard let url = URL(string: urlString) else {
-            //fatalError("Missing URL")
-            //self.message = "Отсутствует подключение"
-            print("Отсутствует подключение")
-            return
-        }
+        
+        guard let url = URL(string: urlString) else { return (false, nil) }
         
         guard let encoded = try? JSONEncoder().encode(comment) else {
             print("Failed to encode order")
-            return
+            return (false, nil)
         }
         
         print(String(data: encoded, encoding: .utf8)!)
@@ -363,187 +204,112 @@ class APIProvider: ObservableObject{
         request.httpMethod = "POST"
         request.httpBody = encoded
         
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            // handle the result here.
-            if let error = error {
-                print("Request error: ", error)
-                return
-            }
-            
-            guard let response = response as? HTTPURLResponse else {
-                print("GET RESPONSE ERROR")
-                return
-            }
-            
-            if response.statusCode == 200 || response.statusCode == 201{
-                DispatchQueue.main.async {
-                    guard let data = data else {
-                        print("No data in response: \(error?.localizedDescription ?? "Unknown error").")
-                        return
-                    }
-                    do {
-                        print("Комментарий сохранен")
-                        let decodedResult = try JSONDecoder().decode(Comment.self, from: data)
-                        self.savedComment = decodedResult
-                        print(decodedResult)
-                        self.getComments(word: word)
-                        self.isCommentSaved = true
-                        
-                    } catch let error {
-                        print("Error: ", error)
-                    }
+        return try await withCheckedThrowingContinuation { continuation in
+            AF.request(request)
+            .validate()
+            .responseDecodable(of: Comment.self){ response in
+                switch(response.result) {
+                case let .success(data):
+                    continuation.resume(returning: (true, data))
+                case let .failure(error):
+                    print(error)
+                    continuation.resume(returning: (false, nil))
                 }
             }
-            print(url)
-            print("STATUS CODE \(response.statusCode)")
-        }.resume()
-    }
-    
-    func getPoints(){
-        let urlString = "\(server)/api/getPoints/\(UID)"
-        
-        guard let url = URL(string: urlString) else {
-            //fatalError("Missing URL")
-            self.message = "Отсутствует подключение"
-            //self.showDownloadProgressView = false
-            return
         }
-        
-        let urlRequest = URLRequest(url: url)
-        
-        URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-            if let error = error {
-                print("Request error: ", error)
-                return
-            }
-            
-            guard let response = response as? HTTPURLResponse else {
-                print("GET RESPONSE ERROR")
-                return
-            }
-            
-            if response.statusCode == 200 {
-                guard let data = data else {
-                    print("No data in response: \(error?.localizedDescription ?? "Unknown error").")
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    do {
-                        let decodedResult = try JSONDecoder().decode(Int.self, from: data)
-                        self.points = decodedResult
-                        print("Points \(decodedResult)")
-                    } catch let error {
-                        print("Error decoding: ", error)
-                    }
-                }
-            }
-            
-            print("STATUS CODE \(response.statusCode)")
-        }.resume()
     }
     
-    func getTopList(){
-        let urlString = "\(server)/api/top/\(UID)"
-        
-        guard let url = URL(string: urlString) else {
-            //fatalError("Missing URL")
-            //self.message = "Отсутствует подключение"
-            print("Отсутствует подключение")
-            //self.showDownloadProgressView = false
-            return
+    func updatePoints() async throws {
+        return try await withCheckedThrowingContinuation { continuation in
+            let urlString = "\(server)/api/getPoints/\(UID)"
+            print(urlString)
+            AF.request(
+                urlString,
+                method: .get
+            )
+            .validate()
+            .responseDecodable(of: Int.self) { response in
+                switch(response.result) {
+                case let .success(data):
+                    self.points = data
+                    continuation.resume()
+                case let .failure(error):
+                    continuation.resume(throwing: self.handleError(error: error))
+                }
+            }
         }
-        
-        let urlRequest = URLRequest(url: url)
-        
-        URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-            if let error = error {
-                print("Request error: ", error)
-                return
-            }
-            
-            guard let response = response as? HTTPURLResponse else {
-                print("GET RESPONSE ERROR")
-                return
-            }
-            
-            if response.statusCode == 200 {
-                guard let data = data else {
-                    print("No data in response: \(error?.localizedDescription ?? "Unknown error").")
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    do {
-                        let decodedResult = try JSONDecoder().decode( [TopElement].self , from: data)
-                        self.topList = decodedResult
-                        
-                        print("ТОП ЛИСТ")
-                        print(decodedResult)
-                    } catch let error {
-                        print("Error decoding: ", error)
-                    }
-                }
-            }
-            
-            print(url)
-            print("STATUS CODE \(response.statusCode)")
-        }.resume()
     }
     
-    func saveTheGame(game: GameHistoryModel){
+    func getTopList() async throws -> [TopElement]{
+        return try await withCheckedThrowingContinuation { continuation in
+            let urlString = "\(server)/api/top/\(UID)"
+            AF.request(
+                urlString,
+                method: .get
+            )
+            .validate()
+            .responseDecodable(of: [TopElement].self) { response in
+                switch(response.result) {
+                case let .success(data):
+                    continuation.resume(returning: data)
+                case let .failure(error):
+                    continuation.resume(throwing: self.handleError(error: error))
+                }
+            }
+        }
+    }
+    
+    func saveTheGame(game: GameHistoryModel) async throws{
+        print("Сохраняю игру")
+        let urlString = "\(server)/api/games"
         let serverGameSessionModel = ServerGameSessionModel(type: game.gameType.name, word: game.word, UID: UID, result: game.result.rawValue, filled_lines: game.tries, duration: game.duration)
-        
-        let urlString = "\(server)/api/games/"
-        guard let url = URL(string: urlString) else {
-            //fatalError("Missing URL")
-            //self.message = "Отсутствует подключение"
-            print("Отсутствует подключение")
-            return
-        }
-        
         guard let encoded = try? JSONEncoder().encode(serverGameSessionModel) else {
             print("Failed to encode order")
             return
         }
         
-        print(String(data: encoded, encoding: .utf8)!)
-        
-        var request = URLRequest(url: url)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        request.httpBody = encoded
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            // handle the result here.
-            if let error = error {
-                print("Request error: ", error)
-                return
-            }
-            
-            guard let response = response as? HTTPURLResponse else {
-                print("GET RESPONSE ERROR")
-                return
-            }
-            
-            if response.statusCode == 200 || response.statusCode == 201{
-                DispatchQueue.main.async {
-                    do {
-                        print("Игровая сессия. Успешно сохранена")
-                    } catch let error {
-                        print("Error: ", error)
-                    }
+        return try await withCheckedThrowingContinuation { continuation in
+            AF.request(
+                urlString,
+                method: .post,
+                parameters: encoded,
+                encoder: .json
+            )
+            .validate()
+            .response { response in
+                switch(response.result) {
+                case .success:
+                    continuation.resume()
+                case let .failure(error):
+                    continuation.resume(throwing: self.handleError(error: error))
                 }
             }
-            print(url)
-            print("STATUS CODE \(response.statusCode)")
-        }.resume()
+        }
     }
     
     
+    // OK
+    func getWordOfTheDay() async throws -> WordOfTheDayResponse {
+        return try await withCheckedThrowingContinuation { continuation in
+            let urlString = "\(server)/api/dailyword"
+            AF.request(
+                urlString,
+                method: .get
+            )
+            .validate()
+            .responseDecodable(of: WordOfTheDayResponse.self) { response in
+                switch(response.result) {
+                case let .success(data):
+                    continuation.resume(returning: data)
+                case let .failure(error):
+                    continuation.resume(throwing: self.handleError(error: error))
+                }
+            }
+        }
+    }
+    
     
     func getWordOfTheDay(){
-        
         let urlString = "\(server)/api/dailyword"
         guard let url = URL(string: urlString) else {
             //fatalError("Missing URL")
@@ -597,5 +363,32 @@ class APIProvider: ObservableObject{
             print(url)
             print("STATUS CODE \(response.statusCode)")
         }.resume()
+    }
+    
+    
+    
+    private func handleError(error: AFError) -> Error {
+        if let underlyingError = error.underlyingError {
+            let nserror = underlyingError as NSError
+            let code = nserror.code
+            if code == NSURLErrorNotConnectedToInternet ||
+                code == NSURLErrorTimedOut ||
+                code == NSURLErrorInternationalRoamingOff ||
+                code == NSURLErrorDataNotAllowed ||
+                code == NSURLErrorCannotFindHost ||
+                code == NSURLErrorCannotConnectToHost ||
+                code == NSURLErrorNetworkConnectionLost
+            {
+                var userInfo = nserror.userInfo
+                userInfo[NSLocalizedDescriptionKey] = "Unable to connect to the server"
+                let currentError = NSError(
+                    domain: nserror.domain,
+                    code: code,
+                    userInfo: userInfo
+                )
+                return currentError
+            }
+        }
+        return error
     }
 }

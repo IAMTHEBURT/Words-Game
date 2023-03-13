@@ -10,17 +10,14 @@ import SwiftUI
 struct RatingView: View {
     // MARK: - PROPERTIES
     
-    @StateObject var apiProvider = APIProvider.shared
-    
-    @State var showLoading: Bool = true
+    @StateObject var ratingVM: RatingViewModel = RatingViewModel()
     
     func getBackgroundForPosition(index: Int, isPlayer: Bool) -> some View{
-        
         //Если первая строка
         if index + 1 == 1 {
             return RoundedCorners(color: Color(hex: "#DD6B4E"), tl: 8, tr: 8, bl: 0, br: 0)
         //Если последняя строка
-        } else if index + 1 == apiProvider.topList.count{
+        } else if index + 1 == ratingVM.topList.count{
             if isPlayer{
                 return RoundedCorners(color: Color(hex: "#4D525B"), tl: 0, tr: 0, bl: 8, br: 8)
             }else{
@@ -43,9 +40,7 @@ struct RatingView: View {
             Color("BGColor")
                 .edgesIgnoringSafeArea(.all)
             
-            
-            
-            if apiProvider.topList.isEmpty{
+            if ratingVM.topList.isEmpty{
                 VStack {
                     Spacer()
                     ProgressView()
@@ -66,7 +61,7 @@ struct RatingView: View {
                     Spacer()
                         .frame(height: 48)
                     VStack(spacing: 0){
-                        ForEachWithIndex(apiProvider.topList, id: \.nickname) { index, topElement in
+                        ForEachWithIndex(ratingVM.topList, id: \.nickname) { index, topElement in
                             
                             VStack{
                                 HStack(spacing: 0){
@@ -90,16 +85,16 @@ struct RatingView: View {
                                 .padding(.horizontal, 12)
                                 
                                 
-                                if topElement.isPlayer{
-                                    HStack(spacing: 24){
-                                        Spacer()
-                                        RatingIcon(bgColor: Color(hex: "#DE6B4E"), iconName: "rating_icon_grow")
-                                        RatingIcon(bgColor: Color(hex: "#E99C5D"), iconName: "rating_icon_share")
-                                        RatingIcon(bgColor: Color(hex: "#289788"), iconName: "rating_icon_edit")
-                                        Spacer()
-                                    }
-                                    .padding(.vertical, 10)
-                                }
+//                                if topElement.isPlayer{
+//                                    HStack(spacing: 24){
+//                                        Spacer()
+//                                        RatingIcon(bgColor: Color(hex: "#DE6B4E"), iconName: "rating_icon_grow")
+//                                        RatingIcon(bgColor: Color(hex: "#E99C5D"), iconName: "rating_icon_share")
+//                                        RatingIcon(bgColor: Color(hex: "#289788"), iconName: "rating_icon_edit")
+//                                        Spacer()
+//                                    }
+//                                    .padding(.vertical, 10)
+//                                }
                                 
                             }
                             .background(
@@ -107,33 +102,6 @@ struct RatingView: View {
                             )
                             
                         }
-                        
-                        
-//                        VStack{
-//                            HStack{
-//                                Text("234")
-//                                Spacer()
-//                                Text("Unknown8363788")
-//                                Spacer()
-//                                Text("320")
-//                            }
-//                            .padding(.vertical, 10)
-//                            .padding(.horizontal, 12)
-//                            
-//                            HStack(spacing: 24){
-//                                Spacer()
-//                                RatingIcon(bgColor: Color(hex: "#DE6B4E"), iconName: "rating_icon_grow")
-//                                RatingIcon(bgColor: Color(hex: "#E99C5D"), iconName: "rating_icon_share")
-//                                RatingIcon(bgColor: Color(hex: "#289788"), iconName: "rating_icon_edit")
-//                                Spacer()
-//                            }
-//                        }
-//                        .padding(.bottom, 26)
-//                        .background(
-//                            RoundedCorners(color: Color(hex: "#4D525B"), tl: 0, tr: 0, bl: 8, br: 8)
-//                        )
-                        
-                        
                         
                     }
                     .background(
@@ -147,8 +115,8 @@ struct RatingView: View {
             }
         }
         .modifier(MyFont(font: "Inter", weight: "bold", size: 14))
-        .onAppear{
-            apiProvider.getTopList()
+        .task {
+            try! await ratingVM.getTopList()
         }
     }
     

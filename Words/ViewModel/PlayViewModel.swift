@@ -159,6 +159,7 @@ class PlayViewModel: ObservableObject {
     func setGame(word: String, gameType: GameType){
         self.finalWord = word.uppercased()
         self.gameType = gameType
+        setLines()
     }
 
     func setGame(task: TaskDBM, gameType: GameType){
@@ -253,11 +254,9 @@ class PlayViewModel: ObservableObject {
     func checkTheLine(){
         //Check if this is a real word
         if !Dictionary.shared.hasTheWord(word: lines[currentLineIndex].lettersAsString){
-            playSound(sound: "Unlock Quirk 3", type: "wav")
+            playSound(sound: "custom-1", type: "wav")
             showNotifyView(text: "Мы не нашли такого слова в нашем словаре")
             return
-        }else{
-            print("!!!!СЛОВО НАЙДЕНО")
         }
         
         tries += 1
@@ -281,12 +280,12 @@ class PlayViewModel: ObservableObject {
             print("YOU WON")
             self.result = .win
             finishTheGame()
-            playSound(sound: "Nintendo eShop", type: "wav")
+            playSound(sound: "custom-2", type: "wav")
             successConfettiCounter += 1
         }
 
         
-        playSound(sound: "Unlock Quirk 4", type: "wav")
+        playSound(sound: "custom-3", type: "wav")
         // FINISH
         if lines.count == currentLineIndex + 1 {
             finishTheGame()
@@ -337,7 +336,14 @@ class PlayViewModel: ObservableObject {
             NotificationProvider.shared.updateNotifications(skipCurrentDay: true)
         }
         
-        APIProvider.shared.saveTheGame(game: self.gameHistory!)
+        Task{
+            do{
+                try await APIProvider.shared.saveTheGame(game: self.gameHistory!)
+                try await APIProvider.shared.updatePoints()
+            }catch{
+                print(error)
+            }
+        }
     }
     
     func nextLine(){

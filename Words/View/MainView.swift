@@ -8,11 +8,11 @@ import SwiftUI
 
 struct MainView: View {
     // MARK: - PROPERTIES
-    @StateObject private var mainVM: MainViewModel = MainViewModel.shared
-    @StateObject private var APIProvider: APIProvider = .shared
-    
     @AppStorage("isDailyWordNotificationSet") private var isDailyWordNotificationSet: Bool = false
     @AppStorage("isOnboardingFinished") private var isOnboardingFinished: Bool = false
+    
+    @StateObject private var mainVM: MainViewModel = MainViewModel.shared
+    @StateObject private var APIProvider: APIProvider = .shared
     
     @State var isDailyWordAnimating: Bool = false
 
@@ -35,7 +35,7 @@ struct MainView: View {
                 
                 VStack(spacing: 0){
                     
-                    PageHeaderView(title: "ВОРДЛ")
+                    PageHeaderView(title: appName)
                         .offset(y: 2)
                     //GAME OPTIONS
                     
@@ -44,7 +44,7 @@ struct MainView: View {
                             
                             VStack(alignment: .leading, spacing: 8){
                                 HStack{
-                                    Text("Вордл дня")
+                                    Text("Ворди дня")
                                         .font(.system(size: 20))
                                         .fontWeight(.bold)
                                     Spacer()
@@ -89,7 +89,6 @@ struct MainView: View {
                                 }
                             }
                             
-                            
                             GameTypeButtonView(
                                 title: "Турнир",
                                 subtitle: "Пройдите все уровни один за другим",
@@ -125,66 +124,10 @@ struct MainView: View {
                                     }
                                 }
                             }
-                              
-//#if DEBUG
-//                            VStack{
-//
-//                                Button(action: {
-//                                    do {
-//                                        let allDailyWords = try CoreDataProvider.shared.viewContext.fetch(DailyWordDBM.all)
-//
-//                                        allDailyWords.forEach { word in
-//                                            word.delete()
-//                                        }
-//                                        try CoreDataProvider.shared.viewContext.save()
-//                                    } catch {
-//                                        print(error.localizedDescription)
-//                                    }
-//
-//                                }) {
-//                                    Text("Сбросить слова дня")
-//                                }
-//
-//
-//                                Button(action: {
-//                                    APIProvider.getComments(word: "Усадка")
-//                                }) {
-//                                    Text("Получить комменты")
-//                                }
-//
-//                                Button(action: {
-//                                    APIProvider.getPoints()
-//                                }) {
-//                                    Text("Получить очки")
-//                                }
-//
-//                                Button(action: {
-//                                    APIProvider.getTopList()
-//                                }) {
-//                                    Text("Получить топ")
-//                                }
-//
-//                                Button(action: {
-//                                    let gameHistory = GameHistoryModel(gameDBM: GameDBM.emptyInit())
-//                                    APIProvider.saveTheGame(game: gameHistory)
-//                                }) {
-//                                    Text("Сохранить игру")
-//                                }
-//
-//                                Button(action: {
-//                                    APIProvider.getWordOfTheDay()
-//                                }) {
-//                                    Text("Получить слово дня")
-//                                }
-//
-//                            }
-//#endif
                             
                         }
                         .padding(.top, 86)
                         .padding(.bottom, 186)
-                        
-                        
                         
                     } //: SCROLLVIEW
                     
@@ -222,7 +165,6 @@ struct MainView: View {
             }
             .onAppear{
                 mainVM.updateTasksData()
-                //APIProvider.getWordOfTheDay()
             }
             .onChange(of: mainVM.showingDailyWordIsFinishedAlert, perform: { newValue in
                 if newValue {
@@ -231,25 +173,12 @@ struct MainView: View {
                     BottomMenuViewModel.shared.showMenu()
                 }
             })
-            
-//            .onChange(of: APIProvider.wordOfTheDayResponse, perform: { _ in
-//                isDailyWordAnimating = true
-//            })
-            
-//            .onChange(of: mainVM.dailyWord, perform: { dailyWord in
-//                if dailyWord != nil {
-//                    isDailyWordAnimating = true
-//                }
-//            })
-            
             .navigationDestination(isPresented: $mainVM.pushToGame) {
                 PortraitPlayView(playVM: mainVM.playVM)
             }
             .alert("🤓 Кажется, вы уже прошли этот блок слов. Вы всегда можете сбросить весь прогресс в настройках и начать сызнова.", isPresented: $mainVM.showingCompletedBlockAlert) {
                 Button("Ок") { mainVM.showingCompletedBlockAlert = false }
             }
-
-            
             
         } //: NAVIIGATION STACK
     }

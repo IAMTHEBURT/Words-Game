@@ -15,7 +15,6 @@ struct WordsApp: App {
         WindowGroup {
             ContentView()
                 .onAppear{
-                    //APIProvider.shared.getWordOfTheDay()
                     do {
                         let tasks = try CoreDataProvider.shared.viewContext.fetch(TaskDBM.all)
                         
@@ -41,17 +40,6 @@ struct WordsApp: App {
                                 task.count = Int16(word.count)
                                 task.save()
                             }
-                            
-                            //Загружаем Free Mode Сложные
-//                            let freeDifficultWords: [String] = Bundle.main.decode("freeDifficult-ru.json")
-//                            freeDifficultWords.shuffled().forEach { word in
-//                                let task = TaskDBM(context: CoreDataProvider.shared.viewContext)
-//                                task.word = word.uppercased()
-//                                task.difficulty = Int16(Difficulty.hard.rawValue)
-//                                task.type = Int16(GameType.freeMode.rawValue)
-//                                task.count = Int16(word.count)
-//                                task.save()
-//                            }
                             
                         }
                     } catch {
