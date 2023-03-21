@@ -12,38 +12,6 @@ struct WordsApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .onAppear{
-                    do {
-                        let tasks = try CoreDataProvider.shared.viewContext.fetch(TaskDBM.all)
-                        
-                        if tasks.isEmpty{
-                            //Загружаем слова прогресса из JSON
-                            let progressionWords: [String] = Bundle.main.decode("progression-mode-ru.json")
-                            progressionWords.shuffled().forEach { word in
-                                let task = TaskDBM(context: CoreDataProvider.shared.viewContext)
-                                task.word = word.uppercased()
-                                task.difficulty = Int16(Difficulty.low.rawValue)
-                                task.type = Int16(GameType.progression.rawValue)
-                                task.count = Int16(word.count)
-                                task.save()
-                            }
-                            
-                            //Загружаем Free Mode Легкие
-                            let freeEasyWords: [String] = Bundle.main.decode("free-mode-ru.json")
-                            freeEasyWords.shuffled().forEach { word in
-                                let task = TaskDBM(context: CoreDataProvider.shared.viewContext)
-                                task.word = word.uppercased()
-                                task.difficulty = Int16(Difficulty.low.rawValue)
-                                task.type = Int16(GameType.freeMode.rawValue)
-                                task.count = Int16(word.count)
-                                task.save()
-                            }
-                            
-                        }
-                    } catch {
-                        print("FAILED TO SAVE TASKS TO THE DATABASE \(error.localizedDescription)")
-                    }
-                }
         }
     }
 }

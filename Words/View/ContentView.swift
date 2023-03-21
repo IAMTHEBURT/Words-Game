@@ -62,6 +62,10 @@ struct ContentView: View {
                 
             }else{
                 LoadingScreen(bottomMenuVM: bottomMenuVM)
+                    .onAppear{
+                        try? LocalDataProvider()
+                            .checkAndStoreData()
+                    }
             }
         }
     }
