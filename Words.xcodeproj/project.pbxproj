@@ -35,9 +35,15 @@
 		2C64D41429829A7C001426A1 /* GameResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C64D41329829A7C001426A1 /* GameResultView.swift */; };
 		2C676E7229C990FE009772A0 /* ColorBlended.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C676E7129C990FE009772A0 /* ColorBlended.swift */; };
 		2C676E7429C99121009772A0 /* View + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C676E7329C99121009772A0 /* View + Extensions.swift */; };
-		2C676E7629C9941F009772A0 /* custom-4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C676E7529C9941F009772A0 /* custom-4.wav */; };
 		2C676E7829C9A109009772A0 /* Array + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C676E7729C9A109009772A0 /* Array + Extensions.swift */; };
 		2C676E7A29C9AA4D009772A0 /* SKStoreReviewController + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C676E7929C9AA4D009772A0 /* SKStoreReviewController + Extensions.swift */; };
+		2C676E8029C9B262009772A0 /* no-such-word.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C676E7B29C9B261009772A0 /* no-such-word.wav */; };
+		2C676E8129C9B262009772A0 /* you-won.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C676E7C29C9B262009772A0 /* you-won.wav */; };
+		2C676E8229C9B262009772A0 /* you-done.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C676E7D29C9B262009772A0 /* you-done.wav */; };
+		2C676E8329C9B262009772A0 /* tap-3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C676E7E29C9B262009772A0 /* tap-3.wav */; };
+		2C676E8429C9B262009772A0 /* tap-4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C676E7F29C9B262009772A0 /* tap-4.wav */; };
+		2C676E8729C9B27E009772A0 /* tap-1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C676E8529C9B27D009772A0 /* tap-1.wav */; };
+		2C676E8829C9B27E009772A0 /* tap-2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C676E8629C9B27E009772A0 /* tap-2.wav */; };
 		2C7971E0298E1B3C00B93603 /* DailyWordDBM + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7971DF298E1B3C00B93603 /* DailyWordDBM + Extensions.swift */; };
 		2C7971E2298E515800B93603 /* SendMessageToDevelopers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7971E1298E515800B93603 /* SendMessageToDevelopers.swift */; };
 		2C7971E5298E51C400B93603 /* Shake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7971E4298E51C400B93603 /* Shake.swift */; };
@@ -49,9 +55,6 @@
 		2C8CBF852983ED3400628C97 /* CommentElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8CBF842983ED3400628C97 /* CommentElementView.swift */; };
 		2C8CBF872983FF0000628C97 /* DailyWordResultAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8CBF862983FF0000628C97 /* DailyWordResultAlertView.swift */; };
 		2C9065F12994FCCB00F752CB /* Formatter + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9065F02994FCCB00F752CB /* Formatter + Extensions.swift */; };
-		2C90660F2995002600F752CB /* custom-3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9065F92995002500F752CB /* custom-3.wav */; };
-		2C9066142995002600F752CB /* custom-1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9065FE2995002600F752CB /* custom-1.wav */; };
-		2C9066182995002600F752CB /* custom-2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9066022995002600F752CB /* custom-2.wav */; };
 		2C906620299501DC00F752CB /* AudioPlayer + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C90661F299501DB00F752CB /* AudioPlayer + Extensions.swift */; };
 		2CAF1D5F298F949400FEDBF3 /* DailyWordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF1D5E298F949400FEDBF3 /* DailyWordModel.swift */; };
 		2CCA34E32959EEF700AC3DA5 /* NotificationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA34E22959EEF700AC3DA5 /* NotificationProvider.swift */; };
@@ -141,9 +144,15 @@
 		2C64D41329829A7C001426A1 /* GameResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResultView.swift; sourceTree = "<group>"; };
 		2C676E7129C990FE009772A0 /* ColorBlended.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBlended.swift; sourceTree = "<group>"; };
 		2C676E7329C99121009772A0 /* View + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View + Extensions.swift"; sourceTree = "<group>"; };
-		2C676E7529C9941F009772A0 /* custom-4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "custom-4.wav"; sourceTree = "<group>"; };
 		2C676E7729C9A109009772A0 /* Array + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + Extensions.swift"; sourceTree = "<group>"; };
 		2C676E7929C9AA4D009772A0 /* SKStoreReviewController + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKStoreReviewController + Extensions.swift"; sourceTree = "<group>"; };
+		2C676E7B29C9B261009772A0 /* no-such-word.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "no-such-word.wav"; sourceTree = "<group>"; };
+		2C676E7C29C9B262009772A0 /* you-won.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "you-won.wav"; sourceTree = "<group>"; };
+		2C676E7D29C9B262009772A0 /* you-done.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "you-done.wav"; sourceTree = "<group>"; };
+		2C676E7E29C9B262009772A0 /* tap-3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "tap-3.wav"; sourceTree = "<group>"; };
+		2C676E7F29C9B262009772A0 /* tap-4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "tap-4.wav"; sourceTree = "<group>"; };
+		2C676E8529C9B27D009772A0 /* tap-1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "tap-1.wav"; sourceTree = "<group>"; };
+		2C676E8629C9B27E009772A0 /* tap-2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "tap-2.wav"; sourceTree = "<group>"; };
 		2C7971DF298E1B3C00B93603 /* DailyWordDBM + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DailyWordDBM + Extensions.swift"; sourceTree = "<group>"; };
 		2C7971E1298E515800B93603 /* SendMessageToDevelopers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageToDevelopers.swift; sourceTree = "<group>"; };
 		2C7971E4298E51C400B93603 /* Shake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shake.swift; sourceTree = "<group>"; };
@@ -154,9 +163,6 @@
 		2C8CBF842983ED3400628C97 /* CommentElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentElementView.swift; sourceTree = "<group>"; };
 		2C8CBF862983FF0000628C97 /* DailyWordResultAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWordResultAlertView.swift; sourceTree = "<group>"; };
 		2C9065F02994FCCB00F752CB /* Formatter + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter + Extensions.swift"; sourceTree = "<group>"; };
-		2C9065F92995002500F752CB /* custom-3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "custom-3.wav"; sourceTree = "<group>"; };
-		2C9065FE2995002600F752CB /* custom-1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "custom-1.wav"; sourceTree = "<group>"; };
-		2C9066022995002600F752CB /* custom-2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "custom-2.wav"; sourceTree = "<group>"; };
 		2C90661F299501DB00F752CB /* AudioPlayer + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioPlayer + Extensions.swift"; sourceTree = "<group>"; };
 		2CAF1D5E298F949400FEDBF3 /* DailyWordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWordModel.swift; sourceTree = "<group>"; };
 		2CCA34E22959EEF700AC3DA5 /* NotificationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationProvider.swift; sourceTree = "<group>"; };
@@ -258,10 +264,13 @@
 		2C9065F22995001C00F752CB /* Sound */ = {
 			isa = PBXGroup;
 			children = (
-				2C9065FE2995002600F752CB /* custom-1.wav */,
-				2C9066022995002600F752CB /* custom-2.wav */,
-				2C676E7529C9941F009772A0 /* custom-4.wav */,
-				2C9065F92995002500F752CB /* custom-3.wav */,
+				2C676E8529C9B27D009772A0 /* tap-1.wav */,
+				2C676E8629C9B27E009772A0 /* tap-2.wav */,
+				2C676E7E29C9B262009772A0 /* tap-3.wav */,
+				2C676E7F29C9B262009772A0 /* tap-4.wav */,
+				2C676E7C29C9B262009772A0 /* you-won.wav */,
+				2C676E7B29C9B261009772A0 /* no-such-word.wav */,
+				2C676E7D29C9B262009772A0 /* you-done.wav */,
 			);
 			path = Sound;
 			sourceTree = "<group>";
@@ -549,19 +558,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C676E8729C9B27E009772A0 /* tap-1.wav in Resources */,
 				9D5776A629423AB100FDDB94 /* nouns-ru.json in Resources */,
-				2C9066142995002600F752CB /* custom-1.wav in Resources */,
 				2C33D93E2954754200F65762 /* free-mode-ru.json in Resources */,
-				2C9066182995002600F752CB /* custom-2.wav in Resources */,
 				9D4776682941E9BE00DD96F4 /* Preview Assets.xcassets in Resources */,
+				2C676E8129C9B262009772A0 /* you-won.wav in Resources */,
 				2C02171D2977F70A007D8FC6 /* Inter-Bold.ttf in Resources */,
 				2C02171C2977F70A007D8FC6 /* Inter-Medium.ttf in Resources */,
+				2C676E8429C9B262009772A0 /* tap-4.wav in Resources */,
+				2C676E8229C9B262009772A0 /* you-done.wav in Resources */,
+				2C676E8329C9B262009772A0 /* tap-3.wav in Resources */,
+				2C676E8829C9B27E009772A0 /* tap-2.wav in Resources */,
+				2C676E8029C9B262009772A0 /* no-such-word.wav in Resources */,
 				2C02171E2977F70A007D8FC6 /* Inter-Regular.ttf in Resources */,
 				2C33D93C2954751A00F65762 /* progression-mode-ru.json in Resources */,
 				9D4776652941E9BE00DD96F4 /* Assets.xcassets in Resources */,
-				2C90660F2995002600F752CB /* custom-3.wav in Resources */,
 				2C02171B2977F70A007D8FC6 /* Inter-SemiBold.ttf in Resources */,
-				2C676E7629C9941F009772A0 /* custom-4.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

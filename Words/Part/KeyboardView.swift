@@ -46,7 +46,7 @@ struct KeyboardView: View {
                 Spacer()
                 HStack(alignment: .center, spacing: 6){
                     ForEach(line1, id: \.self){ character in
-                        KeyboardButton(playViewModel: playViewModel, character: character, sound: "custom-1")
+                        KeyboardButton(playViewModel: playViewModel, character: character, sound: "tap-1")
                             .frame(maxWidth: 25)
                     }
                 }
@@ -56,7 +56,7 @@ struct KeyboardView: View {
                 HStack(spacing: 6){
                     Spacer(minLength: geo.size.width / CGFloat(line2.count) / 6)
                     ForEach(line2, id: \.self){ character in
-                        KeyboardButton(playViewModel: playViewModel, character: character, sound: "custom-2")
+                        KeyboardButton(playViewModel: playViewModel, character: character, sound: "tap-2")
                             .frame(maxWidth: 25)
                     }
                     Spacer(minLength: geo.size.width / CGFloat(line2.count) / 6)
@@ -66,11 +66,11 @@ struct KeyboardView: View {
                 
                 HStack(spacing: 6){
                     ForEach(line3, id: \.self){ character in
-                        KeyboardButton(playViewModel: playViewModel, character: character, sound: "custom-3")
+                        KeyboardButton(playViewModel: playViewModel, character: character, sound: "tap-3")
                             .frame(maxWidth: 25)
                     }
                     
-                    RemoveKeyboardButton(playViewModel: playViewModel, sound: "custom-4")
+                    RemoveKeyboardButton(playViewModel: playViewModel, sound: "tap-4")
                         .frame(maxWidth: 25)
                 }
                 .padding(.horizontal, 10)

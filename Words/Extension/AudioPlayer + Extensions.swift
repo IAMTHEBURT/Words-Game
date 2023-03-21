@@ -18,13 +18,11 @@ func playSound(sound: String, type: String){
     
     if let path = Bundle.main.path(forResource: sound, ofType: type){
         do {
-            
             try AVAudioSession.sharedInstance()
                 .setCategory(.playback, options: .duckOthers)
             
             try AVAudioSession.sharedInstance()
                 .setActive(true)
-            
             
             audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
             audioPlayer?.play()

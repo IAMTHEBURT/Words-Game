@@ -16,7 +16,7 @@ extension GameDBM: BaseDBModel {
     }
     
     static func emptyInit() -> GameDBM{
-        var game = GameDBM(context: CoreDataProvider.shared.viewContext)
+        let game = GameDBM(context: CoreDataProvider.shared.viewContext)
         game.result = Int16(1)
         game.gameType = Int16(0)
         game.word = "лампа"

@@ -257,7 +257,7 @@ class PlayViewModel: ObservableObject {
     func checkTheLine(){
         //Check if this is a real word
         if !dictionary.hasTheWord(word: lines[currentLineIndex].lettersAsString){
-            playSound(sound: "custom-1", type: "wav")
+            playSound(sound: "no-such-word", type: "wav")
             showNotifyView(text: "Мы не нашли такого слова в нашем словаре")
             return
         }
@@ -283,12 +283,12 @@ class PlayViewModel: ObservableObject {
             print("YOU WON")
             self.result = .win
             finishTheGame()
-            playSound(sound: "custom-2", type: "wav")
+            playSound(sound: "you-won", type: "wav")
             successConfettiCounter += 1
         }
 
         
-        playSound(sound: "custom-3", type: "wav")
+        playSound(sound: "you-done", type: "wav")
         // FINISH
         if lines.count == currentLineIndex + 1 {
             finishTheGame()

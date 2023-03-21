@@ -29,7 +29,7 @@ class Line: Identifiable {
 extension Line {
     var lettersAsString: String{
         var string = ""
-        letters.map { letter in
+        _ = letters.map { letter in
             string += letter.character
         }
         return string
