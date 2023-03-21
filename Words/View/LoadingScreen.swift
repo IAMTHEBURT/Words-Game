@@ -74,13 +74,6 @@ struct LoadingScreen: View {
                 }
             }
         }
-        .task {
-            do {
-                try await APIProvider.shared.getTopList()
-            } catch {
-                print(error)
-            }
-        }
         
     }
 }

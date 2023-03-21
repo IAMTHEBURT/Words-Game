@@ -6,8 +6,8 @@
 //
 
 import SwiftUI
-import StoreKit
 import PartialSheet
+import StoreKit
 
 struct SettingsView: View {
     // MARK: - PROPERTIES
@@ -73,9 +73,8 @@ struct SettingsView: View {
                     {
                         Button(action: {
                             isReviewLoadingOn = true
-                            if let windowScene = UIApplication.shared.windows.first?.windowScene { SKStoreReviewController.requestReview(in: windowScene) }
+                            SKStoreReviewController.requestReviewInCurrentScene()
                         }) {
-                            
                             HStack{
                                 Text("Оценить игру")
                                 Spacer()

@@ -185,7 +185,6 @@ class APIProvider: ObservableObject{
     }
     
     func saveComment(word: String, text: String) async throws -> (Bool, Comment?){
-        print("Сохраняю комментарий")
         let comment = SaveCommentModel(word: word, text: text, UID: UID)
         let urlString = "\(server)/api/comments/"
         
@@ -259,7 +258,6 @@ class APIProvider: ObservableObject{
     }
     
     func saveTheGame(game: GameHistoryModel) async throws{
-        print("Сохраняю игру")
         let urlString = "\(server)/api/games"
         let serverGameSessionModel = ServerGameSessionModel(type: game.gameType.name, word: game.word, UID: UID, result: game.result.rawValue, filled_lines: game.tries, duration: game.duration)
         guard let encoded = try? JSONEncoder().encode(serverGameSessionModel) else {
@@ -342,8 +340,6 @@ class APIProvider: ObservableObject{
                     do {
                         let decodedResult = try JSONDecoder().decode(WordOfTheDayResponse.self, from: data)
                         self.wordOfTheDayResponse = decodedResult
-                        print("Слово дня")
-                        print(decodedResult)
                         
                         //Записываем в базу
                         let dailyWord = DailyWordDBM(context: CoreDataProvider.shared.viewContext)

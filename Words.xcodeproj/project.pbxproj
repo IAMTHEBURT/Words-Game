@@ -37,6 +37,7 @@
 		2C676E7429C99121009772A0 /* View + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C676E7329C99121009772A0 /* View + Extensions.swift */; };
 		2C676E7629C9941F009772A0 /* custom-4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C676E7529C9941F009772A0 /* custom-4.wav */; };
 		2C676E7829C9A109009772A0 /* Array + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C676E7729C9A109009772A0 /* Array + Extensions.swift */; };
+		2C676E7A29C9AA4D009772A0 /* SKStoreReviewController + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C676E7929C9AA4D009772A0 /* SKStoreReviewController + Extensions.swift */; };
 		2C7971E0298E1B3C00B93603 /* DailyWordDBM + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7971DF298E1B3C00B93603 /* DailyWordDBM + Extensions.swift */; };
 		2C7971E2298E515800B93603 /* SendMessageToDevelopers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7971E1298E515800B93603 /* SendMessageToDevelopers.swift */; };
 		2C7971E5298E51C400B93603 /* Shake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7971E4298E51C400B93603 /* Shake.swift */; };
@@ -142,6 +143,7 @@
 		2C676E7329C99121009772A0 /* View + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View + Extensions.swift"; sourceTree = "<group>"; };
 		2C676E7529C9941F009772A0 /* custom-4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "custom-4.wav"; sourceTree = "<group>"; };
 		2C676E7729C9A109009772A0 /* Array + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + Extensions.swift"; sourceTree = "<group>"; };
+		2C676E7929C9AA4D009772A0 /* SKStoreReviewController + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKStoreReviewController + Extensions.swift"; sourceTree = "<group>"; };
 		2C7971DF298E1B3C00B93603 /* DailyWordDBM + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DailyWordDBM + Extensions.swift"; sourceTree = "<group>"; };
 		2C7971E1298E515800B93603 /* SendMessageToDevelopers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageToDevelopers.swift; sourceTree = "<group>"; };
 		2C7971E4298E51C400B93603 /* Shake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shake.swift; sourceTree = "<group>"; };
@@ -448,6 +450,7 @@
 				2C90661F299501DB00F752CB /* AudioPlayer + Extensions.swift */,
 				2C676E7329C99121009772A0 /* View + Extensions.swift */,
 				2C676E7729C9A109009772A0 /* Array + Extensions.swift */,
+				2C676E7929C9AA4D009772A0 /* SKStoreReviewController + Extensions.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -589,6 +592,7 @@
 				9D119465294C91CC008152F5 /* MarkKeyboardButton.swift in Sources */,
 				9DFB065A2948AFEF00752E6A /* CountDownView.swift in Sources */,
 				9D49A7382945FAEA00DD53B2 /* StatView.swift in Sources */,
+				2C676E7A29C9AA4D009772A0 /* SKStoreReviewController + Extensions.swift in Sources */,
 				9DEC5BC82949C79F00849B11 /* GameHistoryViewModel.swift in Sources */,
 				9D4776632941E9BA00DD96F4 /* ContentView.swift in Sources */,
 				2C124D4D298A77EA00A8336D /* ReactionModel.swift in Sources */,
@@ -790,7 +794,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Words/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "ВОРДЛ";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -825,7 +828,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Words/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "ВОРДЛ";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

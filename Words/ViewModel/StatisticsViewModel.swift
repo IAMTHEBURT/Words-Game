@@ -66,7 +66,7 @@ class StatisticsViewModel: ObservableObject{
         
         var tries: [Double] = []
         
-        games.map { game in
+        _ = games.map { game in
             if game.result == .win && game.gameType == .dailyWord{
                 tries.append(Double(game.tries))
             }
@@ -75,14 +75,12 @@ class StatisticsViewModel: ObservableObject{
         
         for index in 5...9 {
             tries = []
-            print("Индекс \(index)")
             
-            games.map { game in
+            _ = games.map { game in
                 if game.result == .win && game.word.count == index{
                     tries.append(Double(game.tries))
                 }
             }
-            print("Резалт \(tries.average)")
             result.append( ["\(index) попыток" : tries.average] )
         }
         
@@ -121,7 +119,6 @@ class StatisticsViewModel: ObservableObject{
         let sortedGames = games.sorted { $0.date ?? Date() > $1.date ?? Date()}
         
         var streaks: [Int] = []
-        
         
         var streak = 0
         for game in sortedGames{

@@ -30,8 +30,7 @@ struct GameResultView: View {
                 .modifier(MyFont(font: "Inter", weight: "bold", size: 20))
             HStack{
                 
-                ForEach(0..<playVM.lettersCount) { index in
-                    let bgColor = playVM.getResultFieldBGColorForIndex(index: index)
+                ForEach(0..<playVM.lettersCount, id: \.self) { index in
                     RoundedRectangle(cornerRadius: 4)
                         .fill(playVM.getResultFieldBGColorForIndex(index: index))
                         .overlay(

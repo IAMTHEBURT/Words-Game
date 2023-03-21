@@ -20,7 +20,6 @@ class BottomMenuViewModel: ObservableObject{
     @Published var isOnboardingPagePresented: Bool = false
     
     func changeScreen(screen: ActiveScreen){
-        print(screen.hashValue)
         withAnimation(.easeIn(duration: 0.3)){
             self.activeScreen = screen
         }

@@ -133,12 +133,11 @@ class NotificationProvider {
         center.getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
                 self.removeAllNotifications()
-                print("<NOTIFICATIONS> We have an access, set up notifications")
+                print("<NOTIFICATIONS> We have access, set up notifications")
                 //Перебираем наши нотификации
                 self.notifications.enumerated().forEach {(index, notifyObject) in
                     
                     if skipCurrentDay && index == 0{
-                        print("Skipping")
                         return
                     }
                     

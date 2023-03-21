@@ -90,8 +90,7 @@ struct PlayFieldView: View {
 
             } //: FOREACH LINES
 
-            ForEach(0..<playVM.lettersCount) { index in
-                let bgColor = playVM.getResultFieldBGColorForIndex(index: index)
+            ForEach(0..<playVM.lettersCount, id: \.self) { index in
                 let character = playVM.getResultFieldCharacterForIndex(index: index, empty: true)
                 
                 RoundedRectangle(cornerRadius: 4)

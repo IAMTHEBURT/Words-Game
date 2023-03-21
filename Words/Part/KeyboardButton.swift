@@ -19,7 +19,9 @@ struct KeyboardButton: View {
     // MARK: - FUNCTIONS
     private func getBGColorForTheKeyboardKey() -> Color{
         var letters: [Letter] = []
-        playViewModel.lines.map { line in letters.append(contentsOf: line.letters) }
+        _ = playViewModel.lines.map { line in letters.append(contentsOf: line.letters) }
+        
+        
         let filtered = letters.filter{ $0.character == character }
         if !filtered.isEmpty{
             return filtered.first?.state.color ?? LetterState.defaultColor
@@ -31,7 +33,7 @@ struct KeyboardButton: View {
     
     private func getForegroundColorForTheKeyboardKey() -> Color{
         var letters: [Letter] = []
-        playViewModel.lines.map { line in letters.append(contentsOf: line.letters) }
+        _ = playViewModel.lines.map { line in letters.append(contentsOf: line.letters) }
         let filtered = letters.filter{ $0.character == character }
         if !filtered.isEmpty{
             return filtered.first?.state.fontColor ?? LetterState.defaultColor
