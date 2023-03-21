@@ -52,17 +52,7 @@ struct NotificationView: View {
                     }
                 }
             }
-            .onAppear{
-//                withAnimation(slideInAnimation) {
-//                    self.isAnimated = true
-//                }
-//                
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//                    withAnimation(slideInAnimation) {
-//                        self.isAnimated = false
-//                    }
-//                }
-            } //: SUB VSTACK
+            
             Spacer()
             
         } //: MAIN VSTACK

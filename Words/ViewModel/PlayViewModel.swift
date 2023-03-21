@@ -11,13 +11,14 @@ import CoreData
 
 class PlayViewModel: ObservableObject {
     // MARK: - PROPERTIES
-    
     let dictionary = Dictionary()
     
     let numberOfLines = 6
-    var finalWord: String = "Чернота25".uppercased()
+    var finalWord: String = "салют".uppercased()
     var gameType: GameType = .dailyWord
+    
     var tries: Int = 0
+    
     var maxTries: Int {
         return lines.count
     }

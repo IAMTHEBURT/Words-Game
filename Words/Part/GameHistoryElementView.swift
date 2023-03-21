@@ -16,14 +16,14 @@ struct GameHistoryElementView: View {
     
     var gameHistoryModel: GameHistoryModel
     
-    var stringDate: String{
+    private var stringDate: String{
         let formatter = DateFormatter()
         formatter.dateFormat = "d MMMM"
         return formatter.string(from: gameHistoryModel.date)
     }
     
     // MARK: - FUNCTIONS
-    func getBGColor() -> Color{
+    private  func getBGColor() -> Color{
         if gameHistoryModel.result == .win {
             return Color(hex: "#289788")
         } else{
@@ -32,7 +32,7 @@ struct GameHistoryElementView: View {
     }
     
     
-    func open() {
+    private func open() {
         withAnimation(.linear(duration: 0.25)){
             isCollapsed.toggle()
         }

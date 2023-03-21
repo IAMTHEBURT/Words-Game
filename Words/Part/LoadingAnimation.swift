@@ -11,10 +11,10 @@ struct LoadingAnimation: View {
     // MARK: - PROPERTIES
     @State private var isAnimating: Bool = false
     
-    let elementWidth: CGFloat = 57
-    let elemetsPerLine: Int = 20
+    private let elementWidth: CGFloat = 57
+    private let elemetsPerLine: Int = 20
     
-    let firstLineColors: [Color] = [
+    private let firstLineColors: [Color] = [
         Color("unansweredLetterBackground"),
         Color("rightLetterRightPlaceBackground"),
         Color("unansweredLetterBackground"),
@@ -24,7 +24,7 @@ struct LoadingAnimation: View {
         Color("unansweredLetterBackground")
     ]
     
-    let secondLineColors: [Color] = [
+    private let secondLineColors: [Color] = [
         Color("unansweredLetterBackground"),
         Color("unansweredLetterBackground"),
         Color("unansweredLetterBackground"),
@@ -34,7 +34,7 @@ struct LoadingAnimation: View {
         Color("rightLetterRightPlaceBackground")
     ]
     
-    let thirdLineColors: [Color] = [
+    private let thirdLineColors: [Color] = [
         Color("wrongLetterBackground"),
         Color("unansweredLetterBackground"),
         Color("unansweredLetterBackground"),
@@ -43,7 +43,6 @@ struct LoadingAnimation: View {
         Color("wrongLetterBackground"),
         Color("unansweredLetterBackground"),
     ]
-    
     
     // MARK: - BODY
     

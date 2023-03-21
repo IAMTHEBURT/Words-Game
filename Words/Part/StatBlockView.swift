@@ -12,7 +12,7 @@ struct StatBlockView: View {
     var title: String
     var count: Double
     
-    var countString: String{
+    private var countString: String{
         let formatter = NumberFormatter()
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 2

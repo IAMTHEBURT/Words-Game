@@ -4,9 +4,9 @@ import CoreData
 class CoreDataProvider {
     // MARK: - PROPERTIES
     
-    let persistentContainer: NSPersistentContainer
-    
     static let shared = CoreDataProvider()
+    
+    let persistentContainer: NSPersistentContainer
     
     var viewContext: NSManagedObjectContext {
         return persistentContainer.viewContext

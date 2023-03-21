@@ -22,11 +22,8 @@ class NotificationProvider {
     
     //static let shared = NotificationProvider()
     let center = UNUserNotificationCenter.current()
-    
-    //Get hours and minutes via .intHours, .intMinutes
-    //@AppStorage("selectedTime") private var selectedTime: Double = 1050 //Default is 17:30
-    
-    let headlines: [String] = [
+        
+    private let headlines: [String] = [
         "😎 Давай поиграем!",
         "🤘 Готовы?",
         "🤨 Давай отгадаем!",
@@ -56,7 +53,7 @@ class NotificationProvider {
         "😲 Нет времени расслабляться",
     ]
     
-    let bodies: [String] = [
+    private let bodies: [String] = [
         "Новое слово дня уже доступно",
         "Слово дня уже появилось",
         "Новое слово уже тебя",
@@ -65,8 +62,9 @@ class NotificationProvider {
         "Пора сделать новое слово дня",
     ]
     
+    
     //MARK: - ARRAY OF RANDOM NOTIIFICATIONS
-    var notifications: [NotifyObject] {
+    private var notifications: [NotifyObject] {
         var notifications: [NotifyObject] = []
         for index in 1...60 {
             let title = self.headlines.randomElement() ?? self.headlines[0]

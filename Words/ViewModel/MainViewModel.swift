@@ -52,7 +52,6 @@ class MainViewModel: NSObject, ObservableObject {
             }
             
             self.dailyWord = DailyWord(dailyWordDBM: safeDailyWord)
-            print("Слово \(self.dailyWord?.word)")
             self.isDailyWordAnimating = true
             
         } catch {
@@ -86,22 +85,6 @@ class MainViewModel: NSObject, ObservableObject {
     //@Published var dailyWord: DailyWordDBM
     
     // MARK: - FUNCTIONS
-    
-//    func updateProgressionCount(){
-//        do {
-//            self.allProgresionTasksCount = try CoreDataProvider.shared.viewContext.count(for: TaskDBM.all)
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//
-//        do {
-//            let request = TaskDBM.all
-//            request.predicate = NSPredicate(format: "game != nil")
-//            self.doneProgresionTasksCount = try CoreDataProvider.shared.viewContext.count(for: request)
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//    }
     
     func updateWordstat(word: String) async throws {
         do {
@@ -138,7 +121,7 @@ class MainViewModel: NSObject, ObservableObject {
         }
         
         return false
-                
+        
     }
     
     func getCountOff(type: GameType, finished: Bool = false, difficulty: Difficulty = .low, symbolsCount: Int = 0) -> Int{
@@ -150,8 +133,8 @@ class MainViewModel: NSObject, ObservableObject {
             }else{
                 return allTasks.filter{ $0.gameType == type && $0.difficulty == difficulty}.count
             }
-        
-        //ONLYE SPECIFIED
+            
+            //ONLYE SPECIFIED
         }else{
             if finished{
                 return allTasks.filter{ $0.gameType == type && $0.history != nil && $0.difficulty == difficulty && $0.count == symbolsCount}.count
@@ -159,11 +142,8 @@ class MainViewModel: NSObject, ObservableObject {
                 return allTasks.filter{ $0.gameType == type && $0.difficulty == difficulty && $0.count == symbolsCount }.count
             }
         }
-        }
-        
-        
-        
-
+    }
+    
     
     
     func updateTasksData(){
@@ -260,7 +240,7 @@ class MainViewModel: NSObject, ObservableObject {
         
     }
     
-
+    
     func updateCountdown(){
         guard let nextAt = dailyWord?.nextAt else { return }
         let interval = Double(nextAt) - Date.now.timeIntervalSince1970
@@ -287,7 +267,7 @@ class MainViewModel: NSObject, ObservableObject {
         
         let fetchRequest = GameDBM.all
         fetchRequest.predicate = NSPredicate(format: "word = %@", dailyWord.uppercased())
-
+        
         do {
             let games = try CoreDataProvider.shared.viewContext.fetch(fetchRequest)
             if games.isEmpty{
@@ -308,7 +288,7 @@ class MainViewModel: NSObject, ObservableObject {
         
         let fetchRequest = GameDBM.all
         fetchRequest.predicate = NSPredicate(format: "word = %@", dailyWord.uppercased())
-
+        
         do {
             let games = try CoreDataProvider.shared.viewContext.fetch(fetchRequest)
             if games.isEmpty{

@@ -12,7 +12,9 @@ struct RatingView: View {
     
     @StateObject var ratingVM: RatingViewModel = RatingViewModel()
     
-    func getBackgroundForPosition(index: Int, isPlayer: Bool) -> some View{
+    // MARK: - FUNCTIONS
+    
+    private func getBackgroundForPosition(index: Int, isPlayer: Bool) -> some View{
         //Если первая строка
         if index + 1 == 1 {
             return RoundedCorners(color: Color(hex: "#DD6B4E"), tl: 8, tr: 8, bl: 0, br: 0)

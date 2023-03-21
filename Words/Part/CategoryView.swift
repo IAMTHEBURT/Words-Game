@@ -19,7 +19,7 @@ struct CategoryView: View{
     var difficultProgressOutOf: Int
     
     // MARK: - FUNCTIONS
-    func getEasyIcon() -> Image{
+    private func getEasyIcon() -> Image{
         if easyProgressFinished == easyProgressOutOf && easyProgressFinished != 0{
             return Image(systemName: "checkmark.circle.fill")
         }
@@ -31,7 +31,7 @@ struct CategoryView: View{
         }
     }
     
-    func getDifficultIcon() -> Image{
+    private func getDifficultIcon() -> Image{
         if difficultProgressFinished == difficultProgressOutOf && difficultProgressFinished != 0{
             return Image(systemName: "checkmark.circle.fill")
         }

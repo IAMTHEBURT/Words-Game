@@ -16,7 +16,7 @@ struct DistributionOfTries: View {
     @State private var isAnimating: Bool = false
     
     // MARK: - FUNCTIONS
-    func getWidthFor(count: Int) -> CGFloat{
+    private func getWidthFor(count: Int) -> CGFloat{
         let part = CGFloat(count) / CGFloat(statVM.max) * 100.0
         return 0.62 * maxWidth / 100 * CGFloat(part)
     }
@@ -72,18 +72,4 @@ struct DistributionOfTries_Previews: PreviewProvider {
             .previewLayout(.sizeThatFits)
             .padding()
     }
-}
-
-extension Array where Element: BinaryFloatingPoint {
-
-    /// The average value of all the items in the array
-    var average: Double {
-        if self.isEmpty {
-            return 0.0
-        } else {
-            let sum = self.reduce(0, +)
-            return Double(sum) / Double(self.count)
-        }
-    }
-
 }

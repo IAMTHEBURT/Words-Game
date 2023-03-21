@@ -41,7 +41,7 @@ struct WordsApp: App {
                             
                         }
                     } catch {
-                        print("FAILED TO SAVE TASKS TO DATABASE \(error.localizedDescription)")
+                        print("FAILED TO SAVE TASKS TO THE DATABASE \(error.localizedDescription)")
                     }
                 }
         }

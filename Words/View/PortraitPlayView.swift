@@ -19,14 +19,12 @@ struct PortraitPlayView: View {
     @State private var flip: Bool = false
     @State private var isShareSheetPresented: Bool = false
     
-    
     @AppStorage("areCommentsOn") private var areCommentsOn: Bool = true
-    
     
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var bottomMenuVM: BottomMenuViewModel
     
-    var numberOfTheDay: Int{
+    private var numberOfTheDay: Int{
         let date = Date() // now
         let cal = Calendar.current
         let day = cal.ordinality(of: .day, in: .year, for: date)

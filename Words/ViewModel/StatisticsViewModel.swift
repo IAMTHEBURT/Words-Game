@@ -17,7 +17,7 @@ class StatisticsViewModel: ObservableObject{
     @Published var totalDailyWordGamesCount: Double = 0
     @Published var averageCountOfTriesForWin: Double = 0
     @Published var averageCountOfWordsPerDay: Double = 0
-    
+    @Published var distributionData: [ [String : Double] ] = []
     
     var max: Double {
         var max: Double = 0
@@ -28,8 +28,6 @@ class StatisticsViewModel: ObservableObject{
         }
         return max
     }
-    
-    @Published var distributionData: [ [String : Double] ] = []
 
     var games: [GameDBM] = []
     
@@ -121,7 +119,6 @@ class StatisticsViewModel: ObservableObject{
     
     func getMaxWinningStreak() -> Double{
         let sortedGames = games.sorted { $0.date ?? Date() > $1.date ?? Date()}
-        guard let lastGame = sortedGames.first else { return 0 }
         
         var streaks: [Int] = []
         

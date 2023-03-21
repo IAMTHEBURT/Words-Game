@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct KeyboardButton: View {
-    
     // MARK: - PROPERTIES
     
     @StateObject var playViewModel: PlayViewModel
@@ -18,7 +17,7 @@ struct KeyboardButton: View {
     let sound: String
     
     // MARK: - FUNCTIONS
-    func getBGColorForTheKeyboardKey() -> Color{
+    private func getBGColorForTheKeyboardKey() -> Color{
         var letters: [Letter] = []
         playViewModel.lines.map { line in letters.append(contentsOf: line.letters) }
         let filtered = letters.filter{ $0.character == character }
@@ -30,7 +29,7 @@ struct KeyboardButton: View {
     }
     
     
-    func getForegroundColorForTheKeyboardKey() -> Color{
+    private func getForegroundColorForTheKeyboardKey() -> Color{
         var letters: [Letter] = []
         playViewModel.lines.map { line in letters.append(contentsOf: line.letters) }
         let filtered = letters.filter{ $0.character == character }

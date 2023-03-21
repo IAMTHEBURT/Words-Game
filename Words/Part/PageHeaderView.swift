@@ -17,8 +17,6 @@ enum HeaderSheet: Identifiable {
     }
 }
 
-
-
 struct PageHeaderView: View {
     
     // MARK: - PROPERTIES
@@ -32,9 +30,8 @@ struct PageHeaderView: View {
     var hideRulesIcon: Bool = false
     
     @Environment(\.presentationMode) private var presentationMode
-    
     @EnvironmentObject var bottomMenuVM: BottomMenuViewModel
-    //@StateObject var bottomMenuVM = BottomMenuViewModel.shared
+
     
     // MARK: - BODY
     

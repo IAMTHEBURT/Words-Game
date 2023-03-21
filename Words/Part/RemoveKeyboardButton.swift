@@ -16,7 +16,6 @@ struct RemoveKeyboardButton: View {
     
     let sound: String
     
-    
     // MARK: - BODY
     
     var body: some View {

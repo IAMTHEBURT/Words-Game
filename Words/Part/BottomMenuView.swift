@@ -19,7 +19,7 @@ struct BottomMenuView: View {
     
     // MARK: - FUNCTIONS
     
-    func setActive(_ id: Int){
+    private func setActive(_ id: Int){
         withAnimation {
             activeElement = id
         }

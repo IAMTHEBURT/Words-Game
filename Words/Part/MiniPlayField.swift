@@ -17,7 +17,7 @@ struct MiniPlayField: View {
     
     var gameHistoryModel: GameHistoryModel
     
-    var lettersArray: [Letter]{
+    private var lettersArray: [Letter]{
         if gameHistoryModel.letters.isEmpty{
             var array: [Letter] = []
             let totalNumberOfLetters = gameHistoryModel.word.count * 6

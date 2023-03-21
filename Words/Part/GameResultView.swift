@@ -21,7 +21,6 @@ struct GameResultView: View {
     
     var showContinue: Bool = true
     
-    
     // MARK: - BODY
     
     var body: some View {

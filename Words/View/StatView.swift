@@ -11,10 +11,10 @@ struct StatView: View {
     // MARK: - PROPERTIES
     @StateObject private var statVM: StatisticsViewModel = StatisticsViewModel()
     
-    let rowSpacing: CGFloat = 8
-    let columnSpacing: CGFloat = 8
+    private let rowSpacing: CGFloat = 8
+    private let columnSpacing: CGFloat = 8
     
-    var gridLayout: [GridItem]{
+    private var gridLayout: [GridItem]{
         return Array(repeating: GridItem(.flexible(), spacing: rowSpacing), count: 2)
     }
     

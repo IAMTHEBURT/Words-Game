@@ -14,13 +14,13 @@ struct PlayFieldView: View {
     @State private var flip: Bool = false
     @State private var alertText: String = ""
     
-    let spacing: CGFloat = 5
+    private let spacing: CGFloat = 5
     
-    var gridLayout: [GridItem]{
+    private var gridLayout: [GridItem]{
         return Array(repeating: GridItem(.flexible(minimum: size), spacing: 4), count: playVM.finalWord.count)
     }
     
-    var size: CGFloat {
+    private var size: CGFloat {
         let count = playVM.finalWord.count
         
         if count == 5 || count == 6 {
@@ -39,7 +39,7 @@ struct PlayFieldView: View {
     }
     
     
-    func highLightCurrent(index: UUID) -> Bool {
+    private func highLightCurrent(index: UUID) -> Bool {
         return playVM.currentLine.id == index
     }
     
