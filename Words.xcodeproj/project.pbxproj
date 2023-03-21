@@ -35,6 +35,7 @@
 		2C64D41429829A7C001426A1 /* GameResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C64D41329829A7C001426A1 /* GameResultView.swift */; };
 		2C676E7229C990FE009772A0 /* ColorBlended.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C676E7129C990FE009772A0 /* ColorBlended.swift */; };
 		2C676E7429C99121009772A0 /* View + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C676E7329C99121009772A0 /* View + Extensions.swift */; };
+		2C676E7629C9941F009772A0 /* custom-4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C676E7529C9941F009772A0 /* custom-4.wav */; };
 		2C7971E0298E1B3C00B93603 /* DailyWordDBM + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7971DF298E1B3C00B93603 /* DailyWordDBM + Extensions.swift */; };
 		2C7971E2298E515800B93603 /* SendMessageToDevelopers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7971E1298E515800B93603 /* SendMessageToDevelopers.swift */; };
 		2C7971E5298E51C400B93603 /* Shake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7971E4298E51C400B93603 /* Shake.swift */; };
@@ -138,6 +139,7 @@
 		2C64D41329829A7C001426A1 /* GameResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResultView.swift; sourceTree = "<group>"; };
 		2C676E7129C990FE009772A0 /* ColorBlended.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBlended.swift; sourceTree = "<group>"; };
 		2C676E7329C99121009772A0 /* View + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View + Extensions.swift"; sourceTree = "<group>"; };
+		2C676E7529C9941F009772A0 /* custom-4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "custom-4.wav"; sourceTree = "<group>"; };
 		2C7971DF298E1B3C00B93603 /* DailyWordDBM + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DailyWordDBM + Extensions.swift"; sourceTree = "<group>"; };
 		2C7971E1298E515800B93603 /* SendMessageToDevelopers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageToDevelopers.swift; sourceTree = "<group>"; };
 		2C7971E4298E51C400B93603 /* Shake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shake.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 			children = (
 				2C9065FE2995002600F752CB /* custom-1.wav */,
 				2C9066022995002600F752CB /* custom-2.wav */,
+				2C676E7529C9941F009772A0 /* custom-4.wav */,
 				2C9065F92995002500F752CB /* custom-3.wav */,
 			);
 			path = Sound;
@@ -552,6 +555,7 @@
 				9D4776652941E9BE00DD96F4 /* Assets.xcassets in Resources */,
 				2C90660F2995002600F752CB /* custom-3.wav in Resources */,
 				2C02171B2977F70A007D8FC6 /* Inter-SemiBold.ttf in Resources */,
+				2C676E7629C9941F009772A0 /* custom-4.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
