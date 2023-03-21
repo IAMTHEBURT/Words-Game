@@ -53,7 +53,11 @@ struct WordstatModel: Codable{
         if won == 0 { return 0 }
         return (won + lost) / won * 100
     }
-    
+}
+
+
+enum APIError: Error{
+    case failedToDecode, failedToEncode, failedToComposeURL
 }
 
 class APIProvider: ObservableObject{
@@ -76,7 +80,7 @@ class APIProvider: ObservableObject{
     
     func getWordstat(word: String) async throws -> WordstatModel{
         return try await withCheckedThrowingContinuation { continuation in
-            let urlString = "\(server)/api/wordstat/"
+            let urlString = "\(ENV.server)/api/wordstat/"
             guard let url = URL(string: urlString) else { return }
             guard let encoded = try? JSONEncoder().encode([ "word": word, "UID": UID ]) else { return }
             
@@ -101,10 +105,8 @@ class APIProvider: ObservableObject{
     // MARK: - SEND MESSAGE TO DEVELOPERS
     func sendMessage(message: String) async throws {
         return try await withCheckedThrowingContinuation { continuation in
-            guard let encoded = try? JSONEncoder().encode(["message": "\(UID) \(message)"]) else { return }
-            guard let url = URL(string: "https://vin.monster/minute/message/") else { return }
-            
-            print(String(data: encoded, encoding: .utf8)!)
+            guard let encoded = try? JSONEncoder().encode(["message": "\(UID) \(message)"]) else { return continuation.resume(throwing: APIError.failedToComposeURL) }
+            guard let url = URL(string: "https://vin.monster/minute/message/") else { return continuation.resume(throwing: APIError.failedToDecode) }
             
             var request = URLRequest(url: url)
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -129,10 +131,10 @@ class APIProvider: ObservableObject{
     func addReaction(type: ReactionType, comment_id: Int) async throws -> Comment?{
         return try await withCheckedThrowingContinuation { continuation in
             let reaction = Reaction(type: type, UID: UID, comment_id: comment_id)
-            let urlString = "\(server)/api/reactions/"
+            let urlString = "\(ENV.server)/api/reactions/"
             
-            guard let url = URL(string: urlString) else { return }
-            guard let encoded = try? JSONEncoder().encode(reaction) else { return }
+            guard let url = URL(string: urlString) else { return continuation.resume(throwing: APIError.failedToComposeURL) }
+            guard let encoded = try? JSONEncoder().encode(reaction) else { return continuation.resume(throwing: APIError.failedToComposeURL)}
             
             var request = URLRequest(url: url)
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -156,12 +158,11 @@ class APIProvider: ObservableObject{
     
     func getComments(word: String) async throws -> [Comment]{
         return try await withCheckedThrowingContinuation { continuation in
-            let urlString = "\(server)/api/getcomments/"
-            guard let url = URL(string: urlString) else { return }
+            let urlString = "\(ENV.server)/api/getcomments/"
+            guard let url = URL(string: urlString) else { return continuation.resume(throwing: APIError.failedToComposeURL)}
             
             guard let encoded = try? JSONEncoder().encode(CommentsRequestModel(word: word, UID: self.UID)) else {
-                print("Failed to encode order")
-                return
+                return continuation.resume(throwing: APIError.failedToDecode)
             }
             
             var request = URLRequest(url: url)
@@ -185,24 +186,25 @@ class APIProvider: ObservableObject{
     }
     
     func saveComment(word: String, text: String) async throws -> (Bool, Comment?){
-        let comment = SaveCommentModel(word: word, text: text, UID: UID)
-        let urlString = "\(server)/api/comments/"
-        
-        guard let url = URL(string: urlString) else { return (false, nil) }
-        
-        guard let encoded = try? JSONEncoder().encode(comment) else {
-            print("Failed to encode order")
-            return (false, nil)
-        }
-        
-        print(String(data: encoded, encoding: .utf8)!)
-        
-        var request = URLRequest(url: url)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        request.httpBody = encoded
-        
         return try await withCheckedThrowingContinuation { continuation in
+            let comment = SaveCommentModel(word: word, text: text, UID: self.UID)
+            let urlString = "\(ENV.server)/api/comments/"
+            
+            guard let url = URL(string: urlString) else { return continuation.resume(throwing: APIError.failedToComposeURL) }
+            
+            guard let encoded = try? JSONEncoder().encode(comment) else {
+                print("Failed to encode order")
+                return continuation.resume(throwing: APIError.failedToDecode)
+            }
+            
+            print(String(data: encoded, encoding: .utf8)!)
+            
+            var request = URLRequest(url: url)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = "POST"
+            request.httpBody = encoded
+            
+            
             AF.request(request)
             .validate()
             .responseDecodable(of: Comment.self){ response in
@@ -210,8 +212,7 @@ class APIProvider: ObservableObject{
                 case let .success(data):
                     continuation.resume(returning: (true, data))
                 case let .failure(error):
-                    print(error)
-                    continuation.resume(returning: (false, nil))
+                    continuation.resume(throwing: self.handleError(error: error))
                 }
             }
         }
@@ -219,8 +220,7 @@ class APIProvider: ObservableObject{
     
     func updatePoints() async throws {
         return try await withCheckedThrowingContinuation { continuation in
-            let urlString = "\(server)/api/getPoints/\(UID)"
-            print(urlString)
+            let urlString = "\(ENV.server)/api/getPoints/\(UID)"
             AF.request(
                 urlString,
                 method: .get
@@ -240,7 +240,7 @@ class APIProvider: ObservableObject{
     
     func getTopList() async throws -> [TopElement]{
         return try await withCheckedThrowingContinuation { continuation in
-            let urlString = "\(server)/api/top/\(UID)"
+            let urlString = "\(ENV.server)/api/top/\(UID)"
             AF.request(
                 urlString,
                 method: .get
@@ -258,14 +258,14 @@ class APIProvider: ObservableObject{
     }
     
     func saveTheGame(game: GameHistoryModel) async throws{
-        let urlString = "\(server)/api/games"
-        let serverGameSessionModel = ServerGameSessionModel(type: game.gameType.name, word: game.word, UID: UID, result: game.result.rawValue, filled_lines: game.tries, duration: game.duration)
-        guard let encoded = try? JSONEncoder().encode(serverGameSessionModel) else {
-            print("Failed to encode order")
-            return
-        }
-        
         return try await withCheckedThrowingContinuation { continuation in
+            let urlString = "\(ENV.server)/api/games"
+            let serverGameSessionModel = ServerGameSessionModel(type: game.gameType.name, word: game.word, UID: UID, result: game.result.rawValue, filled_lines: game.tries, duration: game.duration)
+            
+            guard let encoded = try? JSONEncoder().encode(serverGameSessionModel) else {
+                return continuation.resume(throwing: APIError.failedToEncode)
+            }
+            
             AF.request(
                 urlString,
                 method: .post,
@@ -288,7 +288,7 @@ class APIProvider: ObservableObject{
     // OK
     func getWordOfTheDay() async throws -> WordOfTheDayResponse {
         return try await withCheckedThrowingContinuation { continuation in
-            let urlString = "\(server)/api/dailyword"
+            let urlString = "\(ENV.server)/api/dailyword"
             AF.request(
                 urlString,
                 method: .get
@@ -305,9 +305,9 @@ class APIProvider: ObservableObject{
         }
     }
     
-    
+    //TO DO REMOVE
     func getWordOfTheDay(){
-        let urlString = "\(server)/api/dailyword"
+        let urlString = "\(ENV.server)/api/dailyword"
         guard let url = URL(string: urlString) else {
             //fatalError("Missing URL")
             self.message = "Отсутствует подключение"
@@ -366,6 +366,7 @@ class APIProvider: ObservableObject{
         if let underlyingError = error.underlyingError {
             let nserror = underlyingError as NSError
             let code = nserror.code
+            
             if code == NSURLErrorNotConnectedToInternet ||
                 code == NSURLErrorTimedOut ||
                 code == NSURLErrorInternationalRoamingOff ||

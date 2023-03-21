@@ -7,5 +7,7 @@
 
 import Foundation
 
-let server = "http://193.187.96.70"
-let appName = "ВОРДИ"
+class ENV {
+    static let server = "http://193.187.96.70"
+    static let appName = "ВОРДИ"
+}

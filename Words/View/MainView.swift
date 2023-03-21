@@ -38,7 +38,7 @@ struct MainView: View {
                 
                 VStack(spacing: 0){
                     
-                    PageHeaderView(title: appName)
+                    PageHeaderView(title: ENV.appName)
                         .offset(y: 2)
                     
                     //GAME OPTIONS

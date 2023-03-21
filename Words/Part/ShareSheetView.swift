@@ -21,7 +21,7 @@ struct ShareSheetView: UIViewControllerRepresentable {
                     🟨🟩⬜⬜⬜
                     🟨🟩⬜⬜⬜
                     🟨🟩⬜⬜⬜
-                    #\(appName)
+                    #\(ENV.appName)
                     Отгадай слово дня
                     """
         // set up activity view controller

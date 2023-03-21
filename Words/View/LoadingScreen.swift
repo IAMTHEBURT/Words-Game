@@ -30,7 +30,7 @@ struct LoadingScreen: View {
             VStack{
                 Spacer()
                 HStack{
-                    Text("Добро\nпожаловать\nв \(appName)")
+                    Text("Добро\nпожаловать\nв \(ENV.appName)")
                         .textCase(.uppercase)
                         .modifier(MyFont(font: "Inter", weight: "Bold", size: 36.0))
                 }
