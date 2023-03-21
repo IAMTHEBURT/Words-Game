@@ -11,7 +11,9 @@ struct BottomMenuView: View {
     
     // MARK: - PROPERTIES
     
-    @StateObject var bottomMenuVM: BottomMenuViewModel = BottomMenuViewModel.shared
+    //@StateObject var bottomMenuVM: BottomMenuViewModel = BottomMenuViewModel.shared
+    
+    @EnvironmentObject var bottomMenuVM: BottomMenuViewModel
     @State var activeElement: Int = 0
     
     

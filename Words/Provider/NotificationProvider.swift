@@ -20,7 +20,7 @@ class NotificationProvider {
     
     @AppStorage("isDailyWordNotificationSet") private var isDailyWordNotificationSet: Bool = false
     
-    static let shared = NotificationProvider()
+    //static let shared = NotificationProvider()
     let center = UNUserNotificationCenter.current()
     
     //Get hours and minutes via .intHours, .intMinutes

@@ -10,11 +10,11 @@ import SwiftUI
 
 class BottomMenuViewModel: ObservableObject{
     // MARK: - PROPERTIES
-    static let shared: BottomMenuViewModel = BottomMenuViewModel()
+    //static let shared: BottomMenuViewModel = BottomMenuViewModel()
+    
     @Published var activeScreen: ActiveScreen = .game
     @Published var isInitialLoadingFinished: Bool = false
     @Published var isBottomMenuHidden: Bool = true
-    
     @Published var isSheetPresented: Bool = false
     @Published var headerSheetPresented: HeaderSheet = .rules
     @Published var isOnboardingPagePresented: Bool = false

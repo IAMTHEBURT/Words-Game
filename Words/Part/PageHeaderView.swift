@@ -21,7 +21,6 @@ enum HeaderSheet: Identifiable {
 
 struct PageHeaderView: View {
     
-    
     // MARK: - PROPERTIES
     
     @StateObject var apiProvider = APIProvider.shared
@@ -33,14 +32,16 @@ struct PageHeaderView: View {
     var hideRulesIcon: Bool = false
     
     @Environment(\.presentationMode) private var presentationMode
-    @StateObject var bottomMenuVM = BottomMenuViewModel.shared
+    
+    @EnvironmentObject var bottomMenuVM: BottomMenuViewModel
+    //@StateObject var bottomMenuVM = BottomMenuViewModel.shared
     
     // MARK: - BODY
     
     var body: some View {
         HStack(spacing: 0){
             Button(action: {
-                BottomMenuViewModel.shared.showMenu()
+                bottomMenuVM.showMenu()
                 presentationMode.wrappedValue.dismiss()
                 bottomMenuVM.activeScreen = .game
             }) {
@@ -78,14 +79,6 @@ struct PageHeaderView: View {
                 }
             }
         }
-//        .task {
-//            do{
-//                try await APIProvider.shared.updatePoints()
-//            } catch{
-//                print(error)
-//            }
-//        }
-        
         .foregroundColor(.white)
         .padding(17)
         .background{

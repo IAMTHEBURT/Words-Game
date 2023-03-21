@@ -8,4 +8,4 @@
 import Foundation
 
 //let server = "0.0.0.0.0.0.0"
-//let appName = "ВОРДС"
+//let appName = "WORDS"

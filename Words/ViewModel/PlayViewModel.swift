@@ -11,6 +11,9 @@ import CoreData
 
 class PlayViewModel: ObservableObject {
     // MARK: - PROPERTIES
+    
+    let dictionary = Dictionary()
+    
     let numberOfLines = 6
     var finalWord: String = "Чернота25".uppercased()
     var gameType: GameType = .dailyWord
@@ -57,7 +60,6 @@ class PlayViewModel: ObservableObject {
     var started_at: TimeInterval = Date.now.timeIntervalSince1970
     
     // MARK: - FUNCTIONS
-    
     
     init(){
         setLines()
@@ -253,7 +255,7 @@ class PlayViewModel: ObservableObject {
     
     func checkTheLine(){
         //Check if this is a real word
-        if !Dictionary.shared.hasTheWord(word: lines[currentLineIndex].lettersAsString){
+        if !dictionary.hasTheWord(word: lines[currentLineIndex].lettersAsString){
             playSound(sound: "custom-1", type: "wav")
             showNotifyView(text: "Мы не нашли такого слова в нашем словаре")
             return
@@ -333,7 +335,7 @@ class PlayViewModel: ObservableObject {
         isResultAlertPresented = true
         
         if gameType == .dailyWord{
-            NotificationProvider.shared.updateNotifications(skipCurrentDay: true)
+            NotificationProvider().updateNotifications(skipCurrentDay: true)
         }
         
         Task{

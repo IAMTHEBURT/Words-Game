@@ -9,8 +9,6 @@ import SwiftUI
 
 @main
 struct WordsApp: App {
-    let dictionary: Dictionary = Dictionary.shared
-    
     var body: some Scene {
         WindowGroup {
             ContentView()

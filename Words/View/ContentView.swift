@@ -9,22 +9,21 @@ import SwiftUI
 
 struct ContentView: View {
     // MARK: - PROPERTIES
-    
-
-    @StateObject var bottomMenuVM = BottomMenuViewModel.shared
+    @StateObject var mainVM = MainViewModel()
+    @StateObject var bottomMenuVM = BottomMenuViewModel()
     @State var isInitialLoadingHidden: Bool = false
     @AppStorage("isOnboardingFinished") private var isOnboardingFinished: Bool = false
     
     // MARK: - BODY
     
     var body: some View {
-        
         Group{
             if bottomMenuVM.isInitialLoadingFinished{
                 ZStack{
                     switch bottomMenuVM.activeScreen {
                     case .game:
                         MainView()
+                            .environmentObject(mainVM)
                     case .history:
                         GameHistory()
                     case .stat:
@@ -49,8 +48,7 @@ struct ContentView: View {
                         if isOnboardingFinished == false {
                             return
                         }
-                        
-                        BottomMenuViewModel.shared.showMenu()
+                        bottomMenuVM.showMenu()
                     }
                 }
                 .sheet(isPresented: $bottomMenuVM.isSheetPresented) {
@@ -60,9 +58,10 @@ struct ContentView: View {
                         RatingView()
                     }
                 }
-
+                .environmentObject(bottomMenuVM)
+                
             }else{
-                LoadingScreen()
+                LoadingScreen(bottomMenuVM: bottomMenuVM)
             }
         }
     }

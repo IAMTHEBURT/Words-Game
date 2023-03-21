@@ -86,9 +86,6 @@ struct KeyboardView: View {
     }
 }
 
-
-
-
 // MARK: - PREVIW
 struct KeyboardView_Previews: PreviewProvider {
     static var previews: some View {

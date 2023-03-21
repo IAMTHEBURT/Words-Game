@@ -24,7 +24,7 @@ struct PortraitPlayView: View {
     
     
     @Environment(\.presentationMode) var presentationMode
-    
+    @EnvironmentObject var bottomMenuVM: BottomMenuViewModel
     
     var numberOfTheDay: Int{
         let date = Date() // now
@@ -87,7 +87,7 @@ struct PortraitPlayView: View {
         }
         .navigationBarHidden(true)
         .onAppear{
-            BottomMenuViewModel.shared.hideMenu()
+            bottomMenuVM.hideMenu()
         }
     }
 }

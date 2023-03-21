@@ -299,27 +299,6 @@ class MainViewModel: NSObject, ObservableObject {
             print(error.localizedDescription)
             return false
         }
-        
-        
-        
-        
-        //CoreDataProvider.shared.viewContext.fetch(GameDBM.all)
-//        guard let dailyWord = APIProvider.shared.wordOfTheDayResponse?.word else { return false }
-//
-//        let fetchRequest = GameDBM.all
-//        fetchRequest.predicate = NSPredicate(format: "word = %@", dailyWord.uppercased())
-//
-//        do {
-//            let games = try CoreDataProvider.shared.viewContext.fetch(fetchRequest)
-//            if games.isEmpty{
-//                return false
-//            }else{
-//                return true
-//            }
-//        } catch {
-//            print(error.localizedDescription)
-//            return false
-//        }
     }
     
     func getDailyWordGameHistory() -> GameHistoryModel?{

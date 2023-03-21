@@ -14,6 +14,7 @@ struct RulesView: View {
     @AppStorage("isOnboardingFinished") private var isOnboardingFinished: Bool = false
     
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var bottomMenuVM: BottomMenuViewModel
     
     // MARK: - BODY
     
@@ -43,7 +44,7 @@ struct RulesView: View {
                             Spacer()
                             Button(action: {
                                 mainVM.startAnyWordGame(word: "салют", title: "Приветственное слово")
-                                BottomMenuViewModel.shared.isOnboardingPagePresented = false
+                                bottomMenuVM.isOnboardingPagePresented = false
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                                     isOnboardingFinished = true
                                 }

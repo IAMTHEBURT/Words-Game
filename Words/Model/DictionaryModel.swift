@@ -9,8 +9,6 @@ import Foundation
 
 class Dictionary {
     // MARK: - PROPERTIES
-    
-    static let shared: Dictionary = Dictionary()
     let list: [String]
     
     // MARK: - FUNCTIONS

@@ -11,8 +11,14 @@ struct MainView: View {
     @AppStorage("isDailyWordNotificationSet") private var isDailyWordNotificationSet: Bool = false
     @AppStorage("isOnboardingFinished") private var isOnboardingFinished: Bool = false
     
-    @StateObject private var mainVM: MainViewModel = MainViewModel.shared
+    //@StateObject private var mainVM: MainViewModel = MainViewModel.shared
+    //@StateObject var mainVM: MainViewModel
+    
+    @EnvironmentObject var mainVM: MainViewModel
+    
     @StateObject private var APIProvider: APIProvider = .shared
+    
+    @EnvironmentObject private var bottomMenuVM: BottomMenuViewModel
     
     @State var isDailyWordAnimating: Bool = false
 
@@ -37,6 +43,7 @@ struct MainView: View {
                     
                     PageHeaderView(title: appName)
                         .offset(y: 2)
+                    
                     //GAME OPTIONS
                     
                     ScrollView(.vertical, showsIndicators: false) {
@@ -74,7 +81,7 @@ struct MainView: View {
                                 Image(systemName: isDailyWordNotificationSet ? "bell.fill" : "bell")
                                     .offset(x: -25, y: 10)
                                     .onTapGesture {
-                                        NotificationProvider.shared.toggleNotifications()
+                                        NotificationProvider().toggleNotifications()
                                     }
                                 ,
                                 alignment: .topTrailing
@@ -168,9 +175,9 @@ struct MainView: View {
             }
             .onChange(of: mainVM.showingDailyWordIsFinishedAlert, perform: { newValue in
                 if newValue {
-                    BottomMenuViewModel.shared.hideMenu()
+                    bottomMenuVM.hideMenu()
                 } else{
-                    BottomMenuViewModel.shared.showMenu()
+                    bottomMenuVM.showMenu()
                 }
             })
             .navigationDestination(isPresented: $mainVM.pushToGame) {
@@ -185,8 +192,8 @@ struct MainView: View {
 }
 
 // MARK: - PREVIW
-struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainView()
-    }
-}
+//struct MainView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MainView(mainVM: MainViewModel())
+//    }
+//}

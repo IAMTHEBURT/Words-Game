@@ -72,7 +72,6 @@ class APIProvider: ObservableObject{
     
     // MARK: - FUNCTIONS
     
-    
     // MARK: - GET STATISTICS ABOT THIS WORD
     
     func getWordstat(word: String) async throws -> WordstatModel{

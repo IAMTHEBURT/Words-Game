@@ -9,11 +9,11 @@ import SwiftUI
 
 struct LoadingScreen: View {
     // MARK: - PROPERTIES
+    
+    @StateObject var bottomMenuVM: BottomMenuViewModel
+    
     @State private var showingTitle: Bool = false
-    @State private var showingButton: Bool = false    
-    
-    
-    @StateObject var bottomMenuVM = BottomMenuViewModel.shared
+    @State private var showingButton: Bool = false
     
     @AppStorage("isOnboardingFinished") private var isOnboardingFinished: Bool = false
     
@@ -91,6 +91,6 @@ struct LoadingScreen: View {
 
 struct LoadingScreen_Previews: PreviewProvider {
     static var previews: some View {
-        LoadingScreen()
+        LoadingScreen(bottomMenuVM: BottomMenuViewModel())
     }
 }
