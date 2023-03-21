@@ -1,10 +1,3 @@
-//
-//  ENV.swift
-//  Words
-//
-//  Created by Ivan Lvov on 13.03.2023.
-//
-
 import Foundation
 
 //class ENV {
