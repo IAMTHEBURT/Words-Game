@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct GameResultView: View {
+    
+    // MARK: - PROPERTIES
+    
     @StateObject var playVM: PlayViewModel
     
     let successTitle: String = "Поздравляем, вы отгадали слово!"
@@ -17,6 +20,9 @@ struct GameResultView: View {
     let failSubtitle: String = "Следующий этап будет более успешным!\nПродолжить отгадывать слова?"
     
     var showContinue: Bool = true
+    
+    
+    // MARK: - BODY
     
     var body: some View {
         VStack(spacing: 24){
@@ -86,6 +92,7 @@ struct GameResultView: View {
     }
 }
 
+// MARK: - PREVIW
 struct GameResultView_Previews: PreviewProvider {
     static var previews: some View {
         GameResultView(playVM: PlayViewModel())

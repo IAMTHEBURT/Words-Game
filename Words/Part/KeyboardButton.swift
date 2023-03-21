@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct KeyboardButton: View {
+    
+    // MARK: - PROPERTIES
+    
     @StateObject var playViewModel: PlayViewModel
     @State var character: String
     @State private var isPressed: Bool = false
     
     let sound: String
     
+    // MARK: - FUNCTIONS
     func getBGColorForTheKeyboardKey() -> Color{
         var letters: [Letter] = []
         playViewModel.lines.map { line in letters.append(contentsOf: line.letters) }
@@ -36,6 +40,8 @@ struct KeyboardButton: View {
             return LetterState.unanswered.fontColor
         }
     }
+    
+    // MARK: - BODY
     
     var body: some View {
         RoundedRectangle(cornerRadius: 8)
@@ -76,11 +82,12 @@ struct KeyboardButton: View {
     }
 }
 
+// MARK: - PREVIW
 struct KeyboardButton_Previews: PreviewProvider {
     static var previews: some View {
         KeyboardButton(
             playViewModel: PlayViewModel(),
-            character: "Т", sound: "Interface Click 2.wav")
+            character: "Т", sound: "custom-2")
         .frame(height: 80)
         .frame(width: 60)
         .previewLayout(.sizeThatFits)

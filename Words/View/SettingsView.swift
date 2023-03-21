@@ -23,7 +23,6 @@ struct SettingsView: View {
     
     // MARK: - BODY
     
-
     init(){
         UITableView.appearance().backgroundColor = .clear
     }

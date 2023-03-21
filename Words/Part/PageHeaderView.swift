@@ -20,6 +20,10 @@ enum HeaderSheet: Identifiable {
 
 
 struct PageHeaderView: View {
+    
+    
+    // MARK: - PROPERTIES
+    
     @StateObject var apiProvider = APIProvider.shared
     
     var blockRatingButton: Bool = false
@@ -30,6 +34,8 @@ struct PageHeaderView: View {
     
     @Environment(\.presentationMode) private var presentationMode
     @StateObject var bottomMenuVM = BottomMenuViewModel.shared
+    
+    // MARK: - BODY
     
     var body: some View {
         HStack(spacing: 0){
@@ -86,16 +92,11 @@ struct PageHeaderView: View {
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color(hex: "#4D525B"))
         }
-//        .sheet(isPresented: $bottomMenuVM.isSheetPresented) {
-//            if bottomMenuVM.headerSheetPresented == .rules {
-//                Text("Правила игры")
-//            }else{
-//                RatingView()
-//            }
-//        }
     }
 }
 
+
+// MARK: - PREVIW
 struct PageHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         PageHeaderView(title: "Рейтинг")

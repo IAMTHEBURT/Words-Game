@@ -11,8 +11,7 @@ struct GameHistoryElementView: View {
     // MARK: - PROPERTIES
     
     @State private var isCollapsed: Bool = false
-    @State private var extraOpacity: Double = 0
-    
+    @State private var extraOpacity: Double = 0    
     @State private var showResultSheet: Bool = false
     
     var gameHistoryModel: GameHistoryModel

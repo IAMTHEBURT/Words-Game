@@ -8,10 +8,16 @@
 import SwiftUI
 
 struct RemoveKeyboardButton: View {
+    
+    // MARK: - PROPERTIES
+    
     @StateObject var playViewModel: PlayViewModel
     @State private var isPressed: Bool = false
     
     let sound: String
+    
+    
+    // MARK: - BODY
     
     var body: some View {
         RoundedRectangle(cornerRadius: 6)
@@ -34,8 +40,9 @@ struct RemoveKeyboardButton: View {
     }
 }
 
+// MARK: - PREVIW
 struct RemoveKeyboardButton_Previews: PreviewProvider {
     static var previews: some View {
-        RemoveKeyboardButton(playViewModel: PlayViewModel(), sound: "Interface Click 4.wav")
+        RemoveKeyboardButton(playViewModel: PlayViewModel(), sound: "custom-2.wav")
     }
 }

@@ -59,8 +59,8 @@ struct WordstatModel: Codable{
 class APIProvider: ObservableObject{
     // MARK: - PROPERTIES
     static let shared = APIProvider()
-    
     @AppStorage("UID") private var UID: String = ""
+    
     @Published var message: String = ""
     @Published var showDownloading: Bool = false
     @Published var wordOfTheDayResponse: WordOfTheDayResponse? = nil

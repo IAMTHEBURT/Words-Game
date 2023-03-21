@@ -4,6 +4,7 @@ struct DefaultButtonStyle: ButtonStyle {
     // MARK: - PROPERTIES
     
     @Environment(\.isEnabled) private var isEnabled: Bool
+    
     var bgColor: Color = .white
     var borderColor: Color = Color(hex: "E0DFE0")
     var fontColor: Color = Color(hex: "2B47DE")

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct MiniPlayField: View {
+    
+    // MARK: - PROPERTIES
+    
     private var gridLayout: [GridItem]{
         return Array(repeating: GridItem(.flexible(), spacing: 0), count: gameHistoryModel.word.count)
     }
@@ -27,6 +30,8 @@ struct MiniPlayField: View {
         }
     }
     
+    // MARK: - BODY
+    
     var body: some View {
         LazyVGrid(columns: gridLayout, spacing: 2){
             ForEach(lettersArray) { letter in
@@ -38,8 +43,9 @@ struct MiniPlayField: View {
     }
 }
 
+// MARK: - PREVIW
+
 struct MiniPlayField_Previews: PreviewProvider {
-    
     static var previews: some View {
         MiniPlayField(gameHistoryModel: GameHistoryModel(gameDBM: GameDBM.emptyInit()))
             .previewLayout(.sizeThatFits)

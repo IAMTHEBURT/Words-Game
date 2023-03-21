@@ -8,14 +8,22 @@
 import SwiftUI
 
 struct BottomMenuView: View {
+    
+    // MARK: - PROPERTIES
+    
     @StateObject var bottomMenuVM: BottomMenuViewModel = BottomMenuViewModel.shared
     @State var activeElement: Int = 0
+    
+    
+    // MARK: - FUNCTIONS
     
     func setActive(_ id: Int){
         withAnimation {
             activeElement = id
         }
     }
+    
+    // MARK: - BODY
     
     var body: some View {
         ZStack{
@@ -71,6 +79,8 @@ struct BottomMenuView: View {
     }
 }
 
+// MARK: - PREVIW
+
 struct BottomMenu_Previews: PreviewProvider {
     static var previews: some View {
         BottomMenuView()
@@ -98,26 +108,4 @@ struct BottomMenuElement: View{
         .blending(color: isActive ? Color(hex: "#ffffff") : Color(hex: "#7F838B"))
         //.background(isActive ? Color(hex: "#4D525B") : Color.clear)
     }
-}
-
-
-
-public struct ColorBlended: ViewModifier {
-  fileprivate var color: Color
-  
-  public func body(content: Content) -> some View {
-    VStack {
-      ZStack {
-        content
-        color.blendMode(.sourceAtop)
-      }
-      .drawingGroup(opaque: false)
-    }
-  }
-}
-
-extension View {
-  public func blending(color: Color) -> some View {
-    modifier(ColorBlended(color: color))
-  }
 }

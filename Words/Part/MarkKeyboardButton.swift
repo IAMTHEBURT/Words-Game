@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct MarkKeyboardButton: View {
+    // MARK: - PROPERTIES
+    
     @StateObject var playViewModel: PlayViewModel
     @State private var isPressed: Bool = false
+    
+    
+    // MARK: - BODY
     
     var body: some View {
         RoundedRectangle(cornerRadius: 6)
@@ -46,6 +51,7 @@ struct MarkKeyboardButton: View {
     }
 }
 
+// MARK: - PREVIW
 struct MarkKeyboardButton_Previews: PreviewProvider {
     static var previews: some View {
         MarkKeyboardButton(playViewModel: PlayViewModel())

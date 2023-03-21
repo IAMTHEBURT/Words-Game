@@ -8,9 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    // MARK: - PROPERTIES
+    
+
     @StateObject var bottomMenuVM = BottomMenuViewModel.shared
     @State var isInitialLoadingHidden: Bool = false
     @AppStorage("isOnboardingFinished") private var isOnboardingFinished: Bool = false
+    
+    // MARK: - BODY
     
     var body: some View {
         
@@ -63,6 +68,7 @@ struct ContentView: View {
     }
 }
 
+// MARK: - PREVIW
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()

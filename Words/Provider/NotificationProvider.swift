@@ -193,7 +193,5 @@ class NotificationProvider {
                 print("Don't have an access... EXIT")
             }
         }
-        
-        
     }
 }

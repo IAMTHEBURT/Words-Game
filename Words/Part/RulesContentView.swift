@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct RulesContentView: View {
+    // MARK: - BODY
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 20){
             Group{
@@ -16,7 +18,7 @@ struct RulesContentView: View {
                 Spacer()
                     .frame(height: 1)
                 
-                Text("Угадайте загаданное слов с шести попыток")
+                Text("Угадайте загаданное слово с шести попыток")
                 
                 Text("После каждой попытки цвет букв будет меняться, чтобы показать какие буквы есть в загаданном слове.\nНапример, загадано слово ГОСТЬ")
             }
@@ -89,6 +91,7 @@ struct RulesContentView: View {
     }
 }
 
+// MARK: - PREVIW
 struct RulesContentView_Previews: PreviewProvider {
     static var previews: some View {
         RulesContentView()

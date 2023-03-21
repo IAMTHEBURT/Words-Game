@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct LongMarkKeyboardButton: View {
+    
+    // MARK: - PROPERTIES
+    
     @StateObject var playViewModel: PlayViewModel
     @State private var isPressed: Bool = false
+    
+    // MARK: - BODY
     
     var body: some View {
         RoundedRectangle(cornerRadius: 6)
@@ -44,6 +49,7 @@ struct LongMarkKeyboardButton: View {
     }
 }
 
+// MARK: - PREVIW
 struct LongMarkKeyboardButton_Previews: PreviewProvider {
     static var previews: some View {
         LongMarkKeyboardButton(playViewModel: PlayViewModel())
