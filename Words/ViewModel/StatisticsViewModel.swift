@@ -66,21 +66,23 @@ class StatisticsViewModel: ObservableObject{
         
         var tries: [Double] = []
         
-        _ = games.map { game in
+        games.forEach { game in
             if game.result == .win && game.gameType == .dailyWord{
                 tries.append(Double(game.tries))
             }
         }
+        
         result.append( ["Слово дня" : tries.average] )
         
         for index in 5...9 {
             tries = []
             
-            _ = games.map { game in
+            games.forEach { game in
                 if game.result == .win && game.word.count == index{
                     tries.append(Double(game.tries))
                 }
             }
+            
             result.append( ["\(index) попыток" : tries.average] )
         }
         

@@ -130,14 +130,7 @@ class PlayViewModel: ObservableObject {
     }
     
     func getAllLetters(withEmpty: Bool = false) -> [Letter]{
-        var letters: [Letter] = []
-        _ = lines.map { line in
-            if withEmpty{
-                letters.append(contentsOf: line.lettersWithEmptyElements)
-            }else{
-                letters.append(contentsOf: line.letters)
-            }
-        }
+        let letters = lines.flatMap { withEmpty ? $0.lettersWithEmptyElements : $0.letters}
         return letters
     }
     

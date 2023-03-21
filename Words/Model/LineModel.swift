@@ -29,11 +29,14 @@ class Line: Identifiable {
 extension Line {
     var lettersAsString: String{
         var string = ""
-        _ = letters.map { letter in
+        letters.forEach{ letter in
             string += letter.character
         }
+        
         return string
     }
+    
+    
     var lettersWithEmptyElements: [Letter]{
         var result: [Letter] = []
         for index in 0...lettersCount - 1 {
