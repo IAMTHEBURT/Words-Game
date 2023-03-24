@@ -19,7 +19,4 @@ extension DailyWordDBM: BaseDBModel {
     }
     
     
-    
-    
-    
 }

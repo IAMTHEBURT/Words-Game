@@ -103,6 +103,7 @@ class NotificationProvider {
         center.removeAllPendingNotificationRequests()
     }
     
+    
     // Удаляет оповещение установленное на сегодня
     func removeTodaysNotiifiication(){
         center.getPendingNotificationRequests(completionHandler: { requests in

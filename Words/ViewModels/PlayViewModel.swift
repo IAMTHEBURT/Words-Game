@@ -9,6 +9,10 @@ import Foundation
 import SwiftUI
 import CoreData
 
+enum PlayError: Error {
+    case nonexistentword
+}
+
 class PlayViewModel: ObservableObject {
     // MARK: - PROPERTIES
     let dictionary = Dictionary()
@@ -43,7 +47,7 @@ class PlayViewModel: ObservableObject {
     var currentLineIndex: Int = 0
     var currentSymbolIndex: Int = 0
     
-    var finalWordAsArray:[String]{
+    var finalWordAsArray: [String]{
         let characters = finalWord.map { String($0) }
         return characters
     }
@@ -111,7 +115,6 @@ class PlayViewModel: ObservableObject {
             }
         }
         
-        
         if empty{
             return hasLetter ? character : ""
         }else{
@@ -128,6 +131,7 @@ class PlayViewModel: ObservableObject {
         }
         self.lines = lines
     }
+    
     
     func getAllLetters(withEmpty: Bool = false) -> [Letter]{
         let letters = lines.flatMap { withEmpty ? $0.lettersWithEmptyElements : $0.letters}
@@ -166,7 +170,6 @@ class PlayViewModel: ObservableObject {
         setLines()
     }
     
-    
     func setGame(gameType: GameType){
         reset()
         started_at = Date.now.timeIntervalSince1970
@@ -200,9 +203,6 @@ class PlayViewModel: ObservableObject {
     }
     
     func inputCharacter(character: String){
-        
-        print(finalWord.uppercased())
-        
         if currentLine.lineIsFull {
             return
         }
@@ -247,12 +247,12 @@ class PlayViewModel: ObservableObject {
         showNotifyView = true
     }
     
-    func checkTheLine(){
+    func checkTheLine() throws{
         //Check if this is a real word
         if !dictionary.hasTheWord(word: lines[currentLineIndex].lettersAsString){
             playSound(sound: "no-such-word", type: "wav")
             showNotifyView(text: "Мы не нашли такого слова в нашем словаре")
-            return
+            throw PlayError.nonexistentword
         }
         
         tries += 1
@@ -273,13 +273,11 @@ class PlayViewModel: ObservableObject {
         
         //If this is the right word
         if lines[currentLineIndex].lettersAsString == finalWord{
-            print("YOU WON")
             self.result = .win
             finishTheGame()
             playSound(sound: "you-won", type: "wav")
             successConfettiCounter += 1
         }
-
         
         playSound(sound: "you-done", type: "wav")
         // FINISH
@@ -297,8 +295,6 @@ class PlayViewModel: ObservableObject {
     }
     
     func finishTheGame(){
-        print("GAME IS FINISHED")
-        
         //SAVE THE GAME TO DB
         let gameDBM = GameDBM(context: CoreDataProvider.shared.viewContext)
         gameDBM.date = Date()
@@ -317,7 +313,6 @@ class PlayViewModel: ObservableObject {
         gameDBM.lines = Int16(lines.filter{(!$0.letters.isEmpty)}.count)
         
         if let taskDBM = task{
-            print("SAVING TASK")
             gameDBM.task = taskDBM
         }
         

@@ -51,6 +51,10 @@
 		2C7971E8298E559800B93603 /* PartialSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 2C7971E7298E559800B93603 /* PartialSheet */; };
 		2C7F51662986436700211D2E /* DistributionElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7F51652986436700211D2E /* DistributionElement.swift */; };
 		2C7F5168298649CD00211D2E /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7F5167298649CD00211D2E /* RatingView.swift */; };
+		2C89EF6829CD9D5C000B169F /* WordsUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C89EF6729CD9D5C000B169F /* WordsUnitTests.swift */; };
+		2C89EF6E29CDA2E9000B169F /* progression-mode-ru.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C33D93B2954751A00F65762 /* progression-mode-ru.json */; };
+		2C89EF6F29CDA2E9000B169F /* nouns-ru.json in Resources */ = {isa = PBXBuildFile; fileRef = 9D5776A529423AB100FDDB94 /* nouns-ru.json */; };
+		2C89EF7029CDA2E9000B169F /* free-mode-ru.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C33D93D2954754200F65762 /* free-mode-ru.json */; };
 		2C8CBF8129836CE000628C97 /* PlayFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8CBF8029836CDF00628C97 /* PlayFieldView.swift */; };
 		2C8CBF832983CEA700628C97 /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8CBF822983CEA700628C97 /* CommentsView.swift */; };
 		2C8CBF852983ED3400628C97 /* CommentElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8CBF842983ED3400628C97 /* CommentElementView.swift */; };
@@ -118,6 +122,16 @@
 		9DFB06612948B79000752E6A /* GameResultAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB06602948B79000752E6A /* GameResultAlertView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		2C89EF6929CD9D5C000B169F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9D4776552941E9BA00DD96F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9D47765C2941E9BA00DD96F4;
+			remoteInfo = Words;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		2C0216EA2977E3C3007D8FC6 /* NewCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCategoryView.swift; sourceTree = "<group>"; };
 		2C0216EC2977E917007D8FC6 /* RoundedCorners + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoundedCorners + Extensions.swift"; sourceTree = "<group>"; };
@@ -160,6 +174,8 @@
 		2C7971E4298E51C400B93603 /* Shake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shake.swift; sourceTree = "<group>"; };
 		2C7F51652986436700211D2E /* DistributionElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributionElement.swift; sourceTree = "<group>"; };
 		2C7F5167298649CD00211D2E /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
+		2C89EF6529CD9D5C000B169F /* WordsUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordsUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C89EF6729CD9D5C000B169F /* WordsUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsUnitTests.swift; sourceTree = "<group>"; };
 		2C8CBF8029836CDF00628C97 /* PlayFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayFieldView.swift; sourceTree = "<group>"; };
 		2C8CBF822983CEA700628C97 /* CommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsView.swift; sourceTree = "<group>"; };
 		2C8CBF842983ED3400628C97 /* CommentElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentElementView.swift; sourceTree = "<group>"; };
@@ -230,6 +246,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2C89EF6229CD9D5C000B169F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9D47765A2941E9BA00DD96F4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -263,6 +286,14 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		2C89EF6629CD9D5C000B169F /* WordsUnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				2C89EF6729CD9D5C000B169F /* WordsUnitTests.swift */,
+			);
+			path = WordsUnitTests;
+			sourceTree = "<group>";
+		};
 		2C9065F22995001C00F752CB /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -290,6 +321,7 @@
 			isa = PBXGroup;
 			children = (
 				9D47765F2941E9BA00DD96F4 /* Words */,
+				2C89EF6629CD9D5C000B169F /* WordsUnitTests */,
 				9D47765E2941E9BA00DD96F4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -298,6 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				9D47765D2941E9BA00DD96F4 /* Words.app */,
+				2C89EF6529CD9D5C000B169F /* WordsUnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -496,6 +529,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		2C89EF6429CD9D5C000B169F /* WordsUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2C89EF6B29CD9D5C000B169F /* Build configuration list for PBXNativeTarget "WordsUnitTests" */;
+			buildPhases = (
+				2C89EF6129CD9D5C000B169F /* Sources */,
+				2C89EF6229CD9D5C000B169F /* Frameworks */,
+				2C89EF6329CD9D5C000B169F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2C89EF6A29CD9D5C000B169F /* PBXTargetDependency */,
+			);
+			name = WordsUnitTests;
+			productName = WordsUnitTests;
+			productReference = 2C89EF6529CD9D5C000B169F /* WordsUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		9D47765C2941E9BA00DD96F4 /* Words */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9D47766B2941E9BE00DD96F4 /* Build configuration list for PBXNativeTarget "Words" */;
@@ -525,9 +576,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1410;
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1410;
 				TargetAttributes = {
+					2C89EF6429CD9D5C000B169F = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 9D47765C2941E9BA00DD96F4;
+					};
 					9D47765C2941E9BA00DD96F4 = {
 						CreatedOnToolsVersion = 14.1;
 					};
@@ -552,11 +607,22 @@
 			projectRoot = "";
 			targets = (
 				9D47765C2941E9BA00DD96F4 /* Words */,
+				2C89EF6429CD9D5C000B169F /* WordsUnitTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2C89EF6329CD9D5C000B169F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C89EF6F29CDA2E9000B169F /* nouns-ru.json in Resources */,
+				2C89EF6E29CDA2E9000B169F /* progression-mode-ru.json in Resources */,
+				2C89EF7029CDA2E9000B169F /* free-mode-ru.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9D47765B2941E9BA00DD96F4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -583,6 +649,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2C89EF6129CD9D5C000B169F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C89EF6829CD9D5C000B169F /* WordsUnitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9D4776592941E9BA00DD96F4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -682,7 +756,52 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		2C89EF6A29CD9D5C000B169F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9D47765C2941E9BA00DD96F4 /* Words */;
+			targetProxy = 2C89EF6929CD9D5C000B169F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		2C89EF6C29CD9D5C000B169F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.apple.il.WordsUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Words.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Words";
+			};
+			name = Debug;
+		};
+		2C89EF6D29CD9D5C000B169F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.apple.il.WordsUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Words.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Words";
+			};
+			name = Release;
+		};
 		9D4776692941E9BE00DD96F4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -869,6 +988,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2C89EF6B29CD9D5C000B169F /* Build configuration list for PBXNativeTarget "WordsUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C89EF6C29CD9D5C000B169F /* Debug */,
+				2C89EF6D29CD9D5C000B169F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		9D4776582941E9BA00DD96F4 /* Build configuration list for PBXProject "Words" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

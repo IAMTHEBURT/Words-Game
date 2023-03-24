@@ -44,7 +44,7 @@ struct MarkKeyboardButton: View {
                             return
                         }
                         
-                        playViewModel.checkTheLine()
+                        try? playViewModel.checkTheLine()
                     })
             )
     }

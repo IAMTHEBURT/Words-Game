@@ -43,7 +43,8 @@ struct LongMarkKeyboardButton: View {
                         if playViewModel.checkButtonIsActive == false{
                             return
                         }
-                        playViewModel.checkTheLine()
+                        
+                        try? playViewModel.checkTheLine()
                     })
             )
     }
