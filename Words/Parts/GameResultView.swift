@@ -78,6 +78,7 @@ struct GameResultView: View {
                                     .foregroundColor(Color.white)
                             }
                     }
+                    .accessibilityIdentifier("shareButton")
                 }
                 
                 

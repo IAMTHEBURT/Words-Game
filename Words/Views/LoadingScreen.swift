@@ -60,6 +60,7 @@ struct LoadingScreen: View {
                     }
                     .opacity(showingButton ? 1 : 0)
                 }
+                .accessibilityIdentifier("startButton")
             }
             
         }
@@ -72,6 +73,13 @@ struct LoadingScreen: View {
                 withAnimation(.easeIn(duration: 0.5)) {
                     showingButton.toggle()
                 }
+            }
+        }
+        .task {
+            do{
+                try await APIProvider.shared.updatePoints()
+            } catch{
+                print(error.localizedDescription)
             }
         }
         

@@ -8,5 +8,5 @@
 import Foundation
 
 enum GameResult: Int, Codable {
-    case win, loose
+    case loose, win
 }

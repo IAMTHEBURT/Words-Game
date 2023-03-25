@@ -30,6 +30,7 @@ struct LongMarkKeyboardButton: View {
             .overlay(
                 Text("проверить слово")
                     .modifier(MyFont(font: "Inter", weight: "medium", size: 20))
+                    .accessibilityIdentifier("keyboard-check")
             )
             .animation(.linear(duration: 0.1), value: playViewModel.checkButtonIsActive)
             .shadow(color: .black.opacity(0.45), radius: 4, x: 1, y: 3)

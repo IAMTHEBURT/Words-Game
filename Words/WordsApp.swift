@@ -12,6 +12,9 @@ struct WordsApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onAppear{
+                    print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found!")
+                }
         }
     }
 }

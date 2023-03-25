@@ -25,6 +25,7 @@ struct CommentsView: View {
             // MARK: -  WRITE COMMENT TEXTAREA
             VStack(spacing: 24){
                 TextField("", text: $commentsVM.input, axis: .vertical)
+                    .accessibilityIdentifier("write_a_comment_text_field")
                     .placeholder(when: commentsVM.input.isEmpty) {
                             Text("Написать комментарий")
                             .foregroundColor(.white.opacity(0.9))
@@ -32,6 +33,7 @@ struct CommentsView: View {
                     }
                     .foregroundColor(.white)
                     .modifier(MyFont(font: "Inter", weight: "bold", size: 14))
+                    
                 
                 HStack{
                     Spacer()
@@ -74,6 +76,7 @@ struct CommentsView: View {
                             )
                             .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.25), radius: 4, x: 0, y: 4)
                     }
+                    .accessibilityIdentifier("sendCommentButton")
                 }
             } //: END OF WRITE COMMENT TEXTAREA
             .padding(10)

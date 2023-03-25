@@ -58,6 +58,7 @@ struct KeyboardButton: View {
                     .foregroundColor(getForegroundColorForTheKeyboardKey())
                     .modifier(MyFont(font: "Inter", weight: "medium", size: 16))
                     .minimumScaleFactor(0.4)
+                    .accessibilityIdentifier("keyboard-\(character)")
                 , alignment: .center
             )
             .shadow(

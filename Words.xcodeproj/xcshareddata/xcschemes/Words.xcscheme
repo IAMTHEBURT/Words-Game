@@ -39,6 +39,17 @@
                ReferencedContainer = "container:Words.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2C89EF7429CEFA54000B169F"
+               BuildableName = "WordsUITests.xctest"
+               BlueprintName = "WordsUITests"
+               ReferencedContainer = "container:Words.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

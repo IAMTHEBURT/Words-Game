@@ -29,7 +29,6 @@ class GameHistoryViewModel: NSObject, ObservableObject{
             guard let gamesDBM = fetchedResultsController.fetchedObjects else {
                 return
             }
-            
             self.games = gamesDBM.map(GameHistoryModel.init)
         } catch {
             print(error)
@@ -40,11 +39,9 @@ class GameHistoryViewModel: NSObject, ObservableObject{
 
 extension GameHistoryViewModel: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        
         guard let gamesDBM = controller.fetchedObjects as? [GameDBM] else {
             return
         }
-        
         self.games = gamesDBM.map(GameHistoryModel.init)
     }
 }

@@ -16,14 +16,15 @@ extension GameDBM: BaseDBModel {
     }
     
     static func emptyInit() -> GameDBM{
-        let game = GameDBM(context: CoreDataProvider.shared.viewContext)
+        let persistentContainer = NSPersistentContainer(name: "DB")
+        let game = GameDBM(context: persistentContainer.viewContext)
         game.result = Int16(1)
         game.gameType = Int16(0)
         game.word = "лампа"
         game.date = Date()
         game.lines = Int16(5)
         
-        let letters = "лампалампалампалампалампа"
+        let letters = "лампа"
         
         letters.forEach { char in
             let letterDBM = LetterDBM(context: CoreDataProvider.shared.viewContext)

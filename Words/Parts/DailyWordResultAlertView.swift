@@ -20,8 +20,8 @@ struct DailyWordResultAlertView: View {
         
         return day ?? 0
     }
-    var gameHistoryModel: GameHistoryModel {
-        return mainVM.getDailyWordGameHistory() ?? GameHistoryModel(gameDBM: .emptyInit())
+    var gameHistoryModel: GameHistoryModel? {
+        return mainVM.getDailyWordGameHistory()
     }
     
     // MARK: - BODY
@@ -29,7 +29,7 @@ struct DailyWordResultAlertView: View {
     var body: some View {
         VStack(spacing: 0){
             HStack(spacing: 19){
-                Text("ВОРДЛ ДНЯ")
+                Text("СЛОВО ДНЯ")
                     .foregroundColor(Color(hex: "#2C2F38"))
                 Text("/")
                     .foregroundColor(Color(hex: "#4D525B"))
@@ -94,11 +94,13 @@ struct DailyWordResultAlertView: View {
                 .frame(height: 1)
             
             HStack{
-                MiniPlayField(gameHistoryModel: gameHistoryModel)
-                    .frame(maxWidth: 108)
-                    .onTapGesture {
-                        dump(gameHistoryModel.letters)
-                    }
+                
+                if let gameHistoryModel = gameHistoryModel{
+                    MiniPlayField(gameHistoryModel: gameHistoryModel)
+                        .frame(maxWidth: 108)
+                        .onTapGesture {
+                            dump(gameHistoryModel.letters)
+                        }
                 
                 Spacer()
                 
@@ -113,6 +115,8 @@ struct DailyWordResultAlertView: View {
                 }
                 .modifier(MyFont(font: "Inter", weight: "bold", size: 14))
                 .padding(.trailing, 24)
+                    
+                }
                 
             } //: EXTRA
             .padding(.vertical, 16)
@@ -240,6 +244,7 @@ struct DailyWordResultAlertView: View {
         )
         .onChange(of: mainVM.showingDailyWordIsFinishedAlert) { newValue in
             if newValue{
+                guard let gameHistoryModel = gameHistoryModel else { return }
                 Task{
                     try await mainVM.updateWordstat(word: gameHistoryModel.word)
                 }
@@ -260,6 +265,5 @@ struct DailyWordResultAlertView_Previews: PreviewProvider {
         DailyWordResultAlertView(mainVM: MainViewModel())
             .previewLayout(.sizeThatFits)
             .padding()
-        
     }
 }

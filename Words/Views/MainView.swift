@@ -46,60 +46,67 @@ struct MainView: View {
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 20) {
                             
-                            VStack(alignment: .leading, spacing: 8){
-                                HStack{
-                                    Text("Ворди дня")
-                                        .font(.system(size: 20))
-                                        .fontWeight(.bold)
-                                    Spacer()
-                                }
-                                
-                                Group{
-                                    if mainVM.isDailyWordCompleted() {
-                                        VStack(alignment: .leading){
-                                            Text("Вы уже играли сегодня")
-                                            Text("Следущее общее слово через \(mainVM.countDown)")
+                            
+                            if mainVM.isDailyWordAnimating{
+                                VStack(alignment: .leading, spacing: 8){
+                                    HStack{
+                                        Text("Слово дня")
+                                            .font(.system(size: 20))
+                                            .fontWeight(.bold)
+                                            .accessibilityIdentifier("wordOfTheDayLabel")
+                                        Spacer()
+                                    }
+                                    
+                                    Group{
+                                        if mainVM.isDailyWordCompleted() {
+                                            VStack(alignment: .leading){
+                                                Text("Вы уже играли сегодня")
+                                                Text("Следущее общее слово через \(mainVM.countDown)")
+                                            }
+                                        } else{
+                                            Text("Общее слово для всех игроков")
                                         }
-                                    } else{
-                                        Text("Общее слово для всех игроков")
+                                    }
+                                    .font(.system(size: 12))
+                                }
+                                .foregroundColor(.white)
+                                .frame(minWidth: 0, maxWidth: .infinity)
+                                .padding(.vertical, 16)
+                                .padding(.horizontal, 12)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(Color(hex: "#DD6B4E"))
+                                )
+                                .overlay(
+                                    Image(systemName: isDailyWordNotificationSet ? "bell.fill" : "bell")
+                                        .offset(x: -25, y: 10)
+                                        .onTapGesture {
+                                            NotificationProvider().toggleNotifications()
+                                        }
+                                    ,
+                                    alignment: .topTrailing
+                                )
+                                .offset( y: mainVM.isDailyWordAnimating ? 0 : -600 )
+                                .animation(slideInAnimation, value: mainVM.isDailyWordAnimating)
+                                .onTapGesture {
+                                    if mainVM.getDailyWordGameHistory() != nil{
+                                        mainVM.showingDailyWordIsFinishedAlert.toggle()
+                                    }else{
+                                        mainVM.startDailyWordGame()
                                     }
                                 }
-                                .font(.system(size: 12))
                             }
-                            .foregroundColor(.white)
-                            .frame(minWidth: 0, maxWidth: .infinity)
-                            .padding(.vertical, 16)
-                            .padding(.horizontal, 12)
-                            .background(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .fill(Color(hex: "#DD6B4E"))
-                            )
-                            .overlay(
-                                Image(systemName: isDailyWordNotificationSet ? "bell.fill" : "bell")
-                                    .offset(x: -25, y: 10)
-                                    .onTapGesture {
-                                        NotificationProvider().toggleNotifications()
-                                    }
-                                ,
-                                alignment: .topTrailing
-                            )
-                            .offset( y: mainVM.isDailyWordAnimating ? 0 : -600 )
-                            .animation(slideInAnimation, value: mainVM.isDailyWordAnimating)
-                            .onTapGesture {
-                                if mainVM.getDailyWordGameHistory() != nil{
-                                    mainVM.showingDailyWordIsFinishedAlert.toggle()
-                                }else{
-                                    mainVM.startDailyWordGame()
-                                }
-                            }
+                            
                             
                             GameTypeButtonView(
                                 title: "Турнир",
                                 subtitle: "Пройдите все уровни один за другим",
                                 finished: mainVM.getCountOff(type: .progression, finished: true),
                                 outOf: mainVM.getCountOff(type: .progression),
-                                color: Color(hex: "289788")
+                                color: Color(hex: "289788"),
+                                accessibilityIdentifier: "tournamentTasksCountLabel"
                             )
+                            
                             .onTapGesture {
                                 mainVM.setProgressionGame()
                             }
@@ -111,16 +118,19 @@ struct MainView: View {
                                     finished: mainVM.getCountOff(type: .freeMode, finished: true),
                                     outOf: mainVM.getCountOff(type: .freeMode),
                                     color: Color(hex: "4D525B"),
-                                    roundedCorners: [8, 8, 0, 0]
+                                    roundedCorners: [8, 8, 0, 0],
+                                    accessibilityIdentifier: "freeModeTasksCountLabel"
                                 )
+                                .onTapGesture {
+                                    mainVM.startFreeModeGame(count: 6)
+                                }
                                 
                                 ForEach(categories, id: \.self){ count in
                                     NewCategoryView(
                                         name: "\(count) букв",
                                         isOpened: mainVM.isFreeModeCategoryOpened(count: count),
                                         finished: mainVM.getCountOff(type: .freeMode, finished: true, difficulty: .low, symbolsCount: count),
-                                        outOf: mainVM.getCountOff(type: .freeMode, finished: false, difficulty: .low, symbolsCount: count
-                                                                 ),
+                                        outOf: mainVM.getCountOff(type: .freeMode, finished: false, difficulty: .low, symbolsCount: count         ),
                                         roundedCorners: count == 9 ? [0, 0, 8, 8] : [0, 0, 0, 0]
                                     )
                                     .onTapGesture {

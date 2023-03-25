@@ -16,6 +16,7 @@ struct GameTypeButtonView: View {
     var outOf: Int
     var color: Color
     var roundedCorners: [CGFloat] = [8, 8, 8, 8]
+    var accessibilityIdentifier: String = ""
     
     // MARK: - BODY
     
@@ -31,6 +32,7 @@ struct GameTypeButtonView: View {
                     Text( String("\(finished.formattedWithSeparator)/\(outOf.formattedWithSeparator)") )
                         .fontWeight(.bold)
                         .font(.system(size: 14))
+                        .accessibilityIdentifier(accessibilityIdentifier)
                 }
                 
             }

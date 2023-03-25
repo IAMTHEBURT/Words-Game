@@ -41,10 +41,9 @@ struct GameHistory: View {
                         .padding(.horizontal, 16)
                         .padding(.top, 20)
                         .padding(.bottom, 120)
-                        
+                        .accessibilityIdentifier("gameHistory")
                     } //: MAIN VSTACK
                 } //: SCROLL VIEW
-                
             }
             
         } //: VSTACK

@@ -58,6 +58,7 @@ struct RulesView: View {
                                             .foregroundColor(Color(hex: "#242627"))
                                     }
                             }
+                            .accessibilityIdentifier("tryButton")
                             Spacer()
                         }
                         

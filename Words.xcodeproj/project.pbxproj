@@ -55,6 +55,9 @@
 		2C89EF6E29CDA2E9000B169F /* progression-mode-ru.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C33D93B2954751A00F65762 /* progression-mode-ru.json */; };
 		2C89EF6F29CDA2E9000B169F /* nouns-ru.json in Resources */ = {isa = PBXBuildFile; fileRef = 9D5776A529423AB100FDDB94 /* nouns-ru.json */; };
 		2C89EF7029CDA2E9000B169F /* free-mode-ru.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C33D93D2954754200F65762 /* free-mode-ru.json */; };
+		2C89EF7829CEFA54000B169F /* WordsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C89EF7729CEFA54000B169F /* WordsUITests.swift */; };
+		2C89EF7A29CEFA54000B169F /* WordsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C89EF7929CEFA54000B169F /* WordsUITestsLaunchTests.swift */; };
+		2C89EF8229CEFA94000B169F /* Springboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C89EF8129CEFA94000B169F /* Springboard.swift */; };
 		2C8CBF8129836CE000628C97 /* PlayFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8CBF8029836CDF00628C97 /* PlayFieldView.swift */; };
 		2C8CBF832983CEA700628C97 /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8CBF822983CEA700628C97 /* CommentsView.swift */; };
 		2C8CBF852983ED3400628C97 /* CommentElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8CBF842983ED3400628C97 /* CommentElementView.swift */; };
@@ -130,6 +133,13 @@
 			remoteGlobalIDString = 9D47765C2941E9BA00DD96F4;
 			remoteInfo = Words;
 		};
+		2C89EF7B29CEFA54000B169F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9D4776552941E9BA00DD96F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9D47765C2941E9BA00DD96F4;
+			remoteInfo = Words;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -176,6 +186,10 @@
 		2C7F5167298649CD00211D2E /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		2C89EF6529CD9D5C000B169F /* WordsUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordsUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C89EF6729CD9D5C000B169F /* WordsUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsUnitTests.swift; sourceTree = "<group>"; };
+		2C89EF7529CEFA54000B169F /* WordsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C89EF7729CEFA54000B169F /* WordsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsUITests.swift; sourceTree = "<group>"; };
+		2C89EF7929CEFA54000B169F /* WordsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		2C89EF8129CEFA94000B169F /* Springboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Springboard.swift; sourceTree = "<group>"; };
 		2C8CBF8029836CDF00628C97 /* PlayFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayFieldView.swift; sourceTree = "<group>"; };
 		2C8CBF822983CEA700628C97 /* CommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsView.swift; sourceTree = "<group>"; };
 		2C8CBF842983ED3400628C97 /* CommentElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentElementView.swift; sourceTree = "<group>"; };
@@ -253,6 +267,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2C89EF7229CEFA54000B169F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9D47765A2941E9BA00DD96F4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -294,6 +315,24 @@
 			path = WordsUnitTests;
 			sourceTree = "<group>";
 		};
+		2C89EF7629CEFA54000B169F /* WordsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				2C89EF8029CEFA7C000B169F /* Utils */,
+				2C89EF7729CEFA54000B169F /* WordsUITests.swift */,
+				2C89EF7929CEFA54000B169F /* WordsUITestsLaunchTests.swift */,
+			);
+			path = WordsUITests;
+			sourceTree = "<group>";
+		};
+		2C89EF8029CEFA7C000B169F /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				2C89EF8129CEFA94000B169F /* Springboard.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		2C9065F22995001C00F752CB /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -322,6 +361,7 @@
 			children = (
 				9D47765F2941E9BA00DD96F4 /* Words */,
 				2C89EF6629CD9D5C000B169F /* WordsUnitTests */,
+				2C89EF7629CEFA54000B169F /* WordsUITests */,
 				9D47765E2941E9BA00DD96F4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -331,6 +371,7 @@
 			children = (
 				9D47765D2941E9BA00DD96F4 /* Words.app */,
 				2C89EF6529CD9D5C000B169F /* WordsUnitTests.xctest */,
+				2C89EF7529CEFA54000B169F /* WordsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -547,6 +588,24 @@
 			productReference = 2C89EF6529CD9D5C000B169F /* WordsUnitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		2C89EF7429CEFA54000B169F /* WordsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2C89EF7F29CEFA54000B169F /* Build configuration list for PBXNativeTarget "WordsUITests" */;
+			buildPhases = (
+				2C89EF7129CEFA54000B169F /* Sources */,
+				2C89EF7229CEFA54000B169F /* Frameworks */,
+				2C89EF7329CEFA54000B169F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2C89EF7C29CEFA54000B169F /* PBXTargetDependency */,
+			);
+			name = WordsUITests;
+			productName = WordsUITests;
+			productReference = 2C89EF7529CEFA54000B169F /* WordsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		9D47765C2941E9BA00DD96F4 /* Words */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9D47766B2941E9BE00DD96F4 /* Build configuration list for PBXNativeTarget "Words" */;
@@ -583,6 +642,10 @@
 						CreatedOnToolsVersion = 14.2;
 						TestTargetID = 9D47765C2941E9BA00DD96F4;
 					};
+					2C89EF7429CEFA54000B169F = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 9D47765C2941E9BA00DD96F4;
+					};
 					9D47765C2941E9BA00DD96F4 = {
 						CreatedOnToolsVersion = 14.1;
 					};
@@ -608,6 +671,7 @@
 			targets = (
 				9D47765C2941E9BA00DD96F4 /* Words */,
 				2C89EF6429CD9D5C000B169F /* WordsUnitTests */,
+				2C89EF7429CEFA54000B169F /* WordsUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -620,6 +684,13 @@
 				2C89EF6F29CDA2E9000B169F /* nouns-ru.json in Resources */,
 				2C89EF6E29CDA2E9000B169F /* progression-mode-ru.json in Resources */,
 				2C89EF7029CDA2E9000B169F /* free-mode-ru.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2C89EF7329CEFA54000B169F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -654,6 +725,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C89EF6829CD9D5C000B169F /* WordsUnitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2C89EF7129CEFA54000B169F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C89EF7A29CEFA54000B169F /* WordsUITestsLaunchTests.swift in Sources */,
+				2C89EF7829CEFA54000B169F /* WordsUITests.swift in Sources */,
+				2C89EF8229CEFA94000B169F /* Springboard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,6 +843,11 @@
 			target = 9D47765C2941E9BA00DD96F4 /* Words */;
 			targetProxy = 2C89EF6929CD9D5C000B169F /* PBXContainerItemProxy */;
 		};
+		2C89EF7C29CEFA54000B169F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9D47765C2941E9BA00DD96F4 /* Words */;
+			targetProxy = 2C89EF7B29CEFA54000B169F /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -799,6 +885,41 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Words.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Words";
+			};
+			name = Release;
+		};
+		2C89EF7D29CEFA54000B169F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.apple.il.WordsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Words;
+			};
+			name = Debug;
+		};
+		2C89EF7E29CEFA54000B169F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.apple.il.WordsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Words;
 			};
 			name = Release;
 		};
@@ -993,6 +1114,15 @@
 			buildConfigurations = (
 				2C89EF6C29CD9D5C000B169F /* Debug */,
 				2C89EF6D29CD9D5C000B169F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2C89EF7F29CEFA54000B169F /* Build configuration list for PBXNativeTarget "WordsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C89EF7D29CEFA54000B169F /* Debug */,
+				2C89EF7E29CEFA54000B169F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -66,6 +66,7 @@ struct PageHeaderView: View {
                     Image("icon_rating")
                     Text("\(apiProvider.points)")
                         .modifier(MyFont(font: "Inter", weight: "Bold", size: 14))
+                        .accessibilityIdentifier("points")
                 }
                 .onTapGesture {
                     if blockRatingButton {

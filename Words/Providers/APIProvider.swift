@@ -259,29 +259,63 @@ class APIProvider: ObservableObject{
     
     func saveTheGame(game: GameHistoryModel) async throws{
         return try await withCheckedThrowingContinuation { continuation in
-            let urlString = "\(ENV.server)/api/games"
             let serverGameSessionModel = ServerGameSessionModel(type: game.gameType.name, word: game.word, UID: UID, result: game.result.rawValue, filled_lines: game.tries, duration: game.duration)
             
+            let urlString = "\(ENV.server)/api/games"
+            guard let url = URL(string: urlString) else { return continuation.resume(throwing: APIError.failedToComposeURL) }
+            
             guard let encoded = try? JSONEncoder().encode(serverGameSessionModel) else {
-                return continuation.resume(throwing: APIError.failedToEncode)
+                print("Failed to encode order")
+                return continuation.resume(throwing: APIError.failedToDecode)
             }
             
-            AF.request(
-                urlString,
-                method: .post,
-                parameters: encoded,
-                encoder: .json
-            )
+            print(String(data: encoded, encoding: .utf8)!)
+            
+            var request = URLRequest(url: url)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = "POST"
+            request.httpBody = encoded
+            
+            
+            AF.request(request)
             .validate()
             .response { response in
                 switch(response.result) {
-                case .success:
+                case .success(_):
                     continuation.resume()
                 case let .failure(error):
                     continuation.resume(throwing: self.handleError(error: error))
                 }
             }
         }
+        
+        
+//        return try await withCheckedThrowingContinuation { continuation in
+//            let urlString = "\(ENV.server)/api/games"
+//            let serverGameSessionModel = ServerGameSessionModel(type: game.gameType.name, word: game.word, UID: UID, result: game.result.rawValue, filled_lines: game.tries, duration: game.duration)
+//
+//            guard let encoded = try? JSONEncoder().encode(serverGameSessionModel) else {
+//                return continuation.resume(throwing: APIError.failedToEncode)
+//            }
+//
+//
+//            AF.request(
+//                urlString,
+//                method: .post,
+//                parameters: encoded,
+//                encoder: .json
+//            )
+//            .validate()
+//            .response { response in
+//                switch(response.result) {
+//                case .success:
+//                    continuation.resume()
+//                case let .failure(error):
+//                    print(error.localizedDescription)
+//                    continuation.resume(throwing: self.handleError(error: error))
+//                }
+//            }
+//        }
     }
     
     

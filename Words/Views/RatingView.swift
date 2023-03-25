@@ -62,9 +62,9 @@ struct RatingView: View {
                         .padding(.horizontal, 17)
                     Spacer()
                         .frame(height: 48)
+                    
                     VStack(spacing: 0){
                         ForEachWithIndex(ratingVM.topList, id: \.nickname) { index, topElement in
-                            
                             VStack{
                                 HStack(spacing: 0){
                                     
@@ -75,7 +75,9 @@ struct RatingView: View {
                                             if index == 0 {
                                                 Image(systemName: "crown")
                                             }
+                                            
                                             Text(topElement.nickname)
+                                                .accessibilityLabel("nickname")
                                         }
                                         
                                         Spacer()
@@ -104,13 +106,12 @@ struct RatingView: View {
                             )
                             
                         }
-                        
                     }
                     .background(
                         Color(hex: "#2D2F38")
                     )
                     .padding(.horizontal, 17)
-                    
+                    .accessibilityIdentifier("ratingCollection")
                     Spacer()
                     
                 }
