@@ -10,24 +10,24 @@ import SwiftUI
 struct CountDownView: View {
     // MARK: - PROPERTIES
     var till: Int
-    
+
     @Binding var countDownTrigger: Bool
-    
+
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
+
     @State private var countDown: String = ""
-    
+
     // MARK: - BODY
     var body: some View {
         Text(countDown)
             .onReceive(timer) { _ in
                 let interval = Double(till) - Date.now.timeIntervalSince1970
-                
-                if interval <= 0{
+
+                if interval <= 0 {
                     APIProvider.shared.getWordOfTheDay()
                     return
                 }
-                
+
                 let formatter = DateComponentsFormatter()
                 formatter.allowedUnits = [.hour, .minute, .second]
                 formatter.unitsStyle = .positional

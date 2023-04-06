@@ -4,6 +4,7 @@
 //
 //  Created by Ivan Lvov on 25.03.2023.
 //
+// swiftlint:disable all
 
 import XCTest
 
@@ -168,3 +169,4 @@ class acceptance_when_run_the_app: XCTestCase {
         XCTAssertTrue((app.staticTexts["nickname"].exists))
     }
 }
+// swiftlint:enable all

@@ -10,24 +10,24 @@ import CoreData
 
 struct DailyWord: Identifiable, Equatable {
     var dailyWordDMB: DailyWordDBM
-    
+
     init(dailyWordDBM: DailyWordDBM) {
         self.dailyWordDMB = dailyWordDBM
     }
-    
+
     var id: NSManagedObjectID {
         dailyWordDMB.objectID
     }
-    
-    var activeAt: Int{
+
+    var activeAt: Int {
         return Int(dailyWordDMB.active_at)
     }
-    
-    var nextAt: Int{
+
+    var nextAt: Int {
         return Int(dailyWordDMB.next_at)
     }
-    
-    var word: String{
+
+    var word: String {
         return dailyWordDMB.word ?? ""
     }
 }

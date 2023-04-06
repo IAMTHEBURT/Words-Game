@@ -7,18 +7,17 @@
 
 import SwiftUI
 
-
 @MainActor
-class CommentElementViewModel: ObservableObject{
+class CommentElementViewModel: ObservableObject {
     @Published var comment: Comment
-    
+
     init(comment: Comment) {
         self.comment = comment
     }
-    
+
     func addReaction(type: ReactionType) async throws {
-        do{
-            guard let comment = try await APIProvider.shared.addReaction(type: type, comment_id: comment.id) else { return }
+        do {
+            guard let comment = try await APIProvider.shared.addReaction(type: type, commentId: comment.id) else { return }
             self.comment = comment
         } catch {
             print(error)

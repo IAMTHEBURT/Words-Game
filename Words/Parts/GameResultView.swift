@@ -8,28 +8,28 @@
 import SwiftUI
 
 struct GameResultView: View {
-    
+
     // MARK: - PROPERTIES
-    
+
     @StateObject var playVM: PlayViewModel
-    
+
     let successTitle: String = "Поздравляем, вы отгадали слово!"
     let failTitle: String = "К сожалению, вы не угадали слово"
-    
+
     let successSubtitle: String = "Закрепите свой успех!\nПродолжить отгадывать слова?"
     let failSubtitle: String = "Следующий этап будет более успешным!\nПродолжить отгадывать слова?"
-    
+
     var showContinue: Bool = true
-    
+
     // MARK: - BODY
-    
+
     var body: some View {
-        VStack(spacing: 24){
+        VStack(spacing: 24) {
             Spacer()
             Text(playVM.result == .win ? successTitle : failTitle)
                 .modifier(MyFont(font: "Inter", weight: "bold", size: 20))
-            HStack{
-                
+            HStack {
+
                 ForEach(0..<playVM.lettersCount, id: \.self) { index in
                     RoundedRectangle(cornerRadius: 4)
                         .fill(playVM.getResultFieldBGColorForIndex(index: index))
@@ -41,18 +41,16 @@ struct GameResultView: View {
                 }
             }
             .padding(.horizontal, 10)
-            
+
             Spacer()
-            
-            
-            Group{
+
+            Group {
                 Text(playVM.result == .win ? successSubtitle : failSubtitle)
                     .modifier(MyFont(font: "Inter", weight: "bold", size: 16))
                     .multilineTextAlignment(.center)
                     .lineSpacing(6)
-                
-                
-                VStack(spacing: 12){
+
+                VStack(spacing: 12) {
                     Button(action: {
                         playVM.setGame(gameType: .progression)
                     }) {
@@ -65,7 +63,7 @@ struct GameResultView: View {
                                     .foregroundColor(Color(hex: "#242627"))
                             }
                     }
-                    
+
                     Button(action: {
                         playVM.isShareSheetPresented = true
                     }) {
@@ -80,14 +78,12 @@ struct GameResultView: View {
                     }
                     .accessibilityIdentifier("shareButton")
                 }
-                
-                
+
                 Spacer()
             }
             .opacity(showContinue ? 1 : 0)
         }
-        
-        
+
     }
 }
 

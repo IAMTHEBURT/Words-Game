@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct RemoveKeyboardButton: View {
-    
+
     // MARK: - PROPERTIES
-    
+
     @StateObject var playViewModel: PlayViewModel
     @State private var isPressed: Bool = false
-    
+
     let sound: String
-    
+
     // MARK: - BODY
-    
+
     var body: some View {
         RoundedRectangle(cornerRadius: 6)
             .fill(

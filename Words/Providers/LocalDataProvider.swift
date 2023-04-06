@@ -7,28 +7,27 @@
 
 import Foundation
 
+// Производит изначальную загрузку данных из JSON в Core Data
 
-//Производит изначальную загрузку данных из JSON в Core Data
-
-class LocalDataProvider{
-    func checkAndStoreData() throws{
+class LocalDataProvider {
+    func checkAndStoreData() throws {
         do {
             let tasks = try CoreDataProvider.shared.viewContext.fetch(TaskDBM.all)
-            
-            if tasks.isEmpty{
+
+            if tasks.isEmpty {
                 print("Попытка загрузить")
-                //Загружаем слова прогресса из JSON
+                // Загружаем слова прогресса из JSON
                 storeToDB(filename: "progression-mode-ru.json", mode: .progression)
-                
-                //Загружаем Free Mode Легкие
+
+                // Загружаем Free Mode Легкие
                 storeToDB(filename: "free-mode-ru.json", mode: .freeMode)
             }
         } catch {
             print("FAILED TO SAVE TASKS TO THE DATABASE \(error.localizedDescription)")
         }
     }
-    
-    private func storeToDB(filename: String, mode: GameType){
+
+    private func storeToDB(filename: String, mode: GameType) {
         let words: [String] = Bundle.main.decode(filename)
         words.shuffled().forEach { word in
             let task = TaskDBM(context: CoreDataProvider.shared.viewContext)
@@ -39,5 +38,5 @@ class LocalDataProvider{
             task.save()
         }
     }
-    
+
 }

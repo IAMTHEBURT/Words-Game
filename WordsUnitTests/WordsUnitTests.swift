@@ -4,6 +4,7 @@
 //
 //  Created by Ivan Lvov on 24.03.2023.
 //
+// swiftlint:disable all
 
 import XCTest
 @testable import Words
@@ -135,3 +136,4 @@ class when_finishes_the_game: XCTestCase {
         }
     }
 }
+// swiftlint:enable all

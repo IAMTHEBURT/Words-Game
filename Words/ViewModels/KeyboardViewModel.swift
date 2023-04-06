@@ -7,14 +7,14 @@
 
 import Foundation
 
-class KeyboardViewModel: ObservableObject{
+class KeyboardViewModel: ObservableObject {
     let letters: String = "abcdefghijklmnopqrstuvwxyz"
-    
-    var characters: [String]{
+
+    var characters: [String] {
         let result: [String] =  letters.map { character in
             String(character)
         }
         return result
     }
-    
+
 }

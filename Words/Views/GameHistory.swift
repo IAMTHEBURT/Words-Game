@@ -8,32 +8,32 @@
 import SwiftUI
 
 struct GameHistory: View {
-    
+
     // MARK: - PROPERTIES
-    
+
     @StateObject var gameHistoryVM: GameHistoryViewModel = GameHistoryViewModel(context: CoreDataProvider.shared.viewContext)
-    
+
     @Environment(\.presentationMode) var presentationMode
-    
+
     // MARK: - BODY
-    
+
     var body: some View {
         ZStack {
             Color("BGColor")
                 .edgesIgnoringSafeArea(.all)
-            
-            VStack(spacing: 0){
+
+            VStack(spacing: 0) {
                 // MARK: - PAGE HEADER
                 PageHeaderView(title: "История игр")
                     .padding(.horizontal, 16)
                     .offset(y: 2)
-                
+
                 ScrollView(.vertical, showsIndicators: false) {
-                    VStack{
+                    VStack {
                         Spacer()
                             .frame(height: 66)
-                        
-                        LazyVStack{
+
+                        LazyVStack {
                             ForEach(gameHistoryVM.games) { game in
                                 GameHistoryElementView(gameHistoryModel: game)
                             }
@@ -45,7 +45,7 @@ struct GameHistory: View {
                     } //: MAIN VSTACK
                 } //: SCROLL VIEW
             }
-            
+
         } //: VSTACK
 
     }

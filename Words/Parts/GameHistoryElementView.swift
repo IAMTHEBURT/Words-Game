@@ -9,56 +9,55 @@ import SwiftUI
 
 struct GameHistoryElementView: View {
     // MARK: - PROPERTIES
-    
+
     @State private var isCollapsed: Bool = false
-    @State private var extraOpacity: Double = 0    
+    @State private var extraOpacity: Double = 0
     @State private var showResultSheet: Bool = false
-    
+
     var gameHistoryModel: GameHistoryModel
-    
-    private var stringDate: String{
+
+    private var stringDate: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "d MMMM"
         return formatter.string(from: gameHistoryModel.date)
     }
-    
+
     // MARK: - FUNCTIONS
-    private  func getBGColor() -> Color{
+    private  func getBGColor() -> Color {
         if gameHistoryModel.result == .win {
             return Color(hex: "#289788")
-        } else{
+        } else {
             return Color(hex: "#4D525B")
         }
     }
-    
-    
+
     private func open() {
-        withAnimation(.linear(duration: 0.25)){
+        withAnimation(.linear(duration: 0.25)) {
             isCollapsed.toggle()
         }
-        
+
         withAnimation(
             Animation
                 .linear(duration: 0.25)
                 .delay(0.1)
-        ){
+        ) {
             extraOpacity = extraOpacity == 0 ? 1 : 0
         }
     }
-    
+
     // MARK: - BODY
-    
+
     var body: some View {
         VStack {
-            ZStack{
+            ZStack {
                 Color.black
                     .opacity(0.0001)
                     .onTapGesture {
                         open()
                     }
-                HStack(spacing: 35){
-                    //DATE
-                    VStack(alignment: .leading, spacing: 8){
+                HStack(spacing: 35) {
+                    // DATE
+                    VStack(alignment: .leading, spacing: 8) {
                         Text(gameHistoryModel.gameType.name)
                             .modifier(MyFont(font: "Inter", weight: "Bold", size: 20))
                         Text(stringDate)
@@ -66,11 +65,11 @@ struct GameHistoryElementView: View {
                     }
                     .foregroundColor(.white)
                     Spacer()
-                    //SHRINK BUTTON
+                    // SHRINK BUTTON
                     Image("collapse.arrow")
                         .foregroundColor(.white)
                         .rotationEffect(Angle(degrees: isCollapsed ? 180 : 0))
-                    
+
                 } // MARK: - MAIN HSTACK
                 .padding(.vertical, 16)
                 .padding(.horizontal, 12)
@@ -78,39 +77,36 @@ struct GameHistoryElementView: View {
                     open()
                 }
                 .sheet(isPresented: $showResultSheet) {
-                    ScrollView(.vertical, showsIndicators: false){
-                        VStack{
+                    ScrollView(.vertical, showsIndicators: false) {
+                        VStack {
                             GameResultView(playVM: PlayViewModel(gameHistory: gameHistoryModel), showContinue: false)
                             CommentsView(playVM: PlayViewModel(gameHistory: gameHistoryModel))
                         }
                     }
                 }
             }
-            
-            
-            
+
             // EXTRA INFORMATION
             if isCollapsed {
-                HStack{
+                HStack {
                     MiniPlayField(gameHistoryModel: gameHistoryModel)
                         .frame(maxWidth: 108)
                         .onTapGesture {
-                            //dump(gameHistoryModel.letters)
+                            // dump(gameHistoryModel.letters)
                             showResultSheet.toggle()
                         }
-                    
+
                     Spacer()
-                    
-                    VStack(spacing: 20){
-                        
-                        VStack(spacing: 5){
+
+                    VStack(spacing: 20) {
+
+                        VStack(spacing: 5) {
                             Text("Загаданное слово")
                             Text("\(gameHistoryModel.word.uppercased())")
                         }
                         .foregroundColor(.white)
                         .modifier(MyFont(font: "Inter", weight: "bold", size: 14))
-                            
-                        
+
                         Button(action: {
                             print("Got tap")
                         }) {
@@ -119,15 +115,15 @@ struct GameHistoryElementView: View {
                                 .frame(height: 46)
                                 .frame(maxWidth: 160)
                                 .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 4)
-                            
+
                                 .overlay(
                                     Text("Поделиться")
                                         .foregroundColor(Color(hex: "#242627"))
                                 )
-                            
+
                         }
                     }
-                    
+
                 } //: EXTRA
                 .padding(.vertical, 16)
                 .padding(.horizontal, 12)
@@ -137,15 +133,15 @@ struct GameHistoryElementView: View {
         } //: MAINV STACK
         .background(getBGColor())
         .cornerRadius(8)
-        .onAppear{
-            //open()
+        .onAppear {
+            // open()
         }
     }
 }
 
 // MARK: - PREVIEW
 struct GameHistoryElementView_Previews: PreviewProvider {
-    
+
     static var gameHistoryModel: GameHistoryModel {
         return GameHistoryModel(gameDBM: GameDBM.emptyInit())
     }

@@ -20,4 +20,3 @@ public struct ColorBlended: ViewModifier {
     }
   }
 }
-

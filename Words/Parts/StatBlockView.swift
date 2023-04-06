@@ -11,22 +11,22 @@ struct StatBlockView: View {
     // MARK: - PROPERTIES
     var title: String
     var count: Double
-    
-    private var countString: String{
+
+    private var countString: String {
         let formatter = NumberFormatter()
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 2
         formatter.numberStyle = .decimal
         return formatter.string(from: count as NSNumber) ?? "n/a"
-        
-        //String(format: "", count)
-        
+
+        // String(format: "", count)
+
     }
-    
+
     // MARK: - BODY
     var body: some View {
-        HStack{
-            VStack{
+        HStack {
+            VStack {
                 Spacer()
                 Text(title)
                     .opacity(0.8)
@@ -36,18 +36,18 @@ struct StatBlockView: View {
                     .lineSpacing(8)
                     .padding(.horizontal, 12)
                 Spacer()
-                
+
                 RoundedCorners(color: Color(hex: "#289788"), tl: 0, tr: 0, bl: 8, br: 8)
                     .overlay(
                         Text(countString)
                     )
                     .frame(maxHeight: 40)
-                
+
             }
         }
         .modifier(MyFont(font: "Inter", weight: "Bold", size: 14))
         .foregroundColor(.white)
-        
+
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100)
         .background(
             RoundedRectangle(cornerRadius: 12)

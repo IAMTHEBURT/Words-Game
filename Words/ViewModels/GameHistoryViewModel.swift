@@ -8,22 +8,22 @@
 import Foundation
 import CoreData
 
-class GameHistoryViewModel: NSObject, ObservableObject{
+class GameHistoryViewModel: NSObject, ObservableObject {
     private let fetchedResultsController: NSFetchedResultsController<GameDBM>
     private (set) var context: NSManagedObjectContext
-    
+
     @Published var games: [GameHistoryModel] = []
-    
+
     init(context: NSManagedObjectContext) {
         self.context = context
         let fetchRequest = GameDBM.all
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        
+
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        
+
         super.init()
         fetchedResultsController.delegate = self
-        
+
         do {
             try fetchedResultsController.performFetch()
             guard let gamesDBM = fetchedResultsController.fetchedObjects else {
@@ -34,7 +34,7 @@ class GameHistoryViewModel: NSObject, ObservableObject{
             print(error)
         }
     }
-    
+
 }
 
 extension GameHistoryViewModel: NSFetchedResultsControllerDelegate {
@@ -45,4 +45,3 @@ extension GameHistoryViewModel: NSFetchedResultsControllerDelegate {
         self.games = gamesDBM.map(GameHistoryModel.init)
     }
 }
-

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WordOfTheDayResponse: Codable, Equatable{
+struct WordOfTheDayResponse: Codable, Equatable {
     var id: Int
     var word: String
     var active_at: Int
@@ -15,7 +15,7 @@ struct WordOfTheDayResponse: Codable, Equatable{
 }
 
 extension WordOfTheDayResponse {
-    static func emptyInit() -> WordOfTheDayResponse{
+    static func emptyInit() -> WordOfTheDayResponse {
         return WordOfTheDayResponse(id: 999999999999, word: "Пробка", active_at: 111111111, next_at: 212121212)
     }
 }

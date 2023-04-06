@@ -10,25 +10,25 @@ import SwiftUI
 struct DailyWordResultAlertView: View {
     // MARK: - PROPERTIES
     @StateObject var mainVM: MainViewModel
-    
+
     @State var offset = CGSize.zero
-    
-    var numberOfTheDay: Int{
+
+    var numberOfTheDay: Int {
         let date = Date() // now
         let cal = Calendar.current
         let day = cal.ordinality(of: .day, in: .year, for: date)
-        
+
         return day ?? 0
     }
     var gameHistoryModel: GameHistoryModel? {
         return mainVM.getDailyWordGameHistory()
     }
-    
+
     // MARK: - BODY
-    
+
     var body: some View {
-        VStack(spacing: 0){
-            HStack(spacing: 19){
+        VStack(spacing: 0) {
+            HStack(spacing: 19) {
                 Text("СЛОВО ДНЯ")
                     .foregroundColor(Color(hex: "#2C2F38"))
                 Text("/")
@@ -40,16 +40,15 @@ struct DailyWordResultAlertView: View {
             .frame(minWidth: 0, maxWidth: .infinity)
             .modifier(MyFont(font: "Inter", weight: "Bold", size: 20))
             .background(RoundedCorners(color: Color(hex: "#DD6B4E"), tl: 8, tr: 8, bl: 0, br: 0))
-            
-            
-            HStack(spacing: 0){
+
+            HStack(spacing: 0) {
                 Text("Угадали\nслово")
                     .frame(width: 80, alignment: .leading)
                 Spacer()
                 Text("\(mainVM.wordstat?.wonPercent ?? 0)%")
                     .blur(radius: mainVM.wordstat != nil ? 0 : 10)
                     .multilineTextAlignment(.center)
-                                
+
                 Spacer()
                 Text("\(mainVM.wordstat?.won ?? 0) игрок(ов)")
                     .blur(radius: mainVM.wordstat != nil ? 0 : 10)
@@ -59,27 +58,27 @@ struct DailyWordResultAlertView: View {
             .foregroundColor(.white)
             .padding(.vertical, 10)
             .padding(.horizontal, 22)
-            
+
             Rectangle()
                 .fill(Color(hex: "#4D525B"))
                 .frame(height: 1)
-                .overlay{
+                .overlay {
                     ProgressView()
                         .opacity(mainVM.wordstat == nil ? 1 : 0)
                 }
-            
-            HStack(alignment: .center, spacing: 0){
+
+            HStack(alignment: .center, spacing: 0) {
                 Text("Не угадали\nслово")
                     .frame(width: 80, alignment: .leading)
-                
+
                 Spacer()
-                
+
                 Text("\(mainVM.wordstat?.lostPercent ?? 0)%")
                     .blur(radius: mainVM.wordstat != nil ? 0 : 10)
-                    //.multilineTextAlignment(.center)
+                    // .multilineTextAlignment(.center)
                     .frame(alignment: .leading)
                 Spacer()
-                
+
                 Text("\(mainVM.wordstat?.lost ?? 0) игрок(ов)")
                     .blur(radius: mainVM.wordstat != nil ? 0 : 10)
                     .frame(width: 120, alignment: .trailing)
@@ -88,48 +87,48 @@ struct DailyWordResultAlertView: View {
             .foregroundColor(.white)
             .padding(.vertical, 10)
             .padding(.horizontal, 22)
-            
+
             Rectangle()
                 .fill(Color(hex: "#4D525B"))
                 .frame(height: 1)
-            
-            HStack{
-                
-                if let gameHistoryModel = gameHistoryModel{
+
+            HStack {
+
+                if let gameHistoryModel = gameHistoryModel {
                     MiniPlayField(gameHistoryModel: gameHistoryModel)
                         .frame(maxWidth: 108)
                         .onTapGesture {
                             dump(gameHistoryModel.letters)
                         }
-                
+
                 Spacer()
-                
-                VStack(spacing: 20){
-                    VStack(spacing: 5){
+
+                VStack(spacing: 20) {
+                    VStack(spacing: 5) {
                         Text("Загаданное слово")
                         Text("\(gameHistoryModel.word.uppercased())")
                     }
                     .foregroundColor(.white)
-                        
+
                     Text("\(gameHistoryModel.tries) попыток из 6")
                 }
                 .modifier(MyFont(font: "Inter", weight: "bold", size: 14))
                 .padding(.trailing, 24)
-                    
+
                 }
-                
+
             } //: EXTRA
             .padding(.vertical, 16)
             .padding(.horizontal, 12)
-            
+
             Spacer()
                 .frame(maxHeight: 23)
-            
-            VStack(spacing: 16){
+
+            VStack(spacing: 16) {
                 Text("Следующее слово через")
                     .modifier(MyFont(font: "Inter", weight: "bold", size: 14))
-                
-                HStack{
+
+                HStack {
                     RoundedRectangle(cornerRadius: 8)
                         .fill(.white)
                         .frame(width: 60, height: 60)
@@ -139,17 +138,17 @@ struct DailyWordResultAlertView: View {
                                 .modifier(MyFont(font: "Inter", weight: "medium", size: 24))
                                 .foregroundColor(.black)
                         )
-                    
-                    VStack(spacing: 12){
+
+                    VStack(spacing: 12) {
                         Circle()
                             .fill(.white)
                             .frame(width: 4, height: 4)
-                        
+
                         Circle()
                             .fill(.white)
                             .frame(width: 4, height: 4)
                     }
-                    
+
                     RoundedRectangle(cornerRadius: 8)
                         .fill(.white)
                         .frame(width: 60, height: 60)
@@ -159,18 +158,17 @@ struct DailyWordResultAlertView: View {
                                 .modifier(MyFont(font: "Inter", weight: "medium", size: 24))
                                 .foregroundColor(.black)
                         )
-                    
-                    VStack(spacing: 12){
+
+                    VStack(spacing: 12) {
                         Circle()
                             .fill(.white)
                             .frame(width: 4, height: 4)
-                        
+
                         Circle()
                             .fill(.white)
                             .frame(width: 4, height: 4)
                     }
-                    
-                    
+
                     RoundedRectangle(cornerRadius: 8)
                         .fill(.white)
                         .frame(width: 60, height: 60)
@@ -180,16 +178,16 @@ struct DailyWordResultAlertView: View {
                                 .modifier(MyFont(font: "Inter", weight: "medium", size: 24))
                                 .foregroundColor(.black)
                         )
-                    
+
                 }
             }
-            
+
             Spacer()
                 .frame(maxHeight: 43)
-            VStack(spacing: 16){
+            VStack(spacing: 16) {
                 Text("Продолжить отгадывать случайные слова?")
                     .modifier(MyFont(font: "Inter", weight: "bold", size: 14))
-                
+
                 Button(action: {
                     print("Got tap")
                 }) {
@@ -202,7 +200,7 @@ struct DailyWordResultAlertView: View {
                                 .foregroundColor(.white)
                         )
                 }
-                
+
                 Button(action: {
                     mainVM.showingDailyWordIsFinishedAlert = false
                     mainVM.setProgressionGame()
@@ -243,9 +241,9 @@ struct DailyWordResultAlertView: View {
                 }
         )
         .onChange(of: mainVM.showingDailyWordIsFinishedAlert) { newValue in
-            if newValue{
+            if newValue {
                 guard let gameHistoryModel = gameHistoryModel else { return }
-                Task{
+                Task {
                     try await mainVM.updateWordstat(word: gameHistoryModel.word)
                 }
             }
@@ -253,14 +251,13 @@ struct DailyWordResultAlertView: View {
     }
 }
 
-
 // MARK: - PREVIW
 
 struct DailyWordResultAlertView_Previews: PreviewProvider {
     static var gameHistoryModel: GameHistoryModel {
         return GameHistoryModel(gameDBM: GameDBM.emptyInit())
     }
-    
+
     static var previews: some View {
         DailyWordResultAlertView(mainVM: MainViewModel())
             .previewLayout(.sizeThatFits)

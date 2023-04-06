@@ -9,7 +9,7 @@ import SwiftUI
 
 enum GameType: Int, Codable {
     case progression, dailyWord, freeMode
-    
+
     var name: String {
         switch self {
         case .progression:
@@ -20,7 +20,7 @@ enum GameType: Int, Codable {
             return "Свободный режим"
         }
     }
-    
+
     var color: Color {
         switch self {
         case .progression:

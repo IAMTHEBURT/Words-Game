@@ -13,20 +13,20 @@ struct PlayFieldView: View {
     @State private var showAlert: Bool = false
     @State private var flip: Bool = false
     @State private var alertText: String = ""
-    
+
     private let spacing: CGFloat = 5
-    
-    private var gridLayout: [GridItem]{
+
+    private var gridLayout: [GridItem] {
         return Array(repeating: GridItem(.flexible(minimum: size), spacing: 4), count: playVM.finalWord.count)
     }
-    
+
     private var size: CGFloat {
         let count = playVM.finalWord.count
-        
+
         if count == 5 || count == 6 {
             if UIScreen.main.bounds.width <= 375 {
                 return 42
-            } else{
+            } else {
                 return 52
             }
         } else if count == 7 {
@@ -37,18 +37,17 @@ struct PlayFieldView: View {
             return 32
         }
     }
-    
-    
+
     private func highLightCurrent(index: UUID) -> Bool {
         return playVM.currentLine.id == index
     }
-    
+
     // MARK: - BODY
-    
+
     var body: some View {
-        LazyVGrid(columns: gridLayout, alignment: .center, spacing: spacing){
-            //Text("\(UIScreen.main.bounds.width)")
-            ForEach(playVM.lines){ line in
+        LazyVGrid(columns: gridLayout, alignment: .center, spacing: spacing) {
+            // Text("\(UIScreen.main.bounds.width)")
+            ForEach(playVM.lines) { line in
                 ForEach((0...line.lettersCount - 1), id: \.self) { index in
                     RoundedRectangle(cornerRadius: 4)
                         .fill(
@@ -76,13 +75,13 @@ struct PlayFieldView: View {
                                 .opacity(showAlert ? 1 : 0)
                                 .zIndex(2)
                         )
-                        .onTapGesture{
+                        .onTapGesture {
                             withAnimation(.easeInOut(duration: 0.5)) {
                                 flip.toggle()
                             }
 
                             let state = line.getStateByIndex(index: index)
-                            if state != .unanswered{
+                            if state != .unanswered {
                                 playVM.showNotifyView(headline: "\"\(line.getCharacterByIndex(index: index))\"", text: state.description)
                             }
                         }
@@ -92,7 +91,7 @@ struct PlayFieldView: View {
 
             ForEach(0..<playVM.lettersCount, id: \.self) { index in
                 let character = playVM.getResultFieldCharacterForIndex(index: index, empty: true)
-                
+
                 RoundedRectangle(cornerRadius: 4)
                     .fill(playVM.getResultFieldBGColorForIndex(index: index))
                     .overlay(
@@ -102,8 +101,7 @@ struct PlayFieldView: View {
                     .frame(height: size)
                     .padding(.top, 20)
             }
-            
-            
+
         }
         .padding(.horizontal, 40)
         .padding(.vertical, 10)

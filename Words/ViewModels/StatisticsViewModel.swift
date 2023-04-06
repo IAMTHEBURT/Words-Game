@@ -7,7 +7,7 @@
 
 import Foundation
 
-class StatisticsViewModel: ObservableObject{
+class StatisticsViewModel: ObservableObject {
     // MARK: - PROPERTIES
     @Published var totalGamesCount: Double = 0
     @Published var wonGamesCount: Double = 0
@@ -17,8 +17,8 @@ class StatisticsViewModel: ObservableObject{
     @Published var totalDailyWordGamesCount: Double = 0
     @Published var averageCountOfTriesForWin: Double = 0
     @Published var averageCountOfWordsPerDay: Double = 0
-    @Published var distributionData: [ [String : Double] ] = []
-    
+    @Published var distributionData: [ [String: Double] ] = []
+
     var max: Double {
         var max: Double = 0
         distributionData.forEach { element in
@@ -30,21 +30,21 @@ class StatisticsViewModel: ObservableObject{
     }
 
     var games: [GameDBM] = []
-    
+
     // MARK: - METHODS
-        
-    func fetchData(){
+
+    func fetchData() {
         do {
             self.games = try CoreDataProvider.shared.viewContext.fetch(GameDBM.all)
         } catch {
             print(error.localizedDescription)
         }
     }
-    
-    func setStats(){
+
+    func setStats() {
         fetchData()
-        
-        DispatchQueue.main.async{
+
+        DispatchQueue.main.async {
             self.totalGamesCount = self.getTotalGamesCount()
             self.wonGamesCount = self.getWonGamesCount()
             self.currentWinningStreak = self.getCurrentWinningStreak()
@@ -56,124 +56,119 @@ class StatisticsViewModel: ObservableObject{
             self.distributionData = self.getDistribution()
         }
     }
-    
-    
-    func getDistribution() -> [ [String : Double] ]{
-        
+
+    func getDistribution() -> [ [String: Double] ] {
+
         let games = self.games.map(GameHistoryModel.init)
-        
-        var result: [ [String:Double] ] = []
-        
+
+        var result: [ [String: Double] ] = []
+
         var tries: [Double] = []
-        
+
         games.forEach { game in
-            if game.result == .win && game.gameType == .dailyWord{
+            if game.result == .win && game.gameType == .dailyWord {
                 tries.append(Double(game.tries))
             }
         }
-        
-        result.append( ["Слово дня" : tries.average] )
-        
+
+        result.append( ["Слово дня": tries.average] )
+
         for index in 5...9 {
             tries = []
-            
+
             games.forEach { game in
-                if game.result == .win && game.word.count == index{
+                if game.result == .win && game.word.count == index {
                     tries.append(Double(game.tries))
                 }
             }
-            
-            result.append( ["\(index) попыток" : tries.average] )
+
+            result.append( ["\(index) попыток": tries.average] )
         }
-        
+
         return result
     }
-    
-    
-    func getTotalGamesCount() -> Double{
+
+    func getTotalGamesCount() -> Double {
         return Double(games.count)
     }
-    
-    func getWonGamesCount() -> Double{
-        return Double(games.filter{($0.result == 0)}.count)
+
+    func getWonGamesCount() -> Double {
+        return Double(games.filter {($0.result == 0)}.count)
     }
-    
-    func getCurrentWinningStreak() -> Double{
+
+    func getCurrentWinningStreak() -> Double {
         let sortedGames = games.sorted { $0.date ?? Date() > $1.date ?? Date()}
         guard let lastGame = sortedGames.first else { return 0 }
         if lastGame.result == 1 { return 0 }
-        
+
         var streak = 0
-        
-        for game in sortedGames{
-            if game.result == 0{
+
+        for game in sortedGames {
+            if game.result == 0 {
                 streak += 1
-            }else{
+            } else {
                 break
             }
         }
-        
+
         return Double(streak)
     }
-    
-    
-    func getMaxWinningStreak() -> Double{
+
+    func getMaxWinningStreak() -> Double {
         let sortedGames = games.sorted { $0.date ?? Date() > $1.date ?? Date()}
-        
+
         var streaks: [Int] = []
-        
+
         var streak = 0
-        for game in sortedGames{
-            if game.result == 0{
+        for game in sortedGames {
+            if game.result == 0 {
                 streak += 1
-            }else{
+            } else {
                 streaks.append(streak)
                 streak = 0
             }
         }
-        
+
         streaks = streaks.sorted { $0 > $1 }
         return Double(streaks.first ?? 0)
     }
-    
-    
-    func getWonDailyWordGamesCount() -> Double{
-        return Double(games.filter{($0.gameType == 1 && $0.result == 0)}.count)
+
+    func getWonDailyWordGamesCount() -> Double {
+        return Double(games.filter {($0.gameType == 1 && $0.result == 0)}.count)
     }
-    
-    
-    func getTotalDailyWordCount() -> Double{
-        return Double(games.filter{($0.gameType == 1)}.count)
+
+    func getTotalDailyWordCount() -> Double {
+        return Double(games.filter {($0.gameType == 1)}.count)
     }
-    
-    func getAverageCountOfTriesForWin() -> Double{
-        let wonGames = games.filter{($0.result == 0)}
+
+    func getAverageCountOfTriesForWin() -> Double {
+        let wonGames = games.filter {($0.result == 0)}
         var sum = 0
-        
+
         wonGames.forEach { game in
             sum += Int(game.lines)
         }
-        
+
         let average = Double(sum) / Double(wonGames.count)
         if average.isNaN {
             return 0
-        }else{
+        } else {
             return average
         }
     }
-    
-    func getAverageCountOfWordsPerDay() -> Double{
-        var result: [DateComponents : Int] = [:]
-        
+
+    func getAverageCountOfWordsPerDay() -> Double {
+        var result: [DateComponents: Int] = [:]
+
         games.forEach { game in
             let calendarDate = Calendar.current.dateComponents([.day, .year, .month], from: game.date ?? Date())
             if result[calendarDate] != nil {
                 result[calendarDate]! += 1
-            }else{
+            } else {
                 result[calendarDate] = 1
             }
         }
-        
+
         var sum: Int = 0
         result.forEach { value in
             sum += value.value

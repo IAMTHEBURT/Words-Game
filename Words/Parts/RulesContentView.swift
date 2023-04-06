@@ -9,25 +9,25 @@ import SwiftUI
 
 struct RulesContentView: View {
     // MARK: - BODY
-    
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 20){
-            Group{
+        VStack(alignment: .leading, spacing: 20) {
+            Group {
                 Text("Правила игры")
                     .modifier( MyFont(font: "Inter", weight: "Bold", size: 34) )
                 Spacer()
                     .frame(height: 1)
-                
+
                 Text("Угадайте загаданное слово с шести попыток")
-                
+
                 Text("После каждой попытки цвет букв будет меняться, чтобы показать какие буквы есть в загаданном слове.\nНапример, загадано слово ГОСТЬ")
             }
-            
+
             Divider()
-            
-            Group{
+
+            Group {
                 Text("Первым мы ввели слово РЕБУС. Буква С есть в загаданном слове, но стоит в другом месте")
-                HStack{
+                HStack {
                     Spacer()
                     Text("Р")
                         .modifier(SquareLetterModifier(.unanswered))
@@ -42,15 +42,15 @@ struct RulesContentView: View {
                     Spacer()
                 }
             }
-            
+
             Divider()
-            
-            Group{
+
+            Group {
                 Text("Затем ввели слово СОСНА. Буквы С и О есть в загаданном слове и стоят на правильных местах.")
-                
-                HStack{
+
+                HStack {
                     Spacer()
-                    
+
                     Text("С")
                         .modifier(SquareLetterModifier(.unanswered))
                     Text("О")
@@ -63,16 +63,16 @@ struct RulesContentView: View {
                         .modifier(SquareLetterModifier(.unanswered))
                     Spacer()
                 }
-                
+
                 Text("Обратите внимание, что если во введенном слове две одинаковых буквы, а в загаданном слове только одна такая буква, то выделяется только одна буква.")
             }
-            
+
             Divider()
-            
-            Group{
+
+            Group {
                 Text("Если слово угадано правильно, то все буквы будут выделены.")
-                
-                HStack{
+
+                HStack {
                     Spacer()
                     Text("Г")
                         .modifier(SquareLetterModifier(.rightLetterRightPlace))

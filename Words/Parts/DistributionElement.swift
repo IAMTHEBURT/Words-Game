@@ -9,33 +9,33 @@ import SwiftUI
 
 struct DistributionElement: View {
     // MARK: - PROPERTIES
-    
+
     @State private var isAnimating: Bool = false
     @Binding var maxElementWidth: CGFloat
     @State private var showNumber: Bool = false
-    
+
     var title: String = "Слово дня"
     var number: Double = 0
     var maxNumber: Double = 80
-    
+
     // MARK: - FUNCTIONS
-    func getWidth() -> CGFloat{
+    func getWidth() -> CGFloat {
         let part = CGFloat(number) / CGFloat(maxNumber) * 100.0
         return 0.62 * maxElementWidth / 100 * CGFloat(part)
     }
-    
+
     // MARK: - BODY
     var body: some View {
-        HStack(alignment: .center, spacing: 0){
+        HStack(alignment: .center, spacing: 0) {
             Text(title)
                 .multilineTextAlignment(.leading)
                 .frame(width: maxElementWidth * 0.35)
                 .foregroundColor(.white)
-            
+
             Rectangle()
                 .fill(.white)
                 .frame(width: 1)
-            
+
             if getWidth() > 0 {
                 RoundedRectangle(cornerRadius: 8)
                     .fill(.clear)
@@ -50,27 +50,27 @@ struct DistributionElement: View {
                             .opacity(showNumber ? 1 : 0)
                     }
             }
-            
+
             Spacer()
 
         }
         .frame(minWidth: 0, maxWidth: .infinity)
-        .onAppear{
+        .onAppear {
             let delay = Double.random(in: 0...1)
-            
+
             withAnimation(
                 .linear(duration: 1)
                 .delay(delay)
-            
-            ){
+
+            ) {
                 isAnimating.toggle()
             }
-            
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                 withAnimation(.linear(duration: 1 + delay)) {
                     showNumber.toggle()
                 }
-                
+
             }
         }
     }

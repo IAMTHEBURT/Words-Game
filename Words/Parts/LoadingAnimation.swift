@@ -10,10 +10,10 @@ import SwiftUI
 struct LoadingAnimation: View {
     // MARK: - PROPERTIES
     @State private var isAnimating: Bool = false
-    
+
     private let elementWidth: CGFloat = 57
     private let elemetsPerLine: Int = 20
-    
+
     private let firstLineColors: [Color] = [
         Color("unansweredLetterBackground"),
         Color("rightLetterRightPlaceBackground"),
@@ -23,7 +23,7 @@ struct LoadingAnimation: View {
         Color("unansweredLetterBackground"),
         Color("unansweredLetterBackground")
     ]
-    
+
     private let secondLineColors: [Color] = [
         Color("unansweredLetterBackground"),
         Color("unansweredLetterBackground"),
@@ -33,7 +33,7 @@ struct LoadingAnimation: View {
         Color("unansweredLetterBackground"),
         Color("rightLetterRightPlaceBackground")
     ]
-    
+
     private let thirdLineColors: [Color] = [
         Color("wrongLetterBackground"),
         Color("unansweredLetterBackground"),
@@ -41,16 +41,16 @@ struct LoadingAnimation: View {
         Color("unansweredLetterBackground"),
         Color("unansweredLetterBackground"),
         Color("wrongLetterBackground"),
-        Color("unansweredLetterBackground"),
+        Color("unansweredLetterBackground")
     ]
-    
+
     // MARK: - BODY
-    
+
     var body: some View {
-        VStack{
-            VStack{
+        VStack {
+            VStack {
                 // MARK: - FIRST LINE
-                HStack{
+                HStack {
                     ForEach((1...3), id: \.self) {_ in
                         ForEach((0...6), id: \.self) {index in
                             RoundedRectangle(cornerRadius: 8)
@@ -58,7 +58,7 @@ struct LoadingAnimation: View {
                                 .frame(width: elementWidth, height: elementWidth)
                         }
                     }
-                    
+
                 }
                 .offset(x: isAnimating ? 0.4 * elementWidth * CGFloat(elemetsPerLine) : 0)
                 .animation(
@@ -68,10 +68,9 @@ struct LoadingAnimation: View {
                     ,
                     value: isAnimating
                 )
-                
-                
+
                 // MARK: - SECOND LINE
-                HStack{
+                HStack {
                     ForEach((1...3), id: \.self) {_ in
                         ForEach((0...6), id: \.self) {index in
                             RoundedRectangle(cornerRadius: 8)
@@ -79,7 +78,7 @@ struct LoadingAnimation: View {
                                 .frame(width: elementWidth, height: elementWidth)
                         }
                     }
-                    
+
                 }
                 .offset(x: isAnimating ? 0.4 * elementWidth * CGFloat(elemetsPerLine) : 0)
                 .animation(
@@ -89,9 +88,9 @@ struct LoadingAnimation: View {
                     ,
                     value: isAnimating
                 )
-                
+
                 // MARK: - THIRD LINE
-                HStack{
+                HStack {
                     ForEach((1...3), id: \.self) {_ in
                         ForEach((0...6), id: \.self) {index in
                             RoundedRectangle(cornerRadius: 8)
@@ -99,7 +98,7 @@ struct LoadingAnimation: View {
                                 .frame(width: elementWidth, height: elementWidth)
                         }
                     }
-                    
+
                 }
                 .offset(x: isAnimating ? 0.4 * elementWidth * CGFloat(elemetsPerLine) : 0)
                 .animation(
@@ -111,7 +110,7 @@ struct LoadingAnimation: View {
                 )
             }
         }
-        .onAppear{
+        .onAppear {
             isAnimating.toggle()
         }
     }

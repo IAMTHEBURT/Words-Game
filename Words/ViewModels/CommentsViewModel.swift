@@ -12,16 +12,16 @@ import SwiftUI
 class CommentsViewModel: ObservableObject {
     @Published var comments: [Comment] = []
     @Published var isCommentSaved: Bool?
-    
+
     @Published var input: String = ""
     @Published var buttonState: ButtonState = .active
     @Published var errorMessage: String = ""
-    
+
     func saveCommentAsync(word: String, input: String) async {
         do {
             let data = try await APIProvider.shared.saveComment(word: word, text: input)
             isCommentSaved = data.0
-            
+
             self.input = ""
             withAnimation {
                 self.buttonState = .sent
@@ -29,7 +29,7 @@ class CommentsViewModel: ObservableObject {
                     self.buttonState = .active
                 }
             }
-            
+
             await self.updateComments(word: word)
         } catch {
             print(error)
@@ -42,8 +42,7 @@ class CommentsViewModel: ObservableObject {
             }
         }
     }
-    
-    
+
     func updateComments(word: String) async {
         do {
             comments = try await APIProvider.shared.getComments(word: word)

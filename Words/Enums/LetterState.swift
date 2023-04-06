@@ -8,12 +8,12 @@
 import Foundation
 import SwiftUI
 
-enum LetterState: Int, Codable{
+enum LetterState: Int, Codable {
     case unanswered, rightLetterRightPlace, rightLetterWrongPlace, wrongLetter
 }
 
-extension LetterState{
-    var color: Color{
+extension LetterState {
+    var color: Color {
         switch self {
         case .unanswered:
             return Color("unansweredLetterBackgroundV2")
@@ -25,8 +25,8 @@ extension LetterState{
             return Color("wrongLetterBackground")
         }
     }
-    
-    var fontColor: Color{
+
+    var fontColor: Color {
         switch self {
         case .unanswered:
             return Color("unansweredLetterFontColor")
@@ -38,8 +38,8 @@ extension LetterState{
             return Color("answeredWrongFontColor")
         }
     }
-    
-    var description: String{
+
+    var description: String {
         switch self {
         case .unanswered:
             return "Вы еще не ответили 🥹"
@@ -51,13 +51,13 @@ extension LetterState{
             return "Такой буквы в слове нет ☹️"
         }
     }
-    
-    static var defaultColor: Color{
+
+    static var defaultColor: Color {
         Color("unansweredLetterBackground")
     }
-    
-    static var defaultFontColor: Color{
+
+    static var defaultFontColor: Color {
         Color("unansweredLetterFontColor")
     }
-    
+
 }

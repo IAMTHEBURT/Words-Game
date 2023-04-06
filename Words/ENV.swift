@@ -9,6 +9,6 @@ import Foundation
 
 class ENV {
     static let server = "http://193.187.96.70"
-    //static let server = "http://127.0.0.1"
+    // static let server = "http://127.0.0.1"
     static let appName = "ВОРДИ"
 }

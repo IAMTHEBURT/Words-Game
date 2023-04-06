@@ -15,55 +15,54 @@ extension Color {
         typealias NativeColor = NSColor
         #endif
 
-        var r: CGFloat = 0
-        var g: CGFloat = 0
-        var b: CGFloat = 0
-        var o: CGFloat = 0
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var opacity: CGFloat = 0
 
-        guard NativeColor(self).getRed(&r, green: &g, blue: &b, alpha: &o) else {
+        guard NativeColor(self).getRed(&red, green: &green, blue: &blue, alpha: &opacity) else {
             // You can handle the failure here as you want
             return (0, 0, 0, 0)
         }
 
-        return (r, g, b, o)
+        return (red, green, blue, opacity)
     }
-    
+
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int: UInt64 = 0
         Scanner(string: hex).scanHexInt64(&int)
-        let a, r, g, b: UInt64
+        let alpha, red, green, blue: UInt64
         switch hex.count {
         case 3: // RGB (12-bit)
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
+            (alpha, red, green, blue) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
         case 6: // RGB (24-bit)
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
+            (alpha, red, green, blue) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
         case 8: // ARGB (32-bit)
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+            (alpha, red, green, blue) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
         default:
-            (a, r, g, b) = (1, 1, 1, 0)
+            (alpha, red, green, blue) = (1, 1, 1, 0)
         }
 
         self.init(
             .sRGB,
-            red: Double(r) / 255,
-            green: Double(g) / 255,
-            blue:  Double(b) / 255,
-            opacity: Double(a) / 255
+            red: Double(red) / 255,
+            green: Double(green) / 255,
+            blue: Double(blue) / 255,
+            opacity: Double(alpha) / 255
         )
     }
-    
+
     func toHexString() -> String {
-        let r:CGFloat = self.components.red
-        let g:CGFloat = self.components.green
-        let b:CGFloat = self.components.blue
-        //let a:CGFloat = self.components.opacity
-        
-        let rgb:Int = (Int)(r*255)<<16 | (Int)(g*255)<<8 | (Int)(b*255)<<0
-        return String(format:"#%06x", rgb)
+        let red: CGFloat = self.components.red
+        let green: CGFloat = self.components.green
+        let blue: CGFloat = self.components.blue
+        // let a:CGFloat = self.components.opacity
+
+        let rgb: Int = (Int)(red*255)<<16 | (Int)(green*255)<<8 | (Int)(blue*255)<<0
+        return String(format: "#%06x", rgb)
     }
-    
-    
+
 }
 
 extension UIColor {
@@ -76,4 +75,3 @@ extension UIColor {
         )
     }
 }
-

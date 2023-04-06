@@ -7,23 +7,22 @@
 
 import SwiftUI
 
-
-enum ButtonState: String{
+enum ButtonState: String {
     case active, loading, sent
 }
 
 struct CommentsView: View {
     // MARK: - PROPERTIES
-    
+
     @StateObject var playVM: PlayViewModel
     @StateObject var commentsVM: CommentsViewModel = CommentsViewModel()
-    
+
     // MARK: - BODY
 
     var body: some View {
-        VStack(spacing: 24){
-            // MARK: -  WRITE COMMENT TEXTAREA
-            VStack(spacing: 24){
+        VStack(spacing: 24) {
+            // MARK: - WRITE COMMENT TEXTAREA
+            VStack(spacing: 24) {
                 TextField("", text: $commentsVM.input, axis: .vertical)
                     .accessibilityIdentifier("write_a_comment_text_field")
                     .placeholder(when: commentsVM.input.isEmpty) {
@@ -33,41 +32,40 @@ struct CommentsView: View {
                     }
                     .foregroundColor(.white)
                     .modifier(MyFont(font: "Inter", weight: "bold", size: 14))
-                    
-                
-                HStack{
+
+                HStack {
                     Spacer()
                     Button(action: {
-                        if commentsVM.buttonState != .active{
+                        if commentsVM.buttonState != .active {
                             return
                         }
-                        
+
                         if commentsVM.input.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
                             return
                         }
-                        
+
                         commentsVM.buttonState = .loading
-                        
-                        Task{
+
+                        Task {
                             await commentsVM.saveCommentAsync(word: playVM.finalWord, input: commentsVM.input)
                         }
-                        
+
                     }) {
                         RoundedRectangle(cornerRadius: 8)
                             .fill(.white)
                             .frame(width: 163, height: 42)
                             .overlay(
-                                ZStack{
+                                ZStack {
                                     if commentsVM.buttonState == .loading {
                                         ProgressView()
                                             .progressViewStyle(CircularProgressViewStyle(tint: Color.gray))
-                                        
-                                    } else if commentsVM.buttonState == .active{
+
+                                    } else if commentsVM.buttonState == .active {
                                         Text("Отправить")
                                             .modifier(MyFont(font: "Inter", weight: "medium", size: 14))
                                             .foregroundColor(Color(hex: "#242627"))
-                                        
-                                    } else if commentsVM.buttonState == .sent{
+
+                                    } else if commentsVM.buttonState == .sent {
                                         Text("Отправлено")
                                             .modifier(MyFont(font: "Inter", weight: "medium", size: 14))
                                             .foregroundColor(Color(hex: "#242627"))
@@ -84,25 +82,25 @@ struct CommentsView: View {
                 RoundedRectangle(cornerRadius: 8)
                     .fill(Color(hex: "#4D525B"))
             )
-            
+
             Text(commentsVM.errorMessage)
                 .modifier(MyFont(font: "Inter", weight: "Bold", size: 12))
                 .foregroundColor(.red)
-            
+
             // MARK: - COMMENT BLOCK
-            
-            ZStack{
-                VStack{
+
+            ZStack {
+                VStack {
                     ForEach(commentsVM.comments, id: \.id) { comment in
                         CommentElementView(commentElementVM: CommentElementViewModel(comment: comment))
                     }
                 }
             }
         }
-        .task{
+        .task {
             await commentsVM.updateComments(word: playVM.finalWord)
         }
-        
+
     }
 }
 
@@ -113,9 +111,9 @@ struct CommentsView_Previews: PreviewProvider {
         vm.finalWord = "ТОПКА"
         return vm
     }
-    
+
     static var previews: some View {
-        ScrollView{
+        ScrollView {
             CommentsView(playVM: playVM)
         }
     }

@@ -10,30 +10,30 @@ import SwiftUI
 struct StatView: View {
     // MARK: - PROPERTIES
     @StateObject private var statVM: StatisticsViewModel = StatisticsViewModel()
-    
+
     private let rowSpacing: CGFloat = 8
     private let columnSpacing: CGFloat = 8
-    
-    private var gridLayout: [GridItem]{
+
+    private var gridLayout: [GridItem] {
         return Array(repeating: GridItem(.flexible(), spacing: rowSpacing), count: 2)
     }
-    
+
     // MARK: - BODY
-    
+
     var body: some View {
         ZStack {
             Color("BGColor")
                 .edgesIgnoringSafeArea(.all)
-            
-            VStack(spacing: 0){
+
+            VStack(spacing: 0) {
                 // MARK: - PAGE HEADER
                 PageHeaderView(title: "Статистика")
                     .offset(y: 2)
-                
-                ScrollView(.vertical, showsIndicators: false){
-                    
-                    VStack{
-                        LazyVGrid(columns: gridLayout, spacing: columnSpacing){
+
+                ScrollView(.vertical, showsIndicators: false) {
+
+                    VStack {
+                        LazyVGrid(columns: gridLayout, spacing: columnSpacing) {
                             StatBlockView(title: "Игр сыграно", count: statVM.totalGamesCount)
                             StatBlockView(title: "Всего побед", count: statVM.wonGamesCount)
                             StatBlockView(title: "Длина текущей череды побед", count: statVM.currentWinningStreak)
@@ -45,23 +45,23 @@ struct StatView: View {
                         }
                         .lineLimit(3)
                         .padding(.top, 37)
-                        
+
                         Spacer()
                             .frame(height: 41)
-                        
+
                         DistributionOfTries(statVM: statVM)
                             .frame(height: 500)
                     }
                     .padding(.bottom, 186)
 
                 }
-                
+
             }
             .padding(.horizontal, 16)
-            
+
         }
-        //.foregroundColor(.black)
-        .onAppear{
+        // .foregroundColor(.black)
+        .onAppear {
             statVM.setStats()
         }
     }
@@ -71,11 +71,9 @@ struct StatView: View {
 
 struct HistoryView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView{
+        NavigationView {
             StatView()
         }
 
     }
 }
-
-

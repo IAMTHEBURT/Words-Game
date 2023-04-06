@@ -7,42 +7,42 @@
 
 import SwiftUI
 
-struct CategoryView: View{
+struct CategoryView: View {
     // MARK: - PROPERTIES
     var name: String
     var isOpened: Bool
-    
+
     var easyProgressFinished: Int
     var easyProgressOutOf: Int
-    
+
     var difficultProgressFinished: Int
     var difficultProgressOutOf: Int
-    
+
     // MARK: - FUNCTIONS
-    private func getEasyIcon() -> Image{
-        if easyProgressFinished == easyProgressOutOf && easyProgressFinished != 0{
+    private func getEasyIcon() -> Image {
+        if easyProgressFinished == easyProgressOutOf && easyProgressFinished != 0 {
             return Image(systemName: "checkmark.circle.fill")
         }
-        
-        if isOpened{
+
+        if isOpened {
             return Image(systemName: "lock.open.fill")
-        }else{
+        } else {
             return Image(systemName: "lock.fill")
         }
     }
-    
-    private func getDifficultIcon() -> Image{
-        if difficultProgressFinished == difficultProgressOutOf && difficultProgressFinished != 0{
+
+    private func getDifficultIcon() -> Image {
+        if difficultProgressFinished == difficultProgressOutOf && difficultProgressFinished != 0 {
             return Image(systemName: "checkmark.circle.fill")
         }
-        
-        if isOpened{
+
+        if isOpened {
             return Image(systemName: "lock.open.fill")
-        }else{
+        } else {
             return Image(systemName: "lock.fill")
         }
     }
-    
+
     // MARK: - BODY
     var body: some View {
         VStack(alignment: .leading, spacing: -24) {
@@ -56,10 +56,10 @@ struct CategoryView: View{
                 RoundedRectangle(cornerRadius: 15)
             )
             .zIndex(1)
-            
-            VStack{
-                HStack{
-                    VStack(alignment: .leading){
+
+            VStack {
+                HStack {
+                    VStack(alignment: .leading) {
                         Text("Обычная сложность")
                         Text("\(easyProgressFinished)/\(easyProgressOutOf)")
                             .font(.footnote)
@@ -70,8 +70,8 @@ struct CategoryView: View{
                 }
                 Divider()
                     .overlay(Color.white)
-                HStack{
-                    VStack(alignment: .leading){
+                HStack {
+                    VStack(alignment: .leading) {
                         Text("Высокая сложность")
                         Text("\(difficultProgressFinished)/\(difficultProgressOutOf)")
                             .font(.footnote)

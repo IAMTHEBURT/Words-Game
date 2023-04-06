@@ -10,7 +10,7 @@ import Foundation
 @MainActor
 class RatingViewModel: ObservableObject {
     @Published var topList: [TopElement] = []
-    
+
     func getTopList() async throws {
         do {
             topList = try await APIProvider.shared.getTopList()

@@ -10,24 +10,24 @@ import CoreData
 
 struct DistributionOfTries: View {
     // MARK: - PROPERTIES
-    
+
     @StateObject var statVM: StatisticsViewModel
     @State private var maxWidth: CGFloat = 0
     @State private var isAnimating: Bool = false
-    
+
     // MARK: - FUNCTIONS
-    private func getWidthFor(count: Int) -> CGFloat{
+    private func getWidthFor(count: Int) -> CGFloat {
         let part = CGFloat(count) / CGFloat(statVM.max) * 100.0
         return 0.62 * maxWidth / 100 * CGFloat(part)
     }
-    
+
     // MARK: - BODY
-    
+
     var body: some View {
         ZStack {
             GeometryReader { geo in
-                VStack(alignment: .leading, spacing: 0){
-                    
+                VStack(alignment: .leading, spacing: 0) {
+
                     RoundedCorners(color: Color(hex: "#E99C5D"), tl: 8, tr: 8, bl: 0, br: 0)
                         .frame(height: 48)
                         .overlay(
@@ -35,15 +35,14 @@ struct DistributionOfTries: View {
                                 .foregroundColor(Color(hex: "##2C2F38"))
                                 .modifier(MyFont(font: "Inter", weight: "bold", size: 14))
                         )
-                    
+
                     Spacer()
                         .frame(height: 30)
-                    
-                    
+
                     ForEach(statVM.distributionData, id: \.self) { category in
                         DistributionElement(maxElementWidth: $maxWidth, title: category.first!.key, number: category.first!.value, maxNumber: statVM.max)
                     }
-                    
+
                     Spacer()
                         .frame(height: 30)
                 }
@@ -52,13 +51,13 @@ struct DistributionOfTries: View {
                         .cornerRadius(8)
                 )
                 .modifier(MyFont(font: "Inter", weight: "bold", size: 14))
-                .onAppear{
+                .onAppear {
                     maxWidth = geo.size.width
-                    withAnimation(.linear(duration: 1)){
+                    withAnimation(.linear(duration: 1)) {
                         isAnimating.toggle()
                     }
                 }
-                
+
             }
         }
     }

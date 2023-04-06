@@ -9,38 +9,38 @@ import SwiftUI
 
 struct RulesView: View {
     // MARK: - PROPERTIES
-    
+
     @StateObject var mainVM: MainViewModel
     @AppStorage("isOnboardingFinished") private var isOnboardingFinished: Bool = false
-    
+
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var bottomMenuVM: BottomMenuViewModel
-    
+
     // MARK: - BODY
-    
+
     var body: some View {
         ZStack {
             Color("BGColor")
                 .edgesIgnoringSafeArea(.all)
-            
+
             ScrollView(.vertical, showsIndicators: false) {
-                VStack (alignment: .leading, spacing: 20){
-                    
+                VStack(alignment: .leading, spacing: 20) {
+
                     RulesContentView()
-                    
-                    //Если это первое включени, покажем кнопку запускающую первую игру
-                   
+
+                    // Если это первое включени, покажем кнопку запускающую первую игру
+
                     Spacer()
                         .frame(height: 10)
-                    
-                    if isOnboardingFinished == false{
-                        HStack{
+
+                    if isOnboardingFinished == false {
+                        HStack {
                             Spacer()
                             Text("Попробуйте отгадать громкое слово приветствия, которое мы загадли")
                                 .multilineTextAlignment(.center)
                             Spacer()
                         }
-                        HStack{
+                        HStack {
                             Spacer()
                             Button(action: {
                                 mainVM.startAnyWordGame(word: "салют", title: "Приветственное слово")
@@ -61,10 +61,10 @@ struct RulesView: View {
                             .accessibilityIdentifier("tryButton")
                             Spacer()
                         }
-                        
+
                         Spacer()
-                    } else{
-                        HStack{
+                    } else {
+                        HStack {
                             Spacer()
                             Button(action: {
                                 presentationMode.wrappedValue.dismiss()
@@ -80,9 +80,9 @@ struct RulesView: View {
                             }
                             Spacer()
                         }
-                        
+
                         Spacer()
-                        
+
                     }
                 }
                 .padding()
@@ -91,14 +91,14 @@ struct RulesView: View {
         }
         .modifier(MyFont(font: "Inter", weight: "Regular", size: 18))
         .lineSpacing(6)
-        
+
     }
 }
 
 // MARK: - PREVIW
 struct Rules_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView{
+        NavigationView {
             RulesView(mainVM: MainViewModel())
         }
     }

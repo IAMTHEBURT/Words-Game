@@ -8,32 +8,32 @@
 import SwiftUI
 
 struct MiniPlayField: View {
-    
+
     // MARK: - PROPERTIES
-    
-    private var gridLayout: [GridItem]{
+
+    private var gridLayout: [GridItem] {
         return Array(repeating: GridItem(.flexible(), spacing: 0), count: gameHistoryModel.word.count)
     }
-    
+
     var gameHistoryModel: GameHistoryModel
-    
-    private var lettersArray: [Letter]{
-        if gameHistoryModel.letters.isEmpty{
+
+    private var lettersArray: [Letter] {
+        if gameHistoryModel.letters.isEmpty {
             var array: [Letter] = []
             let totalNumberOfLetters = gameHistoryModel.word.count * 6
-            for _ in 1...totalNumberOfLetters{
+            for _ in 1...totalNumberOfLetters {
                 array.append(Letter(character: "", state: .unanswered))
             }
             return array
-        }else{
+        } else {
             return gameHistoryModel.letters.sorted { $0.createdAt < $1.createdAt }
         }
     }
-    
+
     // MARK: - BODY
-    
+
     var body: some View {
-        LazyVGrid(columns: gridLayout, spacing: 2){
+        LazyVGrid(columns: gridLayout, spacing: 2) {
             ForEach(lettersArray) { letter in
                 Text(letter.character)
                     .modifier(SquareLetterModifier(letter.state, size: 20, fontSize: 14))

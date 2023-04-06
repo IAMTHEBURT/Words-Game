@@ -30,6 +30,7 @@
 		2C33D93C2954751A00F65762 /* progression-mode-ru.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C33D93B2954751A00F65762 /* progression-mode-ru.json */; };
 		2C33D93E2954754200F65762 /* free-mode-ru.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C33D93D2954754200F65762 /* free-mode-ru.json */; };
 		2C33D942295478B800F65762 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C33D941295478B800F65762 /* TaskModel.swift */; };
+		2C41D82829DEFCE300AF88A2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 2C41D82729DEFCE300AF88A2 /* .swiftlint.yml */; };
 		2C48B0A229BB47D400B4F844 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2C48B0A129BB47D400B4F844 /* Alamofire */; };
 		2C5B5DA3299BB27300EA2FAB /* RulesContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5B5DA2299BB27300EA2FAB /* RulesContentView.swift */; };
 		2C64D41429829A7C001426A1 /* GameResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C64D41329829A7C001426A1 /* GameResultView.swift */; };
@@ -165,6 +166,7 @@
 		2C33D93B2954751A00F65762 /* progression-mode-ru.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "progression-mode-ru.json"; sourceTree = "<group>"; };
 		2C33D93D2954754200F65762 /* free-mode-ru.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "free-mode-ru.json"; sourceTree = "<group>"; };
 		2C33D941295478B800F65762 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
+		2C41D82729DEFCE300AF88A2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		2C5B5DA2299BB27300EA2FAB /* RulesContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesContentView.swift; sourceTree = "<group>"; };
 		2C64D41329829A7C001426A1 /* GameResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResultView.swift; sourceTree = "<group>"; };
 		2C676E7129C990FE009772A0 /* ColorBlended.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBlended.swift; sourceTree = "<group>"; };
@@ -359,6 +361,7 @@
 		9D4776542941E9BA00DD96F4 = {
 			isa = PBXGroup;
 			children = (
+				2C41D82729DEFCE300AF88A2 /* .swiftlint.yml */,
 				9D47765F2941E9BA00DD96F4 /* Words */,
 				2C89EF6629CD9D5C000B169F /* WordsUnitTests */,
 				2C89EF7629CEFA54000B169F /* WordsUITests */,
@@ -613,6 +616,7 @@
 				9D4776592941E9BA00DD96F4 /* Sources */,
 				9D47765A2941E9BA00DD96F4 /* Frameworks */,
 				9D47765B2941E9BA00DD96F4 /* Resources */,
+				2C41D82629DEF4D700AF88A2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -707,6 +711,7 @@
 				2C02171C2977F70A007D8FC6 /* Inter-Medium.ttf in Resources */,
 				2C676E8429C9B262009772A0 /* tap-4.wav in Resources */,
 				2C676E8229C9B262009772A0 /* you-done.wav in Resources */,
+				2C41D82829DEFCE300AF88A2 /* .swiftlint.yml in Resources */,
 				2C676E8329C9B262009772A0 /* tap-3.wav in Resources */,
 				2C676E8829C9B27E009772A0 /* tap-2.wav in Resources */,
 				2C676E8029C9B262009772A0 /* no-such-word.wav in Resources */,
@@ -718,6 +723,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2C41D82629DEF4D700AF88A2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2C89EF6129CD9D5C000B169F /* Sources */ = {

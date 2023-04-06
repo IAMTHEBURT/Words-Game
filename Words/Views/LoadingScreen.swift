@@ -9,16 +9,16 @@ import SwiftUI
 
 struct LoadingScreen: View {
     // MARK: - PROPERTIES
-    
+
     @StateObject var bottomMenuVM: BottomMenuViewModel
-    
+
     @State private var showingTitle: Bool = false
     @State private var showingButton: Bool = false
-    
+
     @AppStorage("isOnboardingFinished") private var isOnboardingFinished: Bool = false
-    
+
     @State var isOnboardingPagePresented: Bool = false
-    
+
     // MARK: - BODY
     var body: some View {
         ZStack {
@@ -26,31 +26,31 @@ struct LoadingScreen: View {
                 .black
                 .opacity(0.9)
                 .edgesIgnoringSafeArea(.all)
-            
-            VStack{
+
+            VStack {
                 Spacer()
-                HStack{
+                HStack {
                     Text("Добро\nпожаловать\nв \(ENV.appName)")
                         .textCase(.uppercase)
                         .modifier(MyFont(font: "Inter", weight: "Bold", size: 36.0))
                 }
                 .padding(.leading, 16)
                 .opacity(showingTitle ? 1 : 0)
-                
+
                 Spacer()
-                
+
                 LoadingAnimation()
-                
+
                 Spacer()
-                
+
             } //: MAIN VSTACK
-            
-            VStack{
+
+            VStack {
                 Spacer()
                 Button(action: {
                     bottomMenuVM.isInitialLoadingFinished = true
                 }) {
-                    ZStack{
+                    ZStack {
                         RoundedRectangle(cornerRadius: 8)
                             .fill(.white)
                             .frame(width: 138, height: 42)
@@ -62,13 +62,13 @@ struct LoadingScreen: View {
                 }
                 .accessibilityIdentifier("startButton")
             }
-            
+
         }
-        .onAppear{
+        .onAppear {
             withAnimation(.easeIn(duration: 2)) {
                 showingTitle.toggle()
             }
-            
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 withAnimation(.easeIn(duration: 0.5)) {
                     showingButton.toggle()
@@ -76,17 +76,15 @@ struct LoadingScreen: View {
             }
         }
         .task {
-            do{
+            do {
                 try await APIProvider.shared.updatePoints()
-            } catch{
+            } catch {
                 print(error.localizedDescription)
             }
         }
-        
+
     }
 }
-
-
 
 // MARK: - PREVIW
 

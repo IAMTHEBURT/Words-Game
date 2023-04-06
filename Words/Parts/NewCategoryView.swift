@@ -7,26 +7,25 @@
 
 import SwiftUI
 
-struct NewCategoryView: View{
+struct NewCategoryView: View {
     // MARK: - PROPERTIES
     var name: String
     var isOpened: Bool
     var finished: Int
     var outOf: Int
     var roundedCorners: [CGFloat] = [0, 0, 0, 0]
-    
-    
+
     // MARK: - FUNCTIONS
-    
+
     // MARK: - BODY
     var body: some View {
-        HStack{
+        HStack {
             Text(name)
                 .font(.system(size: 20))
                 .fontWeight(.bold)
             Spacer()
-            
-            HStack(spacing: 0){
+
+            HStack(spacing: 0) {
                 Circle()
                     .fill(isOpened ? Color(hex: "#289788") : Color(hex: "#4D525B"))
                     .frame(width: 20, height: 20)
@@ -36,8 +35,8 @@ struct NewCategoryView: View{
                             .font(.system(size: 10))
                     )
                 Spacer()
-                
-                if outOf > 0{
+
+                if outOf > 0 {
                     Text("\(finished.formattedWithSeparator)/\(outOf.formattedWithSeparator)")
                         .foregroundColor(.white)
                         .font(.system(size: 14))
@@ -65,15 +64,14 @@ struct NewCategoryView: View{
 // MARK: - PREVIEW
 struct NewCategoryView_Previews: PreviewProvider {
     static var previews: some View {
-        
-        VStack{
+
+        VStack {
             NewCategoryView(name: "5 Букв", isOpened: true, finished: 10, outOf: 180)
                 .previewLayout(.sizeThatFits)
-            
+
             NewCategoryView(name: "9 Букв", isOpened: true, finished: 110, outOf: 180)
                 .previewLayout(.sizeThatFits)
         }
 
-        
     }
 }

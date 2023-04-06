@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GameTypeButtonView: View {
     // MARK: - PROPERTIES
-    
+
     var title: String
     var subtitle: String
     var finished: Int
@@ -17,24 +17,24 @@ struct GameTypeButtonView: View {
     var color: Color
     var roundedCorners: [CGFloat] = [8, 8, 8, 8]
     var accessibilityIdentifier: String = ""
-    
+
     // MARK: - BODY
-    
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 8){
-            HStack{
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
                 Text(title)
                     .font(.system(size: 20))
                     .fontWeight(.bold)
                 Spacer()
-                
-                if outOf > 0{
+
+                if outOf > 0 {
                     Text( String("\(finished.formattedWithSeparator)/\(outOf.formattedWithSeparator)") )
                         .fontWeight(.bold)
                         .font(.system(size: 14))
                         .accessibilityIdentifier(accessibilityIdentifier)
                 }
-                
+
             }
             Text(subtitle)
                 .font(.system(size: 12))

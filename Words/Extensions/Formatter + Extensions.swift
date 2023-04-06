@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 extension Formatter {
     static let withSeparator: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -17,8 +16,6 @@ extension Formatter {
     }()
 }
 
-
 extension Numeric {
     var formattedWithSeparator: String { Formatter.withSeparator.string(for: self) ?? "" }
 }
-

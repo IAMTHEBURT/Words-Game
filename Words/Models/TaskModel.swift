@@ -10,36 +10,36 @@ import CoreData
 
 struct TaskModel: Identifiable {
     var taskDBM: TaskDBM
-    
+
     init(taskDBM: TaskDBM) {
         self.taskDBM = taskDBM
     }
-    
+
     var id: NSManagedObjectID {
         taskDBM.objectID
     }
-    
+
     var word: String {
         taskDBM.word ?? ""
     }
-    
+
     var count: Int {
         Int(taskDBM.count)
     }
-    
-    var gameType: GameType{
+
+    var gameType: GameType {
         return GameType(rawValue: Int(taskDBM.type)) ?? .progression
     }
-    
-    var difficulty: Difficulty{
+
+    var difficulty: Difficulty {
         return Difficulty(rawValue: Int(taskDBM.difficulty)) ?? .low
     }
-    
+
     var history: GameHistoryModel? {
-        if let game = taskDBM.game{
+        if let game = taskDBM.game {
             return GameHistoryModel(gameDBM: game)
         }
-        
+
         return nil
     }
 }

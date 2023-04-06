@@ -9,14 +9,14 @@ import SwiftUI
 
 struct BellView: View {
     // MARK: - PROPERTIES
-    
+
     @State var isAnimating: Bool = false
     @AppStorage("isDailyWordNotificationSet") var isDailyWordNotificationSet: Bool = false
-    
+
     // MARK: - BODY
-    
+
     var body: some View {
-        ZStack{
+        ZStack {
             Image(systemName: isDailyWordNotificationSet ? "bell.fill" : "bell")
                 .rotationEffect(isAnimating ? Angle(degrees: 30) : Angle(degrees: 0), anchor: .top)
                 .animation(
@@ -24,15 +24,15 @@ struct BellView: View {
                         .linear(duration: 0.2)
                         .repeatCount(6, autoreverses: true)
                     , value: isAnimating)
-            
+
                 .onTapGesture {
                     isDailyWordNotificationSet.toggle()
                 }
         }
-        .onChange(of: isDailyWordNotificationSet) { newValue in
+        .onChange(of: isDailyWordNotificationSet) { _ in
             isAnimating.toggle()
         }
-        
+
     }
 }
 

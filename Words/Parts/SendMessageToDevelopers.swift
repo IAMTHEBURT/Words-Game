@@ -9,18 +9,18 @@ import SwiftUI
 
 struct SendMessageToDevelopers: View {
     // MARK: - PROPERTIES
-    
+
     @StateObject var apiController = APIProvider.shared
     @State var reviewText: String = ""
     @State var emailAddress: String = ""
     @State var sendAttempts: Int = 0
     @Binding var isPartialSheetPresented: Bool
-    
+
     // MARK: - BODY
-    
+
     var body: some View {
-        VStack(spacing: 10){
-            HStack{
+        VStack(spacing: 10) {
+            HStack {
                 Text("Отмена").foregroundColor(Color(hex: "#C6CAD3"))
                     .modifier(MyFont(font: "Inter", weight: "Medium", size: 16))
                 .onTapGesture {
@@ -32,22 +32,22 @@ struct SendMessageToDevelopers: View {
                     .modifier(MyFont(font: "Inter", weight: "Medium", size: 16))
                 .onTapGesture {
                     if emailAddress == "" || reviewText == ""{
-                        //Выход анимации
+                        // Выход анимации
                         withAnimation(.default) {
-                            self.sendAttempts = self.sendAttempts + 1
+                            self.sendAttempts += 1
                         }
                         return
                     }
                     let text = "WORDS. New message from user with address ||\(emailAddress)|| his message ||\(reviewText)||"
-                    
-                    Task{
+
+                    Task {
                         do {
                             try await apiController.sendMessage(message: text)
                         } catch {
                             print(error)
                         }
                     }
-                    
+
                     isPartialSheetPresented = false
                 }
             }
@@ -55,10 +55,10 @@ struct SendMessageToDevelopers: View {
             Text("Что бы Вы хотели улучшить в нашем приложении?")
                 .foregroundColor(Color(hex: "#CECECE")).padding(10)
                 .modifier(MyFont(font: "Inter", weight: "Regular", size: 16))
-            
+
             ZStack(alignment: .leading) {
                 if emailAddress.isEmpty {
-                    VStack(alignment: .leading){
+                    VStack(alignment: .leading) {
                         Text("Ваш E-Mail для ответа")
                         Spacer()
                     }
@@ -73,11 +73,10 @@ struct SendMessageToDevelopers: View {
             .modifier(MyFont(font: "Inter", weight: "Regular", size: 16))
             .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color(hex: "#EFEFEF"), lineWidth: 2))
             .modifier(Shake(animatableData: CGFloat(sendAttempts)))
-            
-            
+
             ZStack(alignment: .leading) {
                 if reviewText.isEmpty {
-                    VStack(alignment: .leading){
+                    VStack(alignment: .leading) {
                         Text("Что Вам не понравилось...")
                         Spacer()
                     }
@@ -91,7 +90,7 @@ struct SendMessageToDevelopers: View {
             .font(Font.custom("Nunito-Regular", size: 14))
             .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color(hex: "#EFEFEF"), lineWidth: 2))
             .modifier(Shake(animatableData: CGFloat(sendAttempts)))
-            
+
         }.padding([.leading, .trailing], 20)
     }
 }

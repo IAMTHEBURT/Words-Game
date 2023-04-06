@@ -7,7 +7,7 @@ extension DailyWordDBM: BaseDBModel {
         request.sortDescriptors = []
         return request
     }
-    
+
     static var actual: NSFetchRequest<DailyWordDBM> {
         let request = DailyWordDBM.fetchRequest()
         let currentTimestamp = Int(Date.now.timeIntervalSince1970)
@@ -17,6 +17,5 @@ extension DailyWordDBM: BaseDBModel {
         request.fetchLimit = 1
         return request
     }
-    
-    
+
 }

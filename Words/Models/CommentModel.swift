@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Comment: Codable, Identifiable, Equatable{
+struct Comment: Codable, Identifiable, Equatable {
     let id: Int
     let user_id: Int
     let name: String
@@ -21,8 +21,7 @@ struct Comment: Codable, Identifiable, Equatable{
     let has_user_dislike: Bool
 }
 
-
-extension Comment{
+extension Comment {
     static func emptyInit() -> Comment {
         return Comment(id: 1,
                        user_id: 21221,

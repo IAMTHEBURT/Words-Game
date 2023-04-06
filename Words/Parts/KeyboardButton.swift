@@ -9,38 +9,37 @@ import SwiftUI
 
 struct KeyboardButton: View {
     // MARK: - PROPERTIES
-    
+
     @StateObject var playViewModel: PlayViewModel
     @State var character: String
     @State private var isPressed: Bool = false
-    
+
     let sound: String
-    
+
     // MARK: - FUNCTIONS
-    private func getBGColorForTheKeyboardKey() -> Color{
-        let letters = playViewModel.lines.flatMap{$0.letters}
-        
-        let filtered = letters.filter{ $0.character == character }
-        if !filtered.isEmpty{
+    private func getBGColorForTheKeyboardKey() -> Color {
+        let letters = playViewModel.lines.flatMap {$0.letters}
+
+        let filtered = letters.filter { $0.character == character }
+        if !filtered.isEmpty {
             return filtered.first?.state.color ?? LetterState.defaultColor
-        }else{
+        } else {
             return LetterState.defaultColor
         }
     }
-    
-    
-    private func getForegroundColorForTheKeyboardKey() -> Color{
+
+    private func getForegroundColorForTheKeyboardKey() -> Color {
         let letters = playViewModel.lines.flatMap { $0.letters}
-        let filtered = letters.filter{ $0.character == character }
-        if !filtered.isEmpty{
+        let filtered = letters.filter { $0.character == character }
+        if !filtered.isEmpty {
             return filtered.first?.state.fontColor ?? LetterState.defaultColor
-        }else{
+        } else {
             return LetterState.unanswered.fontColor
         }
     }
-    
+
     // MARK: - BODY
-    
+
     var body: some View {
         RoundedRectangle(cornerRadius: 8)
             .overlay(
@@ -69,9 +68,9 @@ struct KeyboardButton: View {
                 DragGesture(minimumDistance: 0)
                     .onChanged({ _ in
                         isPressed = true
-                        
+
                         playSound(sound: sound, type: "wav")
-                        
+
                     })
                     .onEnded({ _ in
                         isPressed = false

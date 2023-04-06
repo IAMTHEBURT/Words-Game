@@ -7,17 +7,16 @@
 
 import SwiftUI
 
-
 struct MenuButtonView: View {
     // MARK: - PROPERTIES
-    
+
     var systemImageName: String
     var text: String
-    
+
     // MARK: - BODY
-    
+
     var body: some View {
-        HStack{
+        HStack {
             Image(systemName: systemImageName )
             Text(text)
                 .minimumScaleFactor(0.8)

@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Reaction: Codable{
+struct Reaction: Codable {
     var type: ReactionType
     var UID: String
-    var comment_id: Int    
+    var comment_id: Int
 }

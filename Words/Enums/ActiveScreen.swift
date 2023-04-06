@@ -9,7 +9,7 @@ import Foundation
 
 enum ActiveScreen: Identifiable {
     case game, stat, rules, settings, history, rating
-    
+
     var id: Int {
         hashValue
     }

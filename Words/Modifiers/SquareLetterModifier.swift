@@ -7,25 +7,23 @@
 
 import SwiftUI
 
-
 struct SquareLetterModifier: ViewModifier {
     var fontColor: Color
     var bgColor: Color
     var size: CGFloat
     var fontSize: CGFloat
-    
-    init(_ state: LetterState, size: CGFloat = 60, fontSize: CGFloat = 32){
+
+    init(_ state: LetterState, size: CGFloat = 60, fontSize: CGFloat = 32) {
         self.bgColor = state.color
-        
-        if state == .unanswered{
+
+        if state == .unanswered {
             self.bgColor = Color("unansweredLetterBackgroundV2")
         }
         self.fontColor = state.fontColor
         self.size = size
         self.fontSize = fontSize
     }
-    
-    
+
     func body(content: Content) -> some View {
         content
             .foregroundColor(fontColor)

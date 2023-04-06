@@ -7,17 +7,19 @@
 
 import Foundation
 
+extension [String]: DefaultInitializable {}
+
 class Dictionary {
     // MARK: - PROPERTIES
     let list: [String]
-    
+
     // MARK: - FUNCTIONS
-    
+
     init() {
         self.list = Bundle.main.decode("nouns-ru.json")
     }
-    
-    func hasTheWord(word: String) -> Bool{
+
+    func hasTheWord(word: String) -> Bool {
         let result = list.first { element in
             element == word.lowercased()
         }

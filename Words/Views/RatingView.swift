@@ -9,52 +9,51 @@ import SwiftUI
 
 struct RatingView: View {
     // MARK: - PROPERTIES
-    
+
     @StateObject var ratingVM: RatingViewModel = RatingViewModel()
-    
+
     // MARK: - FUNCTIONS
-    
-    private func getBackgroundForPosition(index: Int, isPlayer: Bool) -> some View{
-        //Если первая строка
+
+    private func getBackgroundForPosition(index: Int, isPlayer: Bool) -> some View {
+        // Если первая строка
         if index + 1 == 1 {
             return RoundedCorners(color: Color(hex: "#DD6B4E"), tl: 8, tr: 8, bl: 0, br: 0)
-        //Если последняя строка
-        } else if index + 1 == ratingVM.topList.count{
-            if isPlayer{
+        // Если последняя строка
+        } else if index + 1 == ratingVM.topList.count {
+            if isPlayer {
                 return RoundedCorners(color: Color(hex: "#4D525B"), tl: 0, tr: 0, bl: 8, br: 8)
-            }else{
+            } else {
                 return RoundedCorners(color: Color(.clear), tl: 0, tr: 0, bl: 8, br: 8)
             }
-        //Любой другой
+        // Любой другой
         } else {
-            if isPlayer{
+            if isPlayer {
                 return RoundedCorners(color: Color(hex: "#4D525B"))
-            }else{
+            } else {
                 return RoundedCorners(color: .clear)
             }
         }
     }
-    
+
     // MARK: - BODY
-    
+
     var body: some View {
-        ZStack{
+        ZStack {
             Color("BGColor")
                 .edgesIgnoringSafeArea(.all)
-            
-            if ratingVM.topList.isEmpty{
+
+            if ratingVM.topList.isEmpty {
                 VStack {
                     Spacer()
                     ProgressView()
-                    //Text("Упс.. Тут никого нет.\nПроверьте интернет подключение.")
+                    // Text("Упс.. Тут никого нет.\nПроверьте интернет подключение.")
                     Spacer()
                 }
                 .multilineTextAlignment(.center)
                 .modifier(MyFont(font: "Inter", weight: "bold", size: 25))
             }
 
-            
-            ScrollView{
+            ScrollView {
                 VStack {
                     Spacer()
                         .frame(height: 17)
@@ -62,24 +61,24 @@ struct RatingView: View {
                         .padding(.horizontal, 17)
                     Spacer()
                         .frame(height: 48)
-                    
-                    VStack(spacing: 0){
+
+                    VStack(spacing: 0) {
                         ForEachWithIndex(ratingVM.topList, id: \.nickname) { index, topElement in
-                            VStack{
-                                HStack(spacing: 0){
-                                    
-                                    HStack(spacing: 20){
+                            VStack {
+                                HStack(spacing: 0) {
+
+                                    HStack(spacing: 20) {
                                         Text("\(topElement.position)")
-                                        
-                                        HStack(spacing: 5){
+
+                                        HStack(spacing: 5) {
                                             if index == 0 {
                                                 Image(systemName: "crown")
                                             }
-                                            
+
                                             Text(topElement.nickname)
                                                 .accessibilityLabel("nickname")
                                         }
-                                        
+
                                         Spacer()
                                     }
                                     Spacer()
@@ -87,8 +86,7 @@ struct RatingView: View {
                                 }
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, 12)
-                                
-                                
+
 //                                if topElement.isPlayer{
 //                                    HStack(spacing: 24){
 //                                        Spacer()
@@ -99,12 +97,12 @@ struct RatingView: View {
 //                                    }
 //                                    .padding(.vertical, 10)
 //                                }
-                                
+
                             }
                             .background(
                                 getBackgroundForPosition(index: index, isPlayer: topElement.isPlayer)
                             )
-                            
+
                         }
                     }
                     .background(
@@ -113,16 +111,16 @@ struct RatingView: View {
                     .padding(.horizontal, 17)
                     .accessibilityIdentifier("ratingCollection")
                     Spacer()
-                    
+
                 }
             }
         }
         .modifier(MyFont(font: "Inter", weight: "bold", size: 14))
         .task {
-            try! await ratingVM.getTopList()
+            try? await ratingVM.getTopList()
         }
     }
-    
+
 }
 
 // MARK: - PREVIW
@@ -145,8 +143,6 @@ struct RatingIcon: View {
             .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
     }
 }
-
-
 
 public struct ForEachWithIndex<Data: RandomAccessCollection, ID: Hashable, Content: View>: View {
     public var data: Data
@@ -201,4 +197,3 @@ private struct IndexInfo<Index, Element, ID: Hashable>: Hashable {
         self.elementID.hash(into: &hasher)
     }
 }
-

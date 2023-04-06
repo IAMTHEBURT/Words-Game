@@ -7,16 +7,15 @@
 
 import Foundation
 
+extension String {
 
-extension String{
-    
-    func toArray() -> [String]{
+    func toArray() -> [String] {
         let result: [String] =  self.map { character in
             String(character).uppercased()
         }
         return result
     }
-        
+
 }
 
 public extension String {
@@ -58,7 +57,6 @@ private extension String {
     index(startIndex, offsetBy: offset)
   }
 }
-
 
 extension String {
     func capitalizingFirstLetter() -> String {

@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct LongMarkKeyboardButton: View {
-    
+
     // MARK: - PROPERTIES
-    
+
     @StateObject var playViewModel: PlayViewModel
     @State private var isPressed: Bool = false
-    
+
     // MARK: - BODY
-    
+
     var body: some View {
         RoundedRectangle(cornerRadius: 6)
-            .overlay{
+            .overlay {
                 Color(hex: "#2C2F38")
                     .cornerRadius(4)
             }
@@ -41,10 +41,10 @@ struct LongMarkKeyboardButton: View {
                     })
                     .onEnded({ _ in
                         isPressed = false
-                        if playViewModel.checkButtonIsActive == false{
+                        if playViewModel.checkButtonIsActive == false {
                             return
                         }
-                        
+
                         try? playViewModel.checkTheLine()
                     })
             )

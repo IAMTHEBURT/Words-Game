@@ -14,8 +14,8 @@ extension GameDBM: BaseDBModel {
         request.sortDescriptors = []
         return request
     }
-    
-    static func emptyInit() -> GameDBM{
+
+    static func emptyInit() -> GameDBM {
         let persistentContainer = NSPersistentContainer(name: "DB")
         let game = GameDBM(context: persistentContainer.viewContext)
         game.result = Int16(1)
@@ -23,9 +23,9 @@ extension GameDBM: BaseDBModel {
         game.word = "лампа"
         game.date = Date()
         game.lines = Int16(5)
-        
+
         let letters = "лампа"
-        
+
         letters.forEach { char in
             let letterDBM = LetterDBM(context: CoreDataProvider.shared.viewContext)
             letterDBM.character = String(char)
@@ -33,7 +33,7 @@ extension GameDBM: BaseDBModel {
             letterDBM.createdAt = Date()
             letterDBM.game = game
         }
-        
+
         return game
     }
 }

@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum ReactionType: String, Codable{
+enum ReactionType: String, Codable {
     case like, dislike
 }

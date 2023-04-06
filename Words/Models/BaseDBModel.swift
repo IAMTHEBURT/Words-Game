@@ -1,7 +1,7 @@
 import Foundation
 import CoreData
 
-protocol BaseDBModel: NSManagedObject{
+protocol BaseDBModel: NSManagedObject {
     func save()
     func delete()
     static func byId<T: NSManagedObject>(id: NSManagedObjectID) -> T?
@@ -12,8 +12,8 @@ extension BaseDBModel where Self: NSManagedObject {
     static var viewContext: NSManagedObjectContext {
         return CoreDataProvider.shared.persistentContainer.viewContext
     }
-    
-    func save(){
+
+    func save() {
         do {
             try Self.viewContext.save()
         } catch {
@@ -21,12 +21,12 @@ extension BaseDBModel where Self: NSManagedObject {
             print(error)
         }
     }
-    
-    func delete(){
+
+    func delete() {
         Self.viewContext.delete(self)
         save()
     }
-    
+
     static func all<T>() -> [T] where T: NSManagedObject {
         let fetchRequest: NSFetchRequest<T> = NSFetchRequest(entityName: String(describing: T.self))
         do {
@@ -35,8 +35,8 @@ extension BaseDBModel where Self: NSManagedObject {
             return []
         }
     }
-    
-    static func byId<T>(id: NSManagedObjectID) -> T? where T: NSManagedObject{
+
+    static func byId<T>(id: NSManagedObjectID) -> T? where T: NSManagedObject {
         do {
             return try viewContext.existingObject(with: id) as? T
         } catch {
@@ -45,5 +45,3 @@ extension BaseDBModel where Self: NSManagedObject {
         }
     }
 }
-
-

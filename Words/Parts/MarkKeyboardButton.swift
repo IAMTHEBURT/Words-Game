@@ -9,16 +9,16 @@ import SwiftUI
 
 struct MarkKeyboardButton: View {
     // MARK: - PROPERTIES
-    
+
     @StateObject var playViewModel: PlayViewModel
     @State private var isPressed: Bool = false
-    
+
     // MARK: - BODY
-    
+
     var body: some View {
         RoundedRectangle(cornerRadius: 6)
             .stroke(playViewModel.checkButtonIsActive ? .blue : Color.gray.opacity(0.5), lineWidth: 2)
-            .overlay{
+            .overlay {
                 (playViewModel.checkButtonIsActive ? .blue : Color.gray.opacity(0.5))
                     .cornerRadius(6)
             }
@@ -40,10 +40,10 @@ struct MarkKeyboardButton: View {
                     })
                     .onEnded({ _ in
                         isPressed = false
-                        if playViewModel.checkButtonIsActive == false{
+                        if playViewModel.checkButtonIsActive == false {
                             return
                         }
-                        
+
                         try? playViewModel.checkTheLine()
                     })
             )
