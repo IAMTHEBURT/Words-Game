@@ -22,7 +22,7 @@ struct ContentView: View {
                 ZStack {
                     switch bottomMenuVM.activeScreen {
                     case .game:
-                        MainView()
+                        MainViewExtended()
                             .environmentObject(mainVM)
                     case .history:
                         GameHistory()

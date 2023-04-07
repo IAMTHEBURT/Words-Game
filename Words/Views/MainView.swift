@@ -124,7 +124,7 @@ struct MainView: View {
                                 }
 
                                 ForEach(categories, id: \.self) { count in
-                                    NewCategoryView(
+                                    FreeGameCategoryView(
                                         name: "\(count) букв",
                                         isOpened: mainVM.isFreeModeCategoryOpened(count: count),
                                         finished: mainVM.getCountOff(type: .freeMode, finished: true, difficulty: .low, symbolsCount: count),

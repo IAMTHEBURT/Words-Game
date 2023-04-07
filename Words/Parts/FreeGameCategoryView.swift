@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NewCategoryView: View {
+struct FreeGameCategoryView: View {
     // MARK: - PROPERTIES
     var name: String
     var isOpened: Bool
@@ -66,10 +66,10 @@ struct NewCategoryView_Previews: PreviewProvider {
     static var previews: some View {
 
         VStack {
-            NewCategoryView(name: "5 Букв", isOpened: true, finished: 10, outOf: 180)
+            FreeGameCategoryView(name: "5 Букв", isOpened: true, finished: 10, outOf: 180)
                 .previewLayout(.sizeThatFits)
 
-            NewCategoryView(name: "9 Букв", isOpened: true, finished: 110, outOf: 180)
+            FreeGameCategoryView(name: "9 Букв", isOpened: true, finished: 110, outOf: 180)
                 .previewLayout(.sizeThatFits)
         }
 

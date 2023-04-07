@@ -22,6 +22,17 @@ struct GameHistory: View {
             Color("BGColor")
                 .edgesIgnoringSafeArea(.all)
 
+            if gameHistoryVM.games.isEmpty {
+                VStack {
+                    Image("empty_history")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                    Text("Здесь пока пусто\nОтличный повод начать!")
+                        .modifier(MyFont(font: "Inter", weight: "Bold", size: 16))
+                }
+                .multilineTextAlignment(.center)
+            }
+
             VStack(spacing: 0) {
                 // MARK: - PAGE HEADER
                 PageHeaderView(title: "История игр")
@@ -29,6 +40,7 @@ struct GameHistory: View {
                     .offset(y: 2)
 
                 ScrollView(.vertical, showsIndicators: false) {
+
                     VStack {
                         Spacer()
                             .frame(height: 66)
