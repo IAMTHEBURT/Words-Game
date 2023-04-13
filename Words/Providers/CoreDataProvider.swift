@@ -7,20 +7,18 @@ class CoreDataProvider {
     static let shared = CoreDataProvider()
 
     let persistentContainer: NSPersistentContainer
-    
-    
-    //Контекст для главной очереди
+
+    // Контекст для главной очереди
     var viewContext: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
-    
+
     // Создание нового контекста для фоновой очереди
     var backgroundContext: NSManagedObjectContext {
         let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         context.parent = viewContext
         return context
     }
-    
 
     // MARK: - FUNCTIONS
     init() {
@@ -31,8 +29,7 @@ class CoreDataProvider {
             }
         }
     }
-    
-    
+
     func performBackgroundTask(_ block: @escaping (NSManagedObjectContext) -> Void) {
         backgroundContext.perform {
             block(self.backgroundContext)
@@ -43,5 +40,5 @@ class CoreDataProvider {
             }
         }
     }
-    
+
 }

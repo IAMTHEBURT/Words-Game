@@ -32,7 +32,7 @@ struct MainViewExtended: View {
 
     var body: some View {
         NavigationStack {
-            ZStack(alignment: .top){
+            ZStack(alignment: .top) {
                 Color("BGColor")
                     .edgesIgnoringSafeArea(.all)
 
@@ -40,8 +40,7 @@ struct MainViewExtended: View {
                     .offset(y: 2)
                     .padding(.horizontal, 16)
                     .zIndex(1)
-                    
-                
+
                 VStack(spacing: 0) {
 
                     // GAME OPTIONS
