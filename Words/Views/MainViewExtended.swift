@@ -32,21 +32,23 @@ struct MainViewExtended: View {
 
     var body: some View {
         NavigationStack {
-            ZStack {
+            ZStack(alignment: .top){
                 Color("BGColor")
                     .edgesIgnoringSafeArea(.all)
 
+                PageHeaderView(title: ENV.appName)
+                    .offset(y: 2)
+                    .padding(.horizontal, 16)
+                    .zIndex(1)
+                    
+                
                 VStack(spacing: 0) {
-
-                    PageHeaderView(title: ENV.appName)
-                        .offset(y: 2)
-                        .padding(.horizontal, 16)
 
                     // GAME OPTIONS
                     ScrollView(.vertical, showsIndicators: false) {
 
                         WordsScroll()
-                            .padding(.top, 54)
+                            .padding(.top, 124)
 
                         VStack(spacing: 40) {
                             HStack(spacing: 18) {
